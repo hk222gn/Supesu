@@ -1,0 +1,13 @@
+C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Debug\Supesu.exe
+C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Debug\Supesu.pdb
+C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\obj\x86\Debug\Supesu.csprojResolveAssemblyReference.cache
+C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\obj\x86\Debug\Supesu.exe
+C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\obj\x86\Debug\Supesu.pdb
+C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Debug\Content\Fonts\General.xnb
+C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Debug\Content\Images\Control.xnb
+C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Debug\Content\Images\Highscore.xnb
+C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Debug\Content\Images\Ingame.xnb
+C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Debug\Content\Images\Options.xnb
+C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Debug\Content\Images\Title.xnb
+C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Debug\Content\Images\Unlockables.xnb
