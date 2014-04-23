@@ -11,3 +11,4 @@ C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Debug\Cont
 C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Debug\Content\Images\Options.xnb
 C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Debug\Content\Images\Title.xnb
 C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Debug\Content\Images\Unlockables.xnb
+C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Debug\Content\Images\PausedYes.xnb

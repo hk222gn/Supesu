@@ -74,7 +74,7 @@
   <ItemGroup>
     <Compile Include="StateManagement\ControlDetectorScreen.cs" />
     <Compile Include="StateManagement\HighscoreScreen.cs" />
-    <Compile Include="StateManagement\InGameScreenLevel1.cs" />
+    <Compile Include="StateManagement\InGameScreen.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />

@@ -5,3 +5,4 @@ Content\Images\Ingame.xnb
 Content\Images\Options.xnb
 Content\Images\Title.xnb
 Content\Images\Unlockables.xnb
+Content\Images\PausedYes.xnb

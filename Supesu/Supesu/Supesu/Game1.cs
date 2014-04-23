@@ -22,7 +22,7 @@ namespace Supesu
         TitleScreen mTitleScreen;
         Screen mCurrentScreen;
         ControlDetectorScreen mControlScreen;
-        InGameScreenLevel1 mInGameScreenLevel1;
+        InGameScreen mInGameScreenLevel1;
         OptionsScreen mOptionsScreen;
         HighscoreScreen mHighscoreScreen;
         UnlockablesScreen mUnlockablesScreen;
@@ -60,7 +60,7 @@ namespace Supesu
 
             mControlScreen = new ControlDetectorScreen(this.Content, new EventHandler(ControlDetectorScreenEvent), this);
             mTitleScreen = new TitleScreen(this.Content, new EventHandler(TitleScreenEvent), this);
-            mInGameScreenLevel1 = new InGameScreenLevel1(this.Content, new EventHandler(InGameLevel1Event), this);
+            mInGameScreenLevel1 = new InGameScreen(this.Content, new EventHandler(InGameEvent), this);
             mOptionsScreen = new OptionsScreen(this.Content, new EventHandler(OptionsScreenEvent), this);
             mHighscoreScreen = new HighscoreScreen(this.Content, new EventHandler(HighscoreScreenEvent), this);
             mUnlockablesScreen = new UnlockablesScreen(this.Content, new EventHandler(UnlockablesScreenEvent), this);
@@ -133,10 +133,9 @@ namespace Supesu
             menuChoice = MenuChoices.Empty;
         }
 
-        private void InGameLevel1Event(object obj, EventArgs e)
+        private void InGameEvent(object obj, EventArgs e)
         {
-            mCurrentScreen = mTitleScreen; //TODO: Create a pause state.
-            //TODO: This should point towards a pause screen.
+            mCurrentScreen = mTitleScreen; //TODO: Create a better pause state.
         }
 
         private void OptionsScreenEvent(object obj, EventArgs e)

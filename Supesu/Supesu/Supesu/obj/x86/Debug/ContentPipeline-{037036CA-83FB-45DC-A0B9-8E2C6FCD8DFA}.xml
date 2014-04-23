@@ -64,6 +64,15 @@
       <Output>C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Debug\Content\Images\Unlockables.xnb</Output>
       <Time>2014-04-21T12:43:50.6759793+02:00</Time>
     </Item>
+    <Item>
+      <Source>Images\PausedYes.png</Source>
+      <Name>Images\PausedYes</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Debug\Content\Images\PausedYes.xnb</Output>
+      <Time>2014-04-22T22:54:16.0674017+02:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID>{037036CA-83FB-45DC-A0B9-8E2C6FCD8DFA}</ContentProjectGUID>

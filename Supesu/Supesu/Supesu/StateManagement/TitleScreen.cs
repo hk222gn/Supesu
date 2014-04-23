@@ -12,11 +12,11 @@ namespace Supesu
 {
     public enum MenuChoices
     {
-        Exit = 0,
-        Options = 1,
-        Unlockables = 2,
-        Highscores = 3,
         StartGame = 4,
+        Highscores = 3,
+        Unlockables = 2,
+        Options = 1,
+        Exit = 0,
         Empty
     }
     class TitleScreen : Screen
@@ -44,11 +44,6 @@ namespace Supesu
         public override void Update(GameTime gameTime)
         {
             keyboard = Keyboard.GetState();
-
-            if (CheckKeystroke(Keys.Escape))
-            {
-                screenEvent.Invoke(this, new EventArgs());
-            }
 
             if (CheckKeystroke(Keys.Enter))
             {
@@ -121,6 +116,7 @@ namespace Supesu
             spriteBatch.DrawString(spFont, "Unlockables", new Vector2(50, 420), unlockablesChoice);
             spriteBatch.DrawString(spFont, "Options", new Vector2(50, 520), optionsChoice);
             spriteBatch.DrawString(spFont, "Exit", new Vector2(50, 620), exitChoice);
+
             base.Draw(spriteBatch);
         }
         private void SetAllRed()
