@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Supesu.StateManagement;
+using Supesu.SpriteManagement;
 
 namespace Supesu
 {
@@ -33,7 +34,7 @@ namespace Supesu
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
-            this.graphics.PreferredBackBufferWidth = 1280;
+            this.graphics.PreferredBackBufferWidth = 800;
             this.graphics.PreferredBackBufferHeight = 720;
         }
 
@@ -45,7 +46,6 @@ namespace Supesu
         /// </summary>
         protected override void Initialize()
         {
-
             base.Initialize();
         }
 
@@ -65,8 +65,7 @@ namespace Supesu
             mHighscoreScreen = new HighscoreScreen(this.Content, new EventHandler(HighscoreScreenEvent), this);
             mUnlockablesScreen = new UnlockablesScreen(this.Content, new EventHandler(UnlockablesScreenEvent), this);
 
-
-            mCurrentScreen = mControlScreen;
+            mCurrentScreen = mTitleScreen;
         }
 
         /// <summary>

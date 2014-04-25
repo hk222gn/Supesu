@@ -73,6 +73,24 @@
       <Output>C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Debug\Content\Images\PausedYes.xnb</Output>
       <Time>2014-04-22T22:54:16.0674017+02:00</Time>
     </Item>
+    <Item>
+      <Source>Images\Ship.png</Source>
+      <Name>Images\Ship</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Debug\Content\Images\Ship.xnb</Output>
+      <Time>2014-04-25T18:20:48.5170934+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Images\ShipTrans.png</Source>
+      <Name>Images\ShipTrans</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Debug\Content\Images\ShipTrans.xnb</Output>
+      <Time>2014-04-25T20:53:46.7030556+02:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID>{037036CA-83FB-45DC-A0B9-8E2C6FCD8DFA}</ContentProjectGUID>
