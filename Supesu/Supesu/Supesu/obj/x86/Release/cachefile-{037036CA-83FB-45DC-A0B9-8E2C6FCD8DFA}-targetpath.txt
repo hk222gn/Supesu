@@ -1,14 +1,13 @@
 Content\Fonts\General.xnb
+Content\Images\PausedYes.xnb
 Content\Images\Control.xnb
 Content\Images\Highscore.xnb
 Content\Images\Ingame.xnb
 Content\Images\Options.xnb
 Content\Images\Title.xnb
 Content\Images\Unlockables.xnb
-Content\Images\PausedYes.xnb
 Content\Images\Ship.xnb
 Content\Images\ShipTrans.xnb
 Content\Images\StandardBullet.xnb
 Content\Images\SpecialBullet.xnb
 Content\Images\StandardEnemySprite.xnb
-Content\Images\SecondaryEnemyTransparent.xnb

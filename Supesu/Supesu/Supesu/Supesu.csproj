@@ -18,6 +18,7 @@
     <XnaOutputType>Game</XnaOutputType>
     <ApplicationIcon>Game.ico</ApplicationIcon>
     <Thumbnail>GameThumbnail.png</Thumbnail>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -30,7 +31,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -72,9 +72,11 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SpriteManagement\SecondaryEnemySprite.cs" />
     <Compile Include="SpriteManagement\ShipSprite.cs" />
     <Compile Include="SpriteManagement\Sprite.cs" />
     <Compile Include="SpriteManagement\SpriteManager.cs" />
+    <Compile Include="SpriteManagement\StandardEnemySprite.cs" />
     <Compile Include="StateManagement\ControlDetectorScreen.cs" />
     <Compile Include="StateManagement\HighscoreScreen.cs" />
     <Compile Include="StateManagement\InGameScreen.cs" />
@@ -86,6 +88,11 @@
     <Compile Include="StateManagement\Screen.cs" />
     <Compile Include="StateManagement\TitleScreen.cs" />
     <Compile Include="StateManagement\UnlockablesScreen.cs" />
+    <Compile Include="Weapons\DefaultWeapon.cs" />
+    <Compile Include="Weapons\Projectiles\DefaultBullet.cs" />
+    <Compile Include="Weapons\Projectiles\SpecialBullet.cs" />
+    <Compile Include="Weapons\Projectiles\StandardBullet.cs" />
+    <Compile Include="Weapons\StandardWeapon.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

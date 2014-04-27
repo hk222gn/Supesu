@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Supesu.StateManagement;
 using Supesu.SpriteManagement;
+using Supesu.Weapons.Projectiles;
 
 namespace Supesu
 {
@@ -23,11 +24,12 @@ namespace Supesu
         TitleScreen mTitleScreen;
         Screen mCurrentScreen;
         ControlDetectorScreen mControlScreen;
-        InGameScreen mInGameScreenLevel1;
+        InGameScreen mInGameScreen;
         OptionsScreen mOptionsScreen;
         HighscoreScreen mHighscoreScreen;
         UnlockablesScreen mUnlockablesScreen;
         private MenuChoices menuChoice;
+        public BulletType bulletType;
 
         public Game1()
         {
@@ -46,6 +48,7 @@ namespace Supesu
         /// </summary>
         protected override void Initialize()
         {
+            bulletType = BulletType.standard;
             base.Initialize();
         }
 
@@ -60,7 +63,7 @@ namespace Supesu
 
             mControlScreen = new ControlDetectorScreen(this.Content, new EventHandler(ControlDetectorScreenEvent), this);
             mTitleScreen = new TitleScreen(this.Content, new EventHandler(TitleScreenEvent), this);
-            mInGameScreenLevel1 = new InGameScreen(this.Content, new EventHandler(InGameEvent), this);
+            mInGameScreen = new InGameScreen(this.Content, new EventHandler(InGameEvent), this);
             mOptionsScreen = new OptionsScreen(this.Content, new EventHandler(OptionsScreenEvent), this);
             mHighscoreScreen = new HighscoreScreen(this.Content, new EventHandler(HighscoreScreenEvent), this);
             mUnlockablesScreen = new UnlockablesScreen(this.Content, new EventHandler(UnlockablesScreenEvent), this);
@@ -118,7 +121,7 @@ namespace Supesu
         private void TitleScreenEvent(object obj, EventArgs e)
         {
             if (menuChoice == MenuChoices.StartGame)
-                mCurrentScreen = mInGameScreenLevel1;
+                mCurrentScreen = mInGameScreen;
 
             else if (menuChoice == MenuChoices.Highscores)
                 mCurrentScreen = mHighscoreScreen;
@@ -134,7 +137,8 @@ namespace Supesu
 
         private void InGameEvent(object obj, EventArgs e)
         {
-            mCurrentScreen = mTitleScreen; //TODO: Create a better pause state.
+            mCurrentScreen = mTitleScreen;
+            mInGameScreen = new InGameScreen(this.Content, new EventHandler(InGameEvent), this);
         }
 
         private void OptionsScreenEvent(object obj, EventArgs e)

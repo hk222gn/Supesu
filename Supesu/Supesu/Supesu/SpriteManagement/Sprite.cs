@@ -7,39 +7,49 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 using System.Threading;
+using Supesu.Weapons;
+using Supesu.Weapons.Projectiles;
 
 namespace Supesu.SpriteManagement
 {
     abstract class Sprite
     {
-        Texture2D texture1;
+        protected Texture2D texture1;
         protected Point frameSize;
-        Point currentFrame;
-        Point sheetSize;
-        int collisionOffset;
-        int timeSinceLastFrame = 0;
-        int millisecondsEachFrame;
-        const int defaultMillisecondsEachFrame = 16;
+        protected Point currentFrame;
+        protected Point sheetSize;
+        protected int collisionOffset;
+        protected int timeSinceLastFrame = 0;
+        protected int millisecondsEachFrame;
+        protected const int defaultMillisecondsEachFrame = 16;
         protected Vector2 speed;
         protected Vector2 position;
         protected Color color1 = Color.White;
-        private bool animate;
-        
+        protected bool animate;
+        public bool alive;
+        public Rectangle hitBox;
+        protected Game1 game;
+        protected List<DefaultBullet> bullet = new List<DefaultBullet>();
+
+        public List<DefaultBullet> Bullet
+        {
+            get { return bullet; }
+        }
 
         public abstract Vector2 direction
         {
             get;
         }
 
-        public Sprite(Texture2D texture, Vector2 position, Point frameSize,
+        public Sprite(Game1 game,Texture2D texture, Vector2 position, Point frameSize,
             int collisionOffset, Point currentFrame, Point sheetSize, Vector2 speed, bool animate)
-            : this(texture, position, frameSize, collisionOffset, currentFrame, sheetSize, speed, animate,
+            : this(game, texture, position, frameSize, collisionOffset, currentFrame, sheetSize, speed, animate,
             defaultMillisecondsEachFrame)
         {
 
         }
 
-        public Sprite(Texture2D texture, Vector2 position, Point frameSize,
+        public Sprite(Game1 game, Texture2D texture, Vector2 position, Point frameSize,
             int collisionOffset, Point currentFrame, Point sheetSize, Vector2 speed,
             bool animate, int millisecondsEachFrame)
         {
@@ -52,6 +62,8 @@ namespace Supesu.SpriteManagement
             this.speed = speed;
             this.millisecondsEachFrame = millisecondsEachFrame;
             this.animate = animate;
+            this.game = game;
+            SetHitbox();
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)
@@ -82,16 +94,18 @@ namespace Supesu.SpriteManagement
                 }
                 return;
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.Left))
+        }
+
+        //moves the hitbox with the sprite, also sets the hitbox range if there is none set.
+        public void SetHitbox()
+        {
+            hitBox.X = (int)position.X;
+            hitBox.Y = (int)position.Y;
+            if (hitBox.Width == 0)
             {
-                currentFrame.X = 2;
+                hitBox.Width = 50;
+                hitBox.Height = 50;
             }
-            else if (Keyboard.GetState().IsKeyDown(Keys.Right))
-            {
-                currentFrame.X = 0;
-            }
-            else
-                currentFrame.X = 1;
         }
     }
 }

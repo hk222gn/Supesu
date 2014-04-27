@@ -8,3 +8,7 @@ Content\Images\Unlockables.xnb
 Content\Images\PausedYes.xnb
 Content\Images\Ship.xnb
 Content\Images\ShipTrans.xnb
+Content\Images\StandardBullet.xnb
+Content\Images\SpecialBullet.xnb
+Content\Images\StandardEnemySprite.xnb
+Content\Images\SecondaryEnemyTransparent.xnb

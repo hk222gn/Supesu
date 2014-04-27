@@ -22,6 +22,7 @@ namespace Supesu
         KeyboardState keyboard;
         Sprite ship;
         List<Sprite> spriteList = new List<Sprite>();
+        List<Sprite> enemyList = new List<Sprite>();
         
         public InGameScreen(ContentManager content, EventHandler theScreenEvent, Game1 game)
             : base(theScreenEvent)
@@ -41,8 +42,37 @@ namespace Supesu
 
             if (!isPaused)
             {
+                //Updates the ships position, and which frame to draw.
                 ship.Update(gameTime, _game.Window.ClientBounds);
-                // DO STUFF
+
+                //Updates the bullets position, anda removes it if it hits the top of the screen.
+                for (int i = 0; i < ship.Bullet.Count; i++)
+                {
+                    if (!ship.Bullet[i].alive)
+                    {
+                        ship.Bullet.Remove(ship.Bullet[i]);
+                    }
+                    else
+                    {
+                        ship.Bullet[i].Update(gameTime.ElapsedGameTime.Milliseconds);
+                    }
+                }
+
+                //Updates all the enemies and removes them incase they're dead.
+                for (int i = 0; i < enemyList.Count; i++)
+                {
+                    if (!enemyList[i].alive)
+                    {
+                        enemyList.Remove(enemyList[i]);
+                    }
+                    else
+                    {
+                        enemyList[i].Update(gameTime, _game.Window.ClientBounds);
+                    }
+                }
+
+                CheckBulletCollision();
+                
             }
 
             prevKeyboard = keyboard;
@@ -56,6 +86,18 @@ namespace Supesu
                 spriteBatch.Draw(mInGameScreenBackground, Vector2.Zero, Color.White);
 
                 ship.Draw(spriteBatch);
+
+                //Draws all player created bullets.
+                foreach (var item in ship.Bullet)
+                {
+                    item.Draw(spriteBatch);
+                }
+
+                //Draws all the enemies.
+                for (int i = 0; i < enemyList.Count; i++)
+                {
+                    enemyList[i].Draw(spriteBatch);
+                }
             }
             else
             {
@@ -106,7 +148,15 @@ namespace Supesu
 
         private void InitializeGameSprites()
         {
-            ship = new ShipSprite(_game.Content.Load<Texture2D>(@"Images/ShipTrans"), 
+            int amountOfEnemiesPerRow = 10;
+            int makeSpace = 60;
+            int enemyStartPosition = _game.Window.ClientBounds.Width / amountOfEnemiesPerRow;
+            int lastEnemyPosition = enemyStartPosition;
+
+            //If there is no ship created, make one.
+            if (ship == null)
+            {
+                ship = new ShipSprite(_game, _game.Content.Load<Texture2D>(@"Images/ShipTrans"),
                 new Vector2(_game.Window.ClientBounds.Width / 2 - 25, 600),
                 new Point(50, 50),
                 5,
@@ -114,6 +164,56 @@ namespace Supesu
                 new Point(3, 1),
                 new Vector2(9, 9),
                 false);
+            }
+
+            for (int i = 0; i < amountOfEnemiesPerRow; i++)
+            {
+                enemyList.Add(new StandardEnemySprite(_game, _game.Content.Load<Texture2D>(@"Images/StandardEnemySprite"),
+                new Vector2(lastEnemyPosition + makeSpace, 100),
+                new Point(50, 50),
+                5,
+                new Point(0, 0),
+                new Point(3, 1),
+                new Vector2(2, 2),
+                true, 100));
+
+                lastEnemyPosition += makeSpace;
+            }
+            lastEnemyPosition = enemyStartPosition;
+            for (int i = 0; i < amountOfEnemiesPerRow; i++)
+            {
+                enemyList.Add(new SecondaryEnemySprite(_game, _game.Content.Load<Texture2D>(@"Images/SecondaryEnemyTransparent"), 
+                    new Vector2(lastEnemyPosition + makeSpace, 100 + makeSpace),
+                    new Point(50, 50),
+                    5,
+                    new Point(0, 0),
+                    new Point(3, 1),
+                    new Vector2(2, 2),
+                    true, 100));
+
+                lastEnemyPosition += makeSpace;
+            }
+
+            //TODO: Add some kind of script to make enemies/phase handling easier.
+            
         }
+
+        private void CheckBulletCollision()
+        {
+            for (int i = 0; i < ship.Bullet.Count; i++)
+            {
+                for (int q = 0; q < enemyList.Count; q++)
+			    {
+                    if (ship.Bullet[i].hitBox.Intersects(enemyList[q].hitBox))
+                    {
+                        enemyList[q].alive = false;
+                        ship.Bullet[i].alive = false;
+                    }
+			    }
+                
+            }
+            
+        }
+
     }
 }
