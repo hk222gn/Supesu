@@ -17,3 +17,4 @@ C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\obj\x86\Release\Su
 C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Release\Content\Images\StandardBullet.xnb
 C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Release\Content\Images\SpecialBullet.xnb
 C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Release\Content\Images\StandardEnemySprite.xnb
+C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Release\Content\Images\SecondaryEnemyTransparent.xnb

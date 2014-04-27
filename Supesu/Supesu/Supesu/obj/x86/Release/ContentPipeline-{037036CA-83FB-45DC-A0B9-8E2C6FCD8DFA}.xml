@@ -118,6 +118,15 @@
       <Output>C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Release\Content\Images\StandardEnemySprite.xnb</Output>
       <Time>2014-04-26T19:02:18.0284638+02:00</Time>
     </Item>
+    <Item>
+      <Source>Images\SecondaryEnemyTransparent.png</Source>
+      <Name>Images\SecondaryEnemyTransparent</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Release\Content\Images\SecondaryEnemyTransparent.xnb</Output>
+      <Time>2014-04-27T21:23:15.9681014+02:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID>{037036CA-83FB-45DC-A0B9-8E2C6FCD8DFA}</ContentProjectGUID>
