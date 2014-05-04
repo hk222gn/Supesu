@@ -36,7 +36,7 @@ namespace Supesu.StateManagement.Levels
                 new Point(3, 1),
                 new Vector2(9, 9),
                 false
-                , 14);//Standard life, for now. Use an enum, set values, make 10 * dificulty, 4,2,1??
+                , 16);//Standard life, for now. Use an enum, set values, make 10 * dificulty, 4,2,1??
 
                 ship.hitBox.Width = 35;
                 ship.hitBox.Height = 40;
