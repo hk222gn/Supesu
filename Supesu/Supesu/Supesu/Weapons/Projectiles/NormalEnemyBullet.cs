@@ -9,20 +9,20 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Supesu.Weapons.Projectiles
 {
-    class StandardBullet : DefaultBullet
+    class NormalEnemyBullet : DefaultBullet
     {
-        public StandardBullet(Vector2 direction, Vector2 position, float speed, Rectangle hitBox, ContentManager content)
+        public NormalEnemyBullet(Vector2 direction, Vector2 position, float speed, Rectangle hitBox, ContentManager content)
             : base(direction, position, speed, hitBox)
         {
             LoadTexture(content);
-            damageAmount = 3;
+            damageAmount = 2;
             //Sets a hitbox for the bullet
             SetHitbox();
         }
 
         public override void LoadTexture(ContentManager content)
         {
-            bulletTexture = content.Load<Texture2D>("Images/StandardBullet");
+            bulletTexture = content.Load<Texture2D>("Images/NormalEnemyBullet");
         }
 
         public override void Update(float elapsedTime)

@@ -102,7 +102,6 @@ namespace Supesu
             }
 
             prevKeyboard = keyboard;
-            //TODO: Is there a better way to make a menu maybe?
             base.Update(gameTime);
         }
 

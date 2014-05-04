@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
 using System.Threading;
 using Supesu.Weapons;
 using Supesu.Weapons.Projectiles;
@@ -14,6 +15,8 @@ namespace Supesu.SpriteManagement
 {
     abstract class Sprite
     {
+        public SoundEffect death, struck;
+
         protected Texture2D texture1;
         protected Point frameSize;
         protected Point currentFrame;
@@ -23,13 +26,24 @@ namespace Supesu.SpriteManagement
         protected int millisecondsEachFrame;
         protected const int defaultMillisecondsEachFrame = 16;
         protected Vector2 speed;
-        protected Vector2 position;
+        public Vector2 position;
         protected Color color1 = Color.White;
         protected bool animate;
         public bool alive;
         public Rectangle hitBox;
+        public Rectangle nonMoveableBossHitbox;
         protected Game1 game;
+        protected int life;
+        public static float shoot = 0;
+        public float move = 0;
+        public bool moveDirection = true;
         protected List<DefaultBullet> bullet = new List<DefaultBullet>();
+
+        public int Life
+        {
+            get { return life; }
+            set { life = value; }
+        }
 
         public List<DefaultBullet> Bullet
         {
@@ -42,8 +56,8 @@ namespace Supesu.SpriteManagement
         }
 
         public Sprite(Game1 game,Texture2D texture, Vector2 position, Point frameSize,
-            int collisionOffset, Point currentFrame, Point sheetSize, Vector2 speed, bool animate)
-            : this(game, texture, position, frameSize, collisionOffset, currentFrame, sheetSize, speed, animate,
+            int collisionOffset, Point currentFrame, Point sheetSize, Vector2 speed, bool animate, int life)
+            : this(game, texture, position, frameSize, collisionOffset, currentFrame, sheetSize, speed, animate, life,
             defaultMillisecondsEachFrame)
         {
 
@@ -51,7 +65,7 @@ namespace Supesu.SpriteManagement
 
         public Sprite(Game1 game, Texture2D texture, Vector2 position, Point frameSize,
             int collisionOffset, Point currentFrame, Point sheetSize, Vector2 speed,
-            bool animate, int millisecondsEachFrame)
+            bool animate, int life, int millisecondsEachFrame)
         {
             this.texture1 = texture;
             this.position = position;
@@ -63,8 +77,11 @@ namespace Supesu.SpriteManagement
             this.millisecondsEachFrame = millisecondsEachFrame;
             this.animate = animate;
             this.game = game;
+            this.Life = life;
             SetHitbox();
         }
+
+        public abstract void FireProjectile();
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
@@ -99,13 +116,13 @@ namespace Supesu.SpriteManagement
         //moves the hitbox with the sprite, also sets the hitbox range if there is none set.
         public void SetHitbox()
         {
-            hitBox.X = (int)position.X;
-            hitBox.Y = (int)position.Y;
             if (hitBox.Width == 0)
             {
                 hitBox.Width = 50;
                 hitBox.Height = 50;
             }
+            hitBox.X = (int)position.X;
+            hitBox.Y = (int)position.Y;
         }
     }
 }

@@ -127,6 +127,60 @@
       <Output>C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Release\Content\Images\SecondaryEnemyTransparent.xnb</Output>
       <Time>2014-04-27T21:23:15.9681014+02:00</Time>
     </Item>
+    <Item>
+      <Source>Images\FirstBossSprite.png</Source>
+      <Name>Images\FirstBossSprite</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Release\Content\Images\FirstBossSprite.xnb</Output>
+      <Time>2014-04-30T22:45:11.5340218+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Images\Win.png</Source>
+      <Name>Images\Win</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Release\Content\Images\Win.xnb</Output>
+      <Time>2014-04-30T22:53:19.3909256+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Images\NormalEnemyBullet.png</Source>
+      <Name>Images\NormalEnemyBullet</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Release\Content\Images\NormalEnemyBullet.xnb</Output>
+      <Time>2014-05-02T00:00:22.0067345+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Sounds\Death.wav</Source>
+      <Name>Sounds\Death</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Release\Content\Sounds\Death.xnb</Output>
+      <Time>2014-05-02T15:29:54.167657+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Sounds\Struck.wav</Source>
+      <Name>Sounds\Struck</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Release\Content\Sounds\Struck.xnb</Output>
+      <Time>2014-05-02T15:29:54.1686571+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Images\ThirdEnemy.png</Source>
+      <Name>Images\ThirdEnemy</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Release\Content\Images\ThirdEnemy.xnb</Output>
+      <Time>2014-05-03T02:34:56.8229583+02:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID>{037036CA-83FB-45DC-A0B9-8E2C6FCD8DFA}</ContentProjectGUID>

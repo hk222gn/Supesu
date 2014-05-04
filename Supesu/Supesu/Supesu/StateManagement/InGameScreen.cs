@@ -8,72 +8,104 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 using System.Threading;
 using Supesu.SpriteManagement;
+using Supesu.StateManagement.Levels;
 
 namespace Supesu
 {
+    public enum CurrentLevel
+    {
+        none,
+        level1,
+        level2,
+        level3,
+        bonusLevel
+    }
+
+    public enum CurrentLevelStage
+    {
+        none,
+        enemyStage1,
+        enemyStage2,
+        enemyStage3,
+        bossStage
+    }
+    //FIX IN ORDER
+    //TODO: Make changes to the boss laser, only one laser is shown for some reason.
+    //TODO: Make the enemies shoot faster, but only one from each row.
+    //TODO: General, there's most likely a memory leak due to the way i handle sprite loading.
+    //TODO: Everything feels a bit clunky, think about that shit.
+    
+    
     class InGameScreen : Screen
     {
-        Texture2D mInGameScreenBackground;
         Texture2D mPauseBackground;
         Game1 _game;
         private bool isPaused = false;
         private bool pauseKeyDown = false;
         KeyboardState prevKeyboard;
         KeyboardState keyboard;
-        Sprite ship;
-        List<Sprite> spriteList = new List<Sprite>();
-        List<Sprite> enemyList = new List<Sprite>();
+        public CurrentLevel level = CurrentLevel.level1;
+        Level currentLevel;
+        ContentManager content;
         
         public InGameScreen(ContentManager content, EventHandler theScreenEvent, Game1 game)
             : base(theScreenEvent)
         {
-            mInGameScreenBackground = content.Load<Texture2D>("Images/Ingame");
             mPauseBackground = content.Load<Texture2D>("Images/PausedYes");
             _game = game;
+            this.content = content;
 
-            InitializeGameSprites();
+            //Sets the current level to 1 and initializes it.
+            currentLevel = new Level1(content, game);
         }
 
         public override void Update(GameTime gameTime)
         {
             keyboard = Keyboard.GetState();
 
-            CheckPauseKey(keyboard);
-
             if (!isPaused)
             {
-                //Updates the ships position, and which frame to draw.
-                ship.Update(gameTime, _game.Window.ClientBounds);
-
-                //Updates the bullets position, anda removes it if it hits the top of the screen.
-                for (int i = 0; i < ship.Bullet.Count; i++)
+                if (currentLevel != null && currentLevel.stage == CurrentLevelStage.none)
                 {
-                    if (!ship.Bullet[i].alive)
+                    //TODO: Make a death screen appear or something.
+                    if (currentLevel != null)
+	                {
+                        currentLevel = null;
+                        Thread.Sleep(500);
+	                }
+                }
+                else if (currentLevel == null)
+                {
+                    if (CheckKeystroke(Keys.R))
                     {
-                        ship.Bullet.Remove(ship.Bullet[i]);
+                        currentLevel = new Level1(content, _game);
                     }
-                    else
+                    else if (CheckKeystroke(Keys.Escape))
                     {
-                        ship.Bullet[i].Update(gameTime.ElapsedGameTime.Milliseconds);
+                        screenEvent.Invoke(this, new EventArgs());
+                        return;
                     }
                 }
-
-                //Updates all the enemies and removes them incase they're dead.
-                for (int i = 0; i < enemyList.Count; i++)
+                else
                 {
-                    if (!enemyList[i].alive)
+                    switch (level)
                     {
-                        enemyList.Remove(enemyList[i]);
+                        case CurrentLevel.level1:
+                            break;
+                        case CurrentLevel.level2:
+                            break;
+                        case CurrentLevel.level3:
+                            break;
+                        case CurrentLevel.bonusLevel:
+                            break;
+                        default:
+                            break;
                     }
-                    else
-                    {
-                        enemyList[i].Update(gameTime, _game.Window.ClientBounds);
-                    }
+                    currentLevel.Update(gameTime);
                 }
-
-                CheckBulletCollision();
-                
             }
+
+            CheckPauseKey(keyboard);
 
             prevKeyboard = keyboard;
             base.Update(gameTime);
@@ -83,21 +115,12 @@ namespace Supesu
         {
             if (!isPaused)
             {
-                spriteBatch.Draw(mInGameScreenBackground, Vector2.Zero, Color.White);
-
-                ship.Draw(spriteBatch);
-
-                //Draws all player created bullets.
-                foreach (var item in ship.Bullet)
+                if (currentLevel == null)
                 {
-                    item.Draw(spriteBatch);
+                    spriteBatch.Draw(mPauseBackground, Vector2.Zero, Color.Red);
                 }
-
-                //Draws all the enemies.
-                for (int i = 0; i < enemyList.Count; i++)
-                {
-                    enemyList[i].Draw(spriteBatch);
-                }
+                else
+                    currentLevel.Draw(spriteBatch);
             }
             else
             {
@@ -145,75 +168,5 @@ namespace Supesu
             }
             pauseKeyDown = pauseKeyDownThisFrame;
         }
-
-        private void InitializeGameSprites()
-        {
-            int amountOfEnemiesPerRow = 10;
-            int makeSpace = 60;
-            int enemyStartPosition = _game.Window.ClientBounds.Width / amountOfEnemiesPerRow;
-            int lastEnemyPosition = enemyStartPosition;
-
-            //If there is no ship created, make one.
-            if (ship == null)
-            {
-                ship = new ShipSprite(_game, _game.Content.Load<Texture2D>(@"Images/ShipTrans"),
-                new Vector2(_game.Window.ClientBounds.Width / 2 - 25, 600),
-                new Point(50, 50),
-                5,
-                new Point(1, 0),
-                new Point(3, 1),
-                new Vector2(9, 9),
-                false);
-            }
-
-            for (int i = 0; i < amountOfEnemiesPerRow; i++)
-            {
-                enemyList.Add(new StandardEnemySprite(_game, _game.Content.Load<Texture2D>(@"Images/StandardEnemySprite"),
-                new Vector2(lastEnemyPosition + makeSpace, 100),
-                new Point(50, 50),
-                5,
-                new Point(0, 0),
-                new Point(3, 1),
-                new Vector2(2, 2),
-                true, 100));
-
-                lastEnemyPosition += makeSpace;
-            }
-            lastEnemyPosition = enemyStartPosition;
-            for (int i = 0; i < amountOfEnemiesPerRow; i++)
-            {
-                enemyList.Add(new SecondaryEnemySprite(_game, _game.Content.Load<Texture2D>(@"Images/SecondaryEnemyTransparent"), 
-                    new Vector2(lastEnemyPosition + makeSpace, 100 + makeSpace),
-                    new Point(50, 50),
-                    5,
-                    new Point(0, 0),
-                    new Point(3, 1),
-                    new Vector2(2, 2),
-                    true, 100));
-
-                lastEnemyPosition += makeSpace;
-            }
-
-            //TODO: Add some kind of script to make enemies/phase handling easier.
-            
-        }
-
-        private void CheckBulletCollision()
-        {
-            for (int i = 0; i < ship.Bullet.Count; i++)
-            {
-                for (int q = 0; q < enemyList.Count; q++)
-			    {
-                    if (ship.Bullet[i].hitBox.Intersects(enemyList[q].hitBox))
-                    {
-                        enemyList[q].alive = false;
-                        ship.Bullet[i].alive = false;
-                    }
-			    }
-                
-            }
-            
-        }
-
     }
 }

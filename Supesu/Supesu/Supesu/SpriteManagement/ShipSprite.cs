@@ -8,28 +8,35 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 using System.Threading;
 using Supesu.Weapons.Projectiles;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Supesu.SpriteManagement
 {
     class ShipSprite : Sprite
     {
+        //TODO: Make sounds global, kinda, so all have deathsounds,hitsounds etc.
+
         KeyboardState keyboard, prevKeyboard;
         public ShipSprite(Game1 game, Texture2D textureImage, Vector2 position,
             Point frameSize, int collisionOffset, Point currentFrame, Point sheetSize,
-            Vector2 speed, bool animate)
+            Vector2 speed, bool animate, int life)
             : base(game, textureImage, position, frameSize, collisionOffset, currentFrame,
-            sheetSize, speed, animate)
+            sheetSize, speed, animate, life)
         {
-
+            alive = true;
+            death = game.Content.Load<SoundEffect>(@"Sounds/Death");
+            struck = game.Content.Load<SoundEffect>(@"Sounds/Struck");
         }
 
         public ShipSprite(Game1 game, Texture2D textureImage, Vector2 position,
             Point frameSize, int collisionOffset, Point currentFrame, Point sheetSize,
-            Vector2 speed, bool animate, int millisecondsPerFrame)
+            Vector2 speed, bool animate, int life, int millisecondsPerFrame)
             : base(game, textureImage, position, frameSize, collisionOffset, currentFrame,
-            sheetSize, speed, animate, millisecondsPerFrame)
-        { 
-
+            sheetSize, speed, animate, life, millisecondsPerFrame)
+        {
+            alive = true;
+            death = game.Content.Load<SoundEffect>(@"Sounds/Death");
+            struck = game.Content.Load<SoundEffect>(@"Sounds/Struck");
         }
 
         public override Vector2 direction
@@ -39,12 +46,12 @@ namespace Supesu.SpriteManagement
                 Vector2 inputDirection = Vector2.Zero;
                 if (Keyboard.GetState().IsKeyDown(Keys.Left))
                 {
-                    inputDirection.X -= 1;
+                    inputDirection.X -= 0.6f;
                 }
 
                 if (Keyboard.GetState().IsKeyDown(Keys.Right))
                 {
-                    inputDirection.X += 1;
+                    inputDirection.X += 0.6f;
                 }
                 return inputDirection * speed;
             }
@@ -59,7 +66,7 @@ namespace Supesu.SpriteManagement
             if (position.X < 0)
                 position.X = 0;
             if (position.Y < 0)
-                position.Y = 0;
+                position.Y = 600;
             if (position.X > clientBounds.Width - frameSize.X)
                 position.X = clientBounds.Width - frameSize.X;
             if (position.Y > clientBounds.Height - frameSize.Y)
@@ -76,33 +83,39 @@ namespace Supesu.SpriteManagement
             else
                 currentFrame.X = 1;
 
-            //Press X to shoot, then decides which bullet to fire and creates an instance of that bullet.
-            if (CheckKeystroke(Keys.X))
-            {
-                if (game.bulletType == BulletType.standard)
-                {
-                    Bullet.Add(new StandardBullet(new Vector2(0, 1), new Vector2((this.position.X + frameSize.X / 2) - 2, this.position.Y + 20), 1.3f, 2, game.Content));
-                }
-                else if (game.bulletType == BulletType.special)
-                {
-                    Bullet.Add(new SpecialBullet(new Vector2(0, 1), new Vector2((this.position.X + frameSize.X / 2) - 2, this.position.Y + 20), 1.8f, 2, game.Content));
-                }
-            }
+            FireProjectile();
 
-            //Switches weapon, this is only for testing purposes.
-            if (CheckKeystroke(Keys.D1))
-            {
-                game.bulletType = BulletType.standard;
-            }
-            else if (CheckKeystroke(Keys.D2))
-            {
-                game.bulletType = BulletType.special;
-            }
             prevKeyboard = keyboard;
 
             SetHitbox();
 
             base.Update(gameTime, clientBounds);
+        }
+
+        public override void FireProjectile()
+        {
+            //Press X to shoot, then decides which bullet to fire and creates an instance of that bullet.
+            if (CheckKeystroke(Keys.X))
+            {
+                if (game.bulletType == BulletType.standard)
+                {
+                    Bullet.Add(new StandardBullet(new Vector2(0, 1), new Vector2((this.position.X + frameSize.X / 2) - 2, this.position.Y + 20), 1.2f, new Rectangle(0, 0, 3, 5), game.Content));
+                }
+                else if (game.bulletType == BulletType.special)
+                {
+                    Bullet.Add(new SpecialBullet(new Vector2(0, 1), new Vector2((this.position.X + frameSize.X / 2) - 2, this.position.Y + 20), 1.8f, new Rectangle(0, 0, 3, 5), game.Content));
+                }
+            }
+
+            //Switches weapon, this is only for testing purposes.
+            //if (CheckKeystroke(Keys.D1))
+            //{
+            //    game.bulletType = BulletType.standard;
+            //}
+            //else if (CheckKeystroke(Keys.D2))
+            //{
+            //    game.bulletType = BulletType.special;
+            //}
         }
 
         private bool CheckKeystroke(Keys key)

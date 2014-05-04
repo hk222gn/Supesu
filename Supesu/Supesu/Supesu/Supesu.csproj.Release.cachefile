@@ -12,3 +12,9 @@ Content\Images\StandardBullet.xnb
 Content\Images\SpecialBullet.xnb
 Content\Images\StandardEnemySprite.xnb
 Content\Images\SecondaryEnemyTransparent.xnb
+Content\Images\FirstBossSprite.xnb
+Content\Images\Win.xnb
+Content\Images\NormalEnemyBullet.xnb
+Content\Sounds\Death.xnb
+Content\Sounds\Struck.xnb
+Content\Images\ThirdEnemy.xnb

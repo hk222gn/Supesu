@@ -12,11 +12,11 @@ namespace Supesu.Weapons.Projectiles
     public enum BulletType
     {
         standard,
-        special
+        special,
     }
     public class DefaultBullet
     {
-        protected static Texture2D bulletTexture;
+        protected Texture2D bulletTexture;
         protected float speed;
         protected Vector2 velocity;
         protected Vector2 position;
@@ -25,21 +25,17 @@ namespace Supesu.Weapons.Projectiles
         public bool alive = true;
         public GameWindow gameWindow;
 
-        public DefaultBullet(Vector2 direction, Vector2 position, float speed, int damageAmount)
+        public DefaultBullet(Vector2 direction, Vector2 position, float speed, Rectangle hitBox)
         {
             this.velocity = direction;
             this.position = position;
             this.speed = speed;
-            this.damageAmount = damageAmount;
-            //Sets a hitbox for the bullet
-            hitBox.Width = 3;
-            hitBox.Height = 5;
-            SetHitbox();
+            
         }
 
         public virtual void Update(float elapsedTime)
         {
-            if (this.position.Y <= 0)
+            if (this.position.Y <= 0 || this.position.Y >= 720)
             {
                 alive = false;
                 return;
@@ -62,7 +58,6 @@ namespace Supesu.Weapons.Projectiles
         //Moves the position of the hitbox when the bullet moves.
         public void SetHitbox()
         {
-
             hitBox.X = (int)position.X;
             hitBox.Y = (int)position.Y;
         }
