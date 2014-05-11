@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
+using Supesu.SoundHandler;
 using System.Threading;
 
 namespace Supesu
@@ -47,6 +48,7 @@ namespace Supesu
 
             if (CheckKeystroke(Keys.Enter))
             {
+                Sounds.SoundBank.PlayCue("MenuHit");
                 switch (menuChoices)
                 {
                     case MenuChoices.StartGame:
@@ -69,13 +71,17 @@ namespace Supesu
                 }
             }
 
+            //User pressed the up key.
             if (CheckKeystroke(Keys.Up) && (int)menuChoices < 4)
             {
+                Sounds.SoundBank.PlayCue("MenuChoiceChange");
                 SetAllRed();
                 menuChoices += 1;
             }
+            //User pressed the down key.
             else if (CheckKeystroke(Keys.Down) == true && (int)menuChoices > 0)
             {
+                Sounds.SoundBank.PlayCue("MenuChoiceChange");
                 SetAllRed();
                 menuChoices -= 1;
             }
@@ -118,7 +124,7 @@ namespace Supesu
 
             base.Draw(spriteBatch);
         }
-        private void SetAllRed()
+        public void SetAllRed()
         {
             startGameChoice = Color.Red;
             highscoreChoice = Color.Red;

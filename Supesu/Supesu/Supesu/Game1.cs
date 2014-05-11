@@ -11,6 +11,9 @@ using Microsoft.Xna.Framework.Media;
 using Supesu.StateManagement;
 using Supesu.SpriteManagement;
 using Supesu.Weapons.Projectiles;
+using Supesu.SoundHandler;
+using Supesu.HighScore;
+using System.IO;
 
 namespace Supesu
 {
@@ -30,6 +33,7 @@ namespace Supesu
         UnlockablesScreen mUnlockablesScreen;
         private MenuChoices menuChoice;
         public BulletType bulletType;
+        private Sounds sounds;
 
         public Game1()
         {
@@ -49,6 +53,30 @@ namespace Supesu
         protected override void Initialize()
         {
             bulletType = BulletType.standard;
+            sounds = new Sounds();
+
+            if (!File.Exists(HighScores.fileName))
+            {
+                //Make a new one with a few dummy scores in.
+                HighScores.HighScoreData data = new HighScores.HighScoreData(3);
+
+                data.playerName[0] = "Cool guy";
+                data.level[0] = 1;
+                data.score[0] = 300;
+
+                data.playerName[1] = "Awesome guy";
+                data.level[1] = 1;
+                data.score[1] = 200;
+
+                data.playerName[2] = "Not so cool guy";
+                data.level[2] = 1;
+                data.score[2] = 10;
+
+                HighScores.SaveHighScores(data, HighScores.fileName);
+            }
+
+            Sounds.SoundBank.PlayCue("MainMusic");
+
             base.Initialize();
         }
 
@@ -77,7 +105,7 @@ namespace Supesu
         /// </summary>
         protected override void UnloadContent()
         {
-
+            
         }
 
         /// <summary>
@@ -91,7 +119,13 @@ namespace Supesu
             if (Keyboard.GetState().IsKeyDown(Keys.Delete) == true)
                 this.Exit();
 
+            //Updates the current screen.
             mCurrentScreen.Update(gameTime);
+
+            //Updates the global audio engine.
+            sounds.AudioEngine.Update();
+
+            
 
             base.Update(gameTime);
         }
@@ -102,7 +136,7 @@ namespace Supesu
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             spriteBatch.Begin();
 

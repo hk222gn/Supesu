@@ -64,6 +64,10 @@
     <Reference Include="Microsoft.Xna.Framework.Game, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
     <Reference Include="Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
     <Reference Include="Microsoft.Xna.Framework.GamerServices, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
+    <Reference Include="Microsoft.Xna.Framework.Xact, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\..\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Xact.dll</HintPath>
+    </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="System" />
     <Reference Include="System.Xml" />
@@ -72,6 +76,7 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SoundHandler\Sounds.cs" />
     <Compile Include="SpriteManagement\FirstBossSprite.cs" />
     <Compile Include="SpriteManagement\SecondaryEnemySprite.cs" />
     <Compile Include="SpriteManagement\ShipSprite.cs" />
@@ -80,6 +85,7 @@
     <Compile Include="SpriteManagement\StandardEnemySprite.cs" />
     <Compile Include="SpriteManagement\ThirdEnemySprite.cs" />
     <Compile Include="StateManagement\ControlDetectorScreen.cs" />
+    <Compile Include="HighScore\HighScoreData.cs" />
     <Compile Include="StateManagement\HighscoreScreen.cs" />
     <Compile Include="StateManagement\InGameScreen.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -102,6 +108,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
+    <Content Include="GameSounds.xap" />
     <Content Include="GameThumbnail.png">
       <XnaPlatformSpecific>true</XnaPlatformSpecific>
     </Content>

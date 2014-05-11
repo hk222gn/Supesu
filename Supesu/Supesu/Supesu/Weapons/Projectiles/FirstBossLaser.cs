@@ -16,7 +16,7 @@ namespace Supesu.Weapons.Projectiles
             : base(direction, position, speed, hitBox)
         {
             LoadTexture(content);
-            damageAmount = 6;
+            damageAmount = 6 * (int)InGameScreen.difficulty;
 
             base.hitBox = hitBox;
         }

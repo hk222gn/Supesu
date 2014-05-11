@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Supesu.SoundHandler;
 
 namespace Supesu.StateManagement
 {
@@ -27,6 +28,7 @@ namespace Supesu.StateManagement
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Escape) == true)
             {
+                Sounds.SoundBank.PlayCue("MenuBack");
                 screenEvent.Invoke(this, new EventArgs());
                 //TODO: implement OptionsScreen Update method.
             }

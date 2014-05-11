@@ -15,8 +15,6 @@ namespace Supesu.SpriteManagement
 {
     abstract class Sprite
     {
-        public SoundEffect death, struck;
-
         protected Texture2D texture1;
         protected Point frameSize;
         protected Point currentFrame;
@@ -37,6 +35,7 @@ namespace Supesu.SpriteManagement
         public static float shoot = 0;
         public float move = 0;
         public bool moveDirection = true;
+        public int scoreAmount;
         protected List<DefaultBullet> bullet = new List<DefaultBullet>();
 
         public int Life
@@ -116,11 +115,6 @@ namespace Supesu.SpriteManagement
         //moves the hitbox with the sprite, also sets the hitbox range if there is none set.
         public void SetHitbox()
         {
-            if (hitBox.Width == 0)
-            {
-                hitBox.Width = 50;
-                hitBox.Height = 50;
-            }
             hitBox.X = (int)position.X;
             hitBox.Y = (int)position.Y;
         }

@@ -7,18 +7,29 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
+using Supesu.HighScore;
+using Supesu.SoundHandler;
+using System.Threading;
 
 namespace Supesu.StateManagement.Levels
 {
     abstract class Level
     {
+        //Make abstract method here for stage management. IE, a class where the current stage of the level is decided. 
+        //You override it in the level1+ classes and decide there what is going to happen in each stage.
+
         public List<Sprite> enemyList = new List<Sprite>();
         public FirstBossSprite boss;
         public Sprite ship;
         public ContentManager content;
         public Texture2D background;
         public Game1 game;
+        public bool startScoreMultiplierTimer = false, saved = false; //TODO: When the player gets to level 2, change this to false again.
+        public float timeUntillScoreMultiplierChanceOver = 0f, scoreMultiplierTimer = 0f;
+        public int killsInScoreMultiplierChance = 0;
         public CurrentLevelStage stage = CurrentLevelStage.enemyStage1;
+
+        bool stage1Initialized = false, stage2Initialized = false, stage3Initialized = false, bossStageInitialized = false;
 
         public Level(ContentManager content, Game1 game)
         {
@@ -26,23 +37,11 @@ namespace Supesu.StateManagement.Levels
             this.game = game;
 
             //If there is no ship created, make one.
+            
             if (ship == null)
             {
-                ship = new ShipSprite(game, game.Content.Load<Texture2D>(@"Images/ShipTrans"),
-                new Vector2(game.Window.ClientBounds.Width / 2 - 25, 600),
-                new Point(50, 50),
-                5,
-                new Point(1, 0),
-                new Point(3, 1),
-                new Vector2(9, 9),
-                false
-                , 16);//Standard life, for now. Use an enum, set values, make 10 * dificulty, 4,2,1??
-
-                ship.hitBox.Width = 35;
-                ship.hitBox.Height = 40;
+                CreateShip();
             }
-
-            InitializeLevelSprites();
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)
@@ -51,26 +50,11 @@ namespace Supesu.StateManagement.Levels
 
             ship.Draw(spriteBatch);
 
-            switch (stage)
+            if (boss != null)
             {
-                case CurrentLevelStage.enemyStage1:
-                    break;
-                case CurrentLevelStage.enemyStage2:
-                    break;
-                case CurrentLevelStage.enemyStage3:
-                    break;
-                case CurrentLevelStage.bossStage:
-
-                    //Draws the boss if he exists
-                    if (boss != null)
-                    {
-                        boss.Draw(spriteBatch);
-                    }
-
-                    break;
-                default:
-                    break;
+                boss.Draw(spriteBatch);
             }
+
             //Draws all player created bullets.
             foreach (var item in ship.Bullet)
             {
@@ -86,6 +70,8 @@ namespace Supesu.StateManagement.Levels
 
         public virtual void Update(GameTime gameTime)
         {
+            GameStageHandler();
+
             CheckBulletCollision();
 
             //TODO: If the player dies, kill the ship.
@@ -102,7 +88,14 @@ namespace Supesu.StateManagement.Levels
             {
                 if (!enemyList[i].alive)
                 {
+                    //Adds score for the enemy kill.
+                    InGameScreen.playerScore += (enemyList[i].scoreAmount * InGameScreen.scoreMultiplier) * (int)InGameScreen.difficulty;
+                    //Plays deathsound for enemy and removes it.
+                    Sounds.SoundBank.PlayCue("EnemyDeath");
                     enemyList.Remove(enemyList[i]);
+                    //An enemy has been killed, start the timer for multiplier X2 and add a kill to the required kill amount.
+                    startScoreMultiplierTimer = true;
+                    killsInScoreMultiplierChance += 1;
                 }
                 else
                 {
@@ -110,7 +103,47 @@ namespace Supesu.StateManagement.Levels
                 }
             }
 
-            //Updates the bullets position, anda removes it if it hits the top of the screen.
+            //Handles the score mutliplier
+            if (startScoreMultiplierTimer)
+            {
+                //If the player killed enough monsters.
+                if (killsInScoreMultiplierChance >= 6 && InGameScreen.scoreMultiplier == 1 && timeUntillScoreMultiplierChanceOver < 5)
+                {
+                    InGameScreen.scoreMultiplier += 1;
+                }
+
+                //Multiplier active
+                if (killsInScoreMultiplierChance >= 5 && scoreMultiplierTimer < 10)
+                {
+                    scoreMultiplierTimer += (float)game.TargetElapsedTime.TotalSeconds;
+
+                    //Reset the multiplier
+                    if (scoreMultiplierTimer >= 10)
+                    {
+                        startScoreMultiplierTimer = false;
+                        timeUntillScoreMultiplierChanceOver = 0;
+                        scoreMultiplierTimer = 0;
+                        killsInScoreMultiplierChance = 0;
+                        if (InGameScreen.scoreMultiplier > 1)
+                        {
+                            InGameScreen.scoreMultiplier -= 1;
+                        }
+                    }
+                }//Played didn't kill fast enough
+                else if (timeUntillScoreMultiplierChanceOver == 5)
+                {
+                    startScoreMultiplierTimer = false;
+                    timeUntillScoreMultiplierChanceOver = 0;
+                }
+                else
+                {//An enemy was killed, start the timer.
+                    timeUntillScoreMultiplierChanceOver += (float)game.TargetElapsedTime.TotalSeconds;
+                }
+                
+            }
+           
+
+            //Updates the bullets position, and removes it if it hits the top of the screen.
             for (int i = 0; i < ship.Bullet.Count; i++)
             {
                 if (!ship.Bullet[i].alive)
@@ -131,7 +164,111 @@ namespace Supesu.StateManagement.Levels
             }
         }
 
-        public abstract void InitializeLevelSprites();
+        private void CreateShip()
+        {
+            if (true)
+            {
+                
+            }
+            ship = new ShipSprite(game, game.Content.Load<Texture2D>(@"Images/ShipTrans"),
+                new Vector2(game.Window.ClientBounds.Width / 2 - 25, 600),
+                new Point(50, 50),
+                5,
+                new Point(1, 0),
+                new Point(3, 1),
+                new Vector2(9, 9),
+                false
+                , 16);//Standard life, for now. Use an enum, set values, make 10 * dificulty, 4,2,1??
+
+            ship.hitBox.Width = 35;
+            ship.hitBox.Height = 40;
+        }
+
+        public virtual void GameStageHandler()
+        {
+            switch (stage)
+            {
+                case CurrentLevelStage.enemyStage1:
+
+                    if (!stage1Initialized)
+                    {
+                        InitializeStage1();
+                        stage1Initialized = true;
+                    }
+
+                    if (enemyList.Count == 0)
+                    {
+                        stage = CurrentLevelStage.enemyStage2;
+                    }
+                    break;
+                case CurrentLevelStage.enemyStage2:
+
+                    if (!stage2Initialized)
+                    {
+                        InitializeStage2();
+                        stage2Initialized = true;
+                    }
+
+                    if (enemyList.Count == 0)
+                    {
+                        stage = CurrentLevelStage.enemyStage3;
+                    }
+                    break;
+                case CurrentLevelStage.enemyStage3:
+
+                    if (!stage3Initialized)
+                    {
+                        InitializeStage3();
+                        stage3Initialized = true;
+                    }
+
+                    if (enemyList.Count == 0)
+                    {
+                        stage = CurrentLevelStage.bossStage;
+                    }
+                    break;
+                case CurrentLevelStage.bossStage:
+
+                    //Spawn the boss if there is none
+                    if (boss == null && stage != CurrentLevelStage.playerWonStage && !bossStageInitialized)
+                    {
+                        InitializeStageBoss();
+                        bossStageInitialized = true;
+                    }
+
+                    //The boss is dead, give score, remove him and show a win screen.
+                    if (boss != null && !boss.alive)
+                    {
+                        //Gives score for the boss kill.
+                        Sounds.SoundBank.PlayCue("BossDeath");
+                        stage = CurrentLevelStage.playerWonStage;
+                        InGameScreen.playerScore += boss.scoreAmount * InGameScreen.scoreMultiplier;
+                        boss = null;
+                        Thread.Sleep(1000);
+                    }
+                    break;
+                case CurrentLevelStage.playerWonStage:
+                    WinScreen();
+
+                    if (!saved)
+                    {
+                        HighScores.SaveHighscoreToFile();
+                        saved = true;
+                    }
+                    
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        public abstract void InitializeStage1();
+
+        public abstract void InitializeStage2();
+
+        public abstract void InitializeStage3();
+
+        public abstract void InitializeStageBoss();
 
         public void WinScreen()
         {
@@ -156,6 +293,8 @@ namespace Supesu.StateManagement.Levels
                             boss.alive = false;
                             return;
                         }
+                        else
+                            Sounds.SoundBank.PlayCue("EnemyStruck");
                     }
                 }
                 else
@@ -174,6 +313,9 @@ namespace Supesu.StateManagement.Levels
                                 //Sets the enemy to dead status incase the HP is 0 or below, the enemy is removed in the main update function for the game state.
                                 enemyList[q].alive = false;
                             }
+                                //If the enemy has more than 0 HP, make a struck sound. We don't want to interfere with the death sound.
+                            else
+                                Sounds.SoundBank.PlayCue("EnemyStruck");
                         }
                     }
                 }
@@ -190,7 +332,7 @@ namespace Supesu.StateManagement.Levels
 
                         if (ship.Life > 0)
                         {
-                            ship.struck.Play();
+                            Sounds.SoundBank.PlayCue("ShipStruck");
                         }
                     }
                     else if (!boss.laserStruckTarget && boss.laserRight.hitBox.Intersects(ship.hitBox))
@@ -200,7 +342,7 @@ namespace Supesu.StateManagement.Levels
 
                         if (ship.Life > 0)
                         {
-                            ship.struck.Play();
+                            Sounds.SoundBank.PlayCue("ShipStruck");
                         }
                     }
                 }
@@ -213,7 +355,7 @@ namespace Supesu.StateManagement.Levels
 
                         if (ship.Life > 0)
                         {
-                            ship.struck.Play();
+                            Sounds.SoundBank.PlayCue("ShipStruck");
                         }
                         boss.Bullet[i].alive = false;
                     }
@@ -230,7 +372,7 @@ namespace Supesu.StateManagement.Levels
 
                         if (ship.Life > 0)
                         {
-                            ship.struck.Play();
+                            Sounds.SoundBank.PlayCue("ShipStruck");
                         }
                         enemyList[i].Bullet[q].alive = false;
                     }
@@ -242,7 +384,7 @@ namespace Supesu.StateManagement.Levels
             {
                 ship.alive = false;
 
-                ship.death.Play();
+                Sounds.SoundBank.PlayCue("ShipDeath");
             }
         }
 
@@ -255,14 +397,14 @@ namespace Supesu.StateManagement.Levels
                     if (enemyList[i].moveDirection)
                     {
                         enemyList[i].position.X += 12;
-                        enemyList[i].hitBox.X += 12;
                     }
                     else
                     {
                         enemyList[i].position.X -= 12;
-                        enemyList[i].hitBox.X -= 12;
                     }
                     enemyList[i].move = 0;
+
+                    //enemyList[i].hitBox.X = (int)enemyList[i].position.X;
                 }
             }
 
@@ -288,6 +430,7 @@ namespace Supesu.StateManagement.Levels
                         {
                             enemyList[q].moveDirection = false;
                             enemyList[q].position.Y += 25;
+                            //enemyList[q].hitBox.Y = (int)enemyList[q].position.Y;
                         }
                     }
                 }
@@ -301,7 +444,7 @@ namespace Supesu.StateManagement.Levels
 
             if (enemyList.Contains(enemyList[i]))
             {
-                if (Sprite.shoot >= 1500)
+                if (Sprite.shoot >= 2500)
                 {
                     Sprite.shoot = 0;
                     enemyList[i].FireProjectile();

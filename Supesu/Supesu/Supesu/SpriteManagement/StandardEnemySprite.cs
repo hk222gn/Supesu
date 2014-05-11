@@ -16,18 +16,24 @@ namespace Supesu.SpriteManagement
             Point frameSize, int collisionOffset, Point currentFrame, Point sheetSize,
             Vector2 speed, bool animate, int life)
             : base(game, textureImage, position, frameSize, collisionOffset, currentFrame,
-            sheetSize, speed, animate, life)
+            sheetSize, speed, animate, life * (int)InGameScreen.difficulty)
         {
             alive = true;
+            scoreAmount = 5;
+            hitBox.Width = 50;
+            hitBox.Height = 50;
         }
 
         public StandardEnemySprite(Game1 game, Texture2D textureImage, Vector2 position,
             Point frameSize, int collisionOffset, Point currentFrame, Point sheetSize,
             Vector2 speed, bool animate, int life, int millisecondsPerFrame)
             : base(game, textureImage, position, frameSize, collisionOffset, currentFrame,
-            sheetSize, speed, animate, life, millisecondsPerFrame)
+            sheetSize, speed, animate, life * (int)InGameScreen.difficulty, millisecondsPerFrame)
         {
             alive = true;
+            scoreAmount = 5;
+            hitBox.Width = 50;
+            hitBox.Height = 50;
         }
 
         public override Vector2 direction
@@ -60,6 +66,8 @@ namespace Supesu.SpriteManagement
             
 
             move += (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            SetHitbox();
 
             base.Update(gameTime, clientBounds);
         }

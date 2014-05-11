@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Input;
 using System.Threading;
 using Supesu.Weapons.Projectiles;
 using Microsoft.Xna.Framework.Audio;
+using Supesu.SoundHandler;
 
 namespace Supesu.SpriteManagement
 {
@@ -24,8 +25,6 @@ namespace Supesu.SpriteManagement
             sheetSize, speed, animate, life)
         {
             alive = true;
-            death = game.Content.Load<SoundEffect>(@"Sounds/Death");
-            struck = game.Content.Load<SoundEffect>(@"Sounds/Struck");
         }
 
         public ShipSprite(Game1 game, Texture2D textureImage, Vector2 position,
@@ -35,8 +34,6 @@ namespace Supesu.SpriteManagement
             sheetSize, speed, animate, life, millisecondsPerFrame)
         {
             alive = true;
-            death = game.Content.Load<SoundEffect>(@"Sounds/Death");
-            struck = game.Content.Load<SoundEffect>(@"Sounds/Struck");
         }
 
         public override Vector2 direction
@@ -97,6 +94,7 @@ namespace Supesu.SpriteManagement
             //Press X to shoot, then decides which bullet to fire and creates an instance of that bullet.
             if (CheckKeystroke(Keys.X))
             {
+                Sounds.SoundBank.PlayCue("StandardShipBullet");
                 if (game.bulletType == BulletType.standard)
                 {
                     Bullet.Add(new StandardBullet(new Vector2(0, 1), new Vector2((this.position.X + frameSize.X / 2) - 2, this.position.Y + 20), 1.2f, new Rectangle(0, 0, 3, 5), game.Content));

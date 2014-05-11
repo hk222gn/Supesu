@@ -25,9 +25,11 @@ namespace Supesu.SpriteManagement
             Point frameSize, int collisionOffset, Point currentFrame, Point sheetSize,
             Vector2 speed, bool animate, int life)
             : base(game, textureImage, position, frameSize, collisionOffset, currentFrame,
-            sheetSize, speed, animate, life)
+            sheetSize, speed, animate, life * (int)InGameScreen.difficulty)
         {
             alive = true;
+
+            scoreAmount = 60;
 
             warningTexture = new Texture2D(game.GraphicsDevice, 1, 1);
             warningTexture.SetData<Color>(colorData);
@@ -49,9 +51,11 @@ namespace Supesu.SpriteManagement
             Point frameSize, int collisionOffset, Point currentFrame, Point sheetSize,
             Vector2 speed, bool animate, int life, int millisecondsPerFrame)
             : base(game, textureImage, position, frameSize, collisionOffset, currentFrame,
-            sheetSize, speed, animate, life, millisecondsPerFrame)
+            sheetSize, speed, animate, life * (int)InGameScreen.difficulty, millisecondsPerFrame)
         {
             alive = true;
+
+            scoreAmount = 60;
 
             warningTexture = new Texture2D(game.GraphicsDevice, 1, 1);
             warningTexture.SetData<Color>(colorData);
@@ -112,7 +116,7 @@ namespace Supesu.SpriteManagement
             }
 
             activateLaser += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if (activateLaser >= 3 && !warningActivated && !laserActive)
+            if (activateLaser >= 2 && !warningActivated && !laserActive)
             {
                 //Warn the user about incoming laser
                 warningActivated = true;
