@@ -65,6 +65,7 @@ namespace Supesu
         public static Difficulty difficulty;
         private bool difficultySet = false;
         private Color easyColor = Color.White, normalColor = Color.Red, hardColor = Color.Red;
+        private int maxShipLife; // Used to display the life correctly
         
         public InGameScreen(ContentManager content, EventHandler theScreenEvent, Game1 game)
             : base(theScreenEvent)
@@ -80,6 +81,8 @@ namespace Supesu
 
             //Sets the current level to 1 and initializes it.
             currentLevel = new Level1(content, game);
+
+            maxShipLife = currentLevel.ship.Life;
         }
 
         public override void Update(GameTime gameTime)
@@ -120,7 +123,6 @@ namespace Supesu
                             Sounds.SoundBank.PlayCue("MenuHit");
                             currentLevel = new Level1(content, _game);
                             playerScore = 0;
-                            difficulty = Difficulty.easy;
                         }
                         else if (CheckKeystroke(Keys.Escape))
                         {
@@ -185,7 +187,7 @@ namespace Supesu
                         //Life bar and life
                         spriteBatch.Draw(playerHealthBar, new Rectangle(600, 690, playerHealthBar.Width, 30), new Rectangle(0, 30, playerHealthBar.Width, 30), Color.LightGray);
 
-                        spriteBatch.Draw(playerHealthBar, new Rectangle(600, 690, (int)(playerHealthBar.Width * ((double)currentLevel.ship.Life / (16 * (int)difficulty))), 30), new Rectangle(0, 30, playerHealthBar.Width, 30), Color.Red);
+                        spriteBatch.Draw(playerHealthBar, new Rectangle(600, 690, (int)(playerHealthBar.Width * ((double)currentLevel.ship.Life / maxShipLife)), 30), new Rectangle(0, 30, playerHealthBar.Width, 30), Color.Red);
 
                         spriteBatch.Draw(playerHealthBar, new Rectangle(600, 690, playerHealthBar.Width, 30), new Rectangle(0, 0, playerHealthBar.Width, 30), Color.White);
 

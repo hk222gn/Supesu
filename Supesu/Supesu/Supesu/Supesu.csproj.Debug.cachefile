@@ -1,11 +1,12 @@
 Content\Fonts\General.xnb
+Content\Fonts\SpriteFont1.xnb
+Content\Images\PausedYes.xnb
 Content\Images\Control.xnb
 Content\Images\Highscore.xnb
 Content\Images\Ingame.xnb
 Content\Images\Options.xnb
 Content\Images\Title.xnb
 Content\Images\Unlockables.xnb
-Content\Images\PausedYes.xnb
 Content\Images\Ship.xnb
 Content\Images\ShipTrans.xnb
 Content\Images\StandardBullet.xnb
@@ -18,7 +19,6 @@ Content\Images\NormalEnemyBullet.xnb
 Content\Images\ThirdEnemy.xnb
 Content\Images\FirstBossLaser.xnb
 Content\Images\Score.xnb
-Content\Fonts\SpriteFont1.xnb
 Content\Images\Healthbar.xnb
 Content\Sounds\BossDeath.xnb
 Content\Sounds\BossLaserNeedsEditing.xnb
