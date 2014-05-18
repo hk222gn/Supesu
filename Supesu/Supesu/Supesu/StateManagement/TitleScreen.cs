@@ -64,6 +64,7 @@ namespace Supesu
                         ChangeScreen(menuChoices);
                         break;
                     case MenuChoices.Exit:
+                        Thread.Sleep(400);
                         game.Exit();
                         break;
                     default:

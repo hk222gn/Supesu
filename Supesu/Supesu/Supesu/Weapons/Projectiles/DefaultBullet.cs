@@ -9,21 +9,16 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Supesu.Weapons.Projectiles
 {
-    public enum BulletType
-    {
-        standard,
-        special,
-    }
     public class DefaultBullet
     {
         protected Texture2D bulletTexture;
         protected float speed;
-        protected Vector2 velocity;
-        protected Vector2 position;
+        public Vector2 velocity;
+        public Vector2 position;
         public int damageAmount;
         public Rectangle hitBox;
         public bool alive = true;
-        public GameWindow gameWindow;
+        public bool split = false;
 
         public DefaultBullet(Vector2 direction, Vector2 position, float speed, Rectangle hitBox)
         {

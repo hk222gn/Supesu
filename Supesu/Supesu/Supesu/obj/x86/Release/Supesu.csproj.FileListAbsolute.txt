@@ -84,3 +84,12 @@ P:\Projekt\Supesu\Supesu\Supesu\Supesu\obj\x86\Release\Microsoft.Xna.Framework.R
 P:\Projekt\Supesu\Supesu\Supesu\Supesu\obj\x86\Release\Supesu.exe
 P:\Projekt\Supesu\Supesu\Supesu\Supesu\obj\x86\Release\Supesu.pdb
 P:\Projekt\Supesu\Supesu\Supesu\Supesu\bin\x86\Release\Supesu.pdb
+C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Release\Content\Images\BonusMonster.xnb
+C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Release\Content\Sounds\LaserWarning.xnb
+C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Release\Content\Images\UnlockableFrame.xnb
+C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Release\Content\Images\NotUnlocked.xnb
+C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Release\Content\Images\NotChosen.xnb
+C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Release\Content\Images\Ship2.xnb
+C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Release\Content\Images\GameOver.xnb
+C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Release\Content\Images\FourthEnemySprite.xnb
+C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Release\Content\Images\SecondBoss.xnb

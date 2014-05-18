@@ -10,13 +10,13 @@ using System.Threading;
 using Supesu.Weapons.Projectiles;
 using Microsoft.Xna.Framework.Audio;
 using Supesu.SoundHandler;
+using Supesu.StateManagement;
+using Supesu.StateManagement.Levels;
 
 namespace Supesu.SpriteManagement
 {
     class ShipSprite : Sprite
     {
-        //TODO: Make sounds global, kinda, so all have deathsounds,hitsounds etc.
-
         KeyboardState keyboard, prevKeyboard;
         public ShipSprite(Game1 game, Texture2D textureImage, Vector2 position,
             Point frameSize, int collisionOffset, Point currentFrame, Point sheetSize,
@@ -95,25 +95,15 @@ namespace Supesu.SpriteManagement
             if (CheckKeystroke(Keys.X))
             {
                 Sounds.SoundBank.PlayCue("StandardShipBullet");
-                if (game.bulletType == BulletType.standard)
+                if (UnlockablesScreen.BulletType == BulletType.standard)
                 {
-                    Bullet.Add(new StandardBullet(new Vector2(0, 1), new Vector2((this.position.X + frameSize.X / 2) - 2, this.position.Y + 20), 1.2f, new Rectangle(0, 0, 3, 5), game.Content));
+                    Level.shipBullets.Add(new StandardBullet(new Vector2(0, 1), new Vector2((this.position.X + frameSize.X / 2) - 2, this.position.Y + 20), 1.2f, new Rectangle(0, 0, 3, 5), game.Content));
                 }
-                else if (game.bulletType == BulletType.special)
+                else if (UnlockablesScreen.BulletType == BulletType.second)
                 {
-                    Bullet.Add(new SpecialBullet(new Vector2(0, 1), new Vector2((this.position.X + frameSize.X / 2) - 2, this.position.Y + 20), 1.8f, new Rectangle(0, 0, 3, 5), game.Content));
+                    Level.shipBullets.Add(new SpecialBullet(new Vector2(0, 1), new Vector2((this.position.X + frameSize.X / 2) - 2, this.position.Y + 20), 1.8f, new Rectangle(0, 0, 3, 5), game.Content));
                 }
             }
-
-            //Switches weapon, this is only for testing purposes.
-            //if (CheckKeystroke(Keys.D1))
-            //{
-            //    game.bulletType = BulletType.standard;
-            //}
-            //else if (CheckKeystroke(Keys.D2))
-            //{
-            //    game.bulletType = BulletType.special;
-            //}
         }
 
         private bool CheckKeystroke(Keys key)

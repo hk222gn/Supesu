@@ -41,6 +41,7 @@ namespace Supesu.HighScore
             {
                 // Convert the object to XML data and put it in the stream
                 XmlSerializer serializer = new XmlSerializer(typeof(HighScoreData));
+                //TODO: This will crash the game incase the format of the Highscore.lst file is incorrect.
                 serializer.Serialize(stream, data);
             }
             finally
@@ -86,9 +87,35 @@ namespace Supesu.HighScore
                 data.level[i] = oldData.level[i];
             }
 
-            data.playerName[data.count - 1] = "Player1"; //TODO: Let the player set his own name.
-            data.score[data.count - 1] = InGameScreen.playerScore;
-            data.level[data.count - 1] = (int)InGameScreen.level;
+            int index = -1;
+            for (int i = 0; i < data.count; i++)
+            {
+                if (InGameScreen.playerScore > data.score[i])
+                {
+                    index = i;
+                    break;
+                }
+            }
+
+            //Sort the values based on score
+            if (index > -1)
+            {
+                for (int i = data.count - 1; i >= index + 1; i--)
+                {
+                    data.playerName[i] = data.playerName[i - 1];
+                    data.score[i] = data.score[i - 1];
+                    data.level[i] = data.level[i - 1];
+                }
+                data.playerName[index] = "Player1"; //TODO: Let the player set his own name.
+                data.score[index] = InGameScreen.playerScore;
+                data.level[index] = (int)InGameScreen.level;
+            }
+            else
+            {
+                data.playerName[data.count - 1] = "Player1"; //TODO: Let the player set his own name.
+                data.score[data.count - 1] = InGameScreen.playerScore;
+                data.level[data.count - 1] = (int)InGameScreen.level;
+            }
 
             HighScores.SaveHighScores(data, HighScores.fileName);
         }

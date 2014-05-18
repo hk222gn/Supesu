@@ -17,7 +17,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Release\Content\Images\PausedYes.xnb</Output>
-      <Time>2014-04-22T22:54:16.0674017+02:00</Time>
+      <Time>2014-05-15T17:33:54.8476527+02:00</Time>
     </Item>
     <Item>
       <Source>Images\Control.png</Source>
@@ -35,7 +35,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Release\Content\Images\Highscore.xnb</Output>
-      <Time>2014-04-21T12:43:50.6769793+02:00</Time>
+      <Time>2014-05-15T11:47:58.5164584+02:00</Time>
     </Item>
     <Item>
       <Source>Images\Ingame.png</Source>
@@ -44,7 +44,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Release\Content\Images\Ingame.xnb</Output>
-      <Time>2014-04-21T12:43:50.6779794+02:00</Time>
+      <Time>2014-05-15T11:48:08.7160418+02:00</Time>
     </Item>
     <Item>
       <Source>Images\Options.png</Source>
@@ -53,7 +53,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Release\Content\Images\Options.xnb</Output>
-      <Time>2014-04-21T12:43:50.6789794+02:00</Time>
+      <Time>2014-05-15T11:48:13.6983268+02:00</Time>
     </Item>
     <Item>
       <Source>Images\Title.png</Source>
@@ -62,7 +62,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Release\Content\Images\Title.xnb</Output>
-      <Time>2014-04-21T12:43:50.6799795+02:00</Time>
+      <Time>2014-05-15T16:48:34.7440717+02:00</Time>
     </Item>
     <Item>
       <Source>Images\Unlockables.png</Source>
@@ -71,7 +71,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Release\Content\Images\Unlockables.xnb</Output>
-      <Time>2014-04-21T12:43:50.6759793+02:00</Time>
+      <Time>2014-05-15T11:48:20.8447355+02:00</Time>
     </Item>
     <Item>
       <Source>Images\Ship.png</Source>
@@ -143,7 +143,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Release\Content\Images\Win.xnb</Output>
-      <Time>2014-04-30T22:53:19.3909256+02:00</Time>
+      <Time>2014-05-15T16:32:26.3326817+02:00</Time>
     </Item>
     <Item>
       <Source>Images\NormalEnemyBullet.png</Source>
@@ -306,6 +306,87 @@
       <Options>None</Options>
       <Output>C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Release\Content\Sounds\MainMusic.xnb</Output>
       <Time>2014-05-11T23:01:23.4878902+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Images\BonusMonster.png</Source>
+      <Name>Images\BonusMonster</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Release\Content\Images\BonusMonster.xnb</Output>
+      <Time>2014-05-12T20:48:32.0904564+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Sounds\LaserWarning.wav</Source>
+      <Name>Sounds\LaserWarning</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Release\Content\Sounds\LaserWarning.xnb</Output>
+      <Time>2014-05-13T22:50:20.2772822+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Images\UnlockableFrame.png</Source>
+      <Name>Images\UnlockableFrame</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Release\Content\Images\UnlockableFrame.xnb</Output>
+      <Time>2014-05-14T13:38:34.3678259+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Images\NotUnlocked.png</Source>
+      <Name>Images\NotUnlocked</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Release\Content\Images\NotUnlocked.xnb</Output>
+      <Time>2014-05-14T14:22:45.7384756+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Images\NotChosen.png</Source>
+      <Name>Images\NotChosen</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Release\Content\Images\NotChosen.xnb</Output>
+      <Time>2014-05-14T13:58:32.043329+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Images\Ship2.png</Source>
+      <Name>Images\Ship2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Release\Content\Images\Ship2.xnb</Output>
+      <Time>2014-05-15T16:47:05.5389694+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Images\GameOver.png</Source>
+      <Name>Images\GameOver</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Release\Content\Images\GameOver.xnb</Output>
+      <Time>2014-05-15T17:35:24.6057865+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Images\FourthEnemySprite.png</Source>
+      <Name>Images\FourthEnemySprite</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Release\Content\Images\FourthEnemySprite.xnb</Output>
+      <Time>2014-05-15T21:21:33.0168553+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Images\SecondBoss.png</Source>
+      <Name>Images\SecondBoss</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Release\Content\Images\SecondBoss.xnb</Output>
+      <Time>2014-05-18T16:32:42.7215973+02:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>

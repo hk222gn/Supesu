@@ -8,6 +8,8 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Audio;
 using Supesu.Weapons.Projectiles;
+using Supesu.SoundHandler;
+using Supesu.StateManagement.Levels;
 
 namespace Supesu.SpriteManagement
 {
@@ -82,32 +84,19 @@ namespace Supesu.SpriteManagement
         {
             DefaultBullet bullet = new NormalEnemyBullet(new Vector2(0, -1), new Vector2((this.position.X + frameSize.X / 2) - 7, this.position.Y + 170), 0.65f, new Rectangle(0, 0, 12, 12), game.Content);
             bullet.damageAmount = 6;
-            Bullet.Add(bullet);
+            Level.AddBullet(bullet);
 
             bullet = new NormalEnemyBullet(new Vector2(0, -1), new Vector2((this.position.X + frameSize.X / 2) - 37, this.position.Y + 160), 0.65f, new Rectangle(0, 0, 12, 12), game.Content);
             bullet.damageAmount = 6;
-            Bullet.Add(bullet);
+            Level.AddBullet(bullet);
 
             bullet = new NormalEnemyBullet(new Vector2(0, -1), new Vector2((this.position.X + frameSize.X / 2) + 23, this.position.Y + 160), 0.65f, new Rectangle(0, 0, 12, 12), game.Content);
             bullet.damageAmount = 6;
-            Bullet.Add(bullet);
+            Level.AddBullet(bullet);
         }
 
         public override void Update(GameTime gameTime, Rectangle clientBounds)
         {
-            //Updates the bullets position, anda removes it if it hits the top of the screen.
-            for (int i = 0; i < Bullet.Count; i++)
-            {
-                if (!Bullet[i].alive)
-                {
-                    Bullet.Remove(Bullet[i]);
-                }
-                else
-                {
-                    Bullet[i].Update(gameTime.ElapsedGameTime.Milliseconds);
-                }
-            }
-
             shoot += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (shoot >= 1)
             {
@@ -119,6 +108,7 @@ namespace Supesu.SpriteManagement
             if (activateLaser >= 2 && !warningActivated && !laserActive)
             {
                 //Warn the user about incoming laser
+                Sounds.SoundBank.PlayCue("LaserWarning");
                 warningActivated = true;
             }
             if (activateLaser >= 4)
@@ -134,7 +124,7 @@ namespace Supesu.SpriteManagement
 
                 warningActivated = false;
             }
-            else if (activateLaser >= 2 && laserActive)
+            else if (activateLaser >= 1.5 && laserActive)
             {
                 laserLeft = null;
                 laserRight = null;
@@ -149,11 +139,6 @@ namespace Supesu.SpriteManagement
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            for (int i = 0; i < Bullet.Count; i++)
-            {
-                Bullet[i].Draw(spriteBatch);
-            }
-
             if (laserLeft != null && laserRight != null)
             {
                 laserLeft.Draw(spriteBatch);

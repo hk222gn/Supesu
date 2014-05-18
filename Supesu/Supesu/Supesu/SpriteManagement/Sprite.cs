@@ -33,20 +33,15 @@ namespace Supesu.SpriteManagement
         protected Game1 game;
         protected int life;
         public static float shoot = 0;
-        public float move = 0;
-        public bool moveDirection = true;
+        public static float move = 0;
+        public static bool moveDirection = true, goDown = false;
         public int scoreAmount;
-        protected List<DefaultBullet> bullet = new List<DefaultBullet>();
+        //protected List<DefaultBullet> bullet = new List<DefaultBullet>();
 
         public int Life
         {
             get { return life; }
             set { life = value; }
-        }
-
-        public List<DefaultBullet> Bullet
-        {
-            get { return bullet; }
         }
 
         public abstract Vector2 direction

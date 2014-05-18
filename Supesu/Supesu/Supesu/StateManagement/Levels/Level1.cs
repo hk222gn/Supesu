@@ -13,7 +13,7 @@ namespace Supesu.StateManagement.Levels
     class Level1 : Level
     {
         //Used to make the sprites.
-        int amountOfEnemiesPerRow = 10;
+        int amountOfEnemiesPerRow = 1;
         int makeSpace = 60;
         int enemyStartPosition;
         int lastEnemyPosition;
@@ -23,7 +23,7 @@ namespace Supesu.StateManagement.Levels
         {
             background = this.content.Load<Texture2D>(@"Images/Ingame");
             lastEnemyPosition = enemyStartPosition;
-            enemyStartPosition = game.Window.ClientBounds.Width / amountOfEnemiesPerRow;
+            enemyStartPosition = 80;
         }
 
         public override void Draw(SpriteBatch spriteBatch)

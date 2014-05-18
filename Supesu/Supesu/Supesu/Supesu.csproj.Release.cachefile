@@ -1,5 +1,4 @@
 Content\Fonts\General.xnb
-Content\Fonts\SpriteFont1.xnb
 Content\Images\PausedYes.xnb
 Content\Images\Control.xnb
 Content\Images\Highscore.xnb
@@ -18,9 +17,9 @@ Content\Images\Win.xnb
 Content\Images\NormalEnemyBullet.xnb
 Content\Images\ThirdEnemy.xnb
 Content\Images\FirstBossLaser.xnb
+Content\Fonts\SpriteFont1.xnb
 Content\Images\Score.xnb
 Content\Images\Healthbar.xnb
-Content\Sounds\BossDeath.xnb
 Content\Sounds\BossLaserNeedsEditing.xnb
 Content\Sounds\EnemyDeath.xnb
 Content\Sounds\EnemyStruck.xnb
@@ -31,7 +30,17 @@ Content\Sounds\Menu\MenuHit.xnb
 Content\Sounds\ShipDeath.xnb
 Content\Sounds\ShipStruck.xnb
 Content\Sounds\StandardShipBullet.xnb
+Content\Sounds\BossDeath.xnb
 Content\Sounds\MainMusic.xnb
+Content\Images\BonusMonster.xnb
+Content\Sounds\LaserWarning.xnb
+Content\Images\UnlockableFrame.xnb
+Content\Images\NotUnlocked.xnb
+Content\Images\NotChosen.xnb
+Content\Images\Ship2.xnb
+Content\Images\GameOver.xnb
+Content\Images\FourthEnemySprite.xnb
+Content\Images\SecondBoss.xnb
 Content\GameSounds.xgs
 Content\WaveBank.xwb
 Content\SoundBank.xsb

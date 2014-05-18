@@ -32,7 +32,6 @@ namespace Supesu
         HighscoreScreen mHighscoreScreen;
         UnlockablesScreen mUnlockablesScreen;
         private MenuChoices menuChoice;
-        public BulletType bulletType;
         private Sounds sounds;
 
         public Game1()
@@ -52,25 +51,16 @@ namespace Supesu
         /// </summary>
         protected override void Initialize()
         {
-            bulletType = BulletType.standard;
             sounds = new Sounds();
 
             if (!File.Exists(HighScores.fileName))
             {
                 //Make a new one with a few dummy scores in.
-                HighScores.HighScoreData data = new HighScores.HighScoreData(3);
+                HighScores.HighScoreData data = new HighScores.HighScoreData(1);
 
-                data.playerName[0] = "Cool guy";
+                data.playerName[0] = "Useless guy";
                 data.level[0] = 1;
-                data.score[0] = 300;
-
-                data.playerName[1] = "Awesome guy";
-                data.level[1] = 1;
-                data.score[1] = 200;
-
-                data.playerName[2] = "Not so cool guy";
-                data.level[2] = 1;
-                data.score[2] = 10;
+                data.score[0] = 0;
 
                 HighScores.SaveHighScores(data, HighScores.fileName);
             }
@@ -124,8 +114,6 @@ namespace Supesu
 
             //Updates the global audio engine.
             sounds.AudioEngine.Update();
-
-            
 
             base.Update(gameTime);
         }
@@ -183,6 +171,7 @@ namespace Supesu
         private void HighscoreScreenEvent(object obj, EventArgs e)
         {
             mCurrentScreen = mTitleScreen;
+            mHighscoreScreen = new HighscoreScreen(this.Content, new EventHandler(HighscoreScreenEvent), this);
         }
 
         private void UnlockablesScreenEvent(object obj, EventArgs e)

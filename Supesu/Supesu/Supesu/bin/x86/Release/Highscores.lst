@@ -1,25 +1,43 @@
 <?xml version="1.0"?>
 <HighScoreData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <playerName>
-    <string>Cool guy</string>
-    <string>Awesome guy</string>
-    <string>Not so cool guy</string>
     <string>Player1</string>
     <string>Player1</string>
+    <string>Player1</string>
+    <string>Player1</string>
+    <string>Player1</string>
+    <string>Player1</string>
+    <string>Player1</string>
+    <string>Player1</string>
+    <string>Player1</string>
+    <string>Player1</string>
+    <string>Useless guy</string>
   </playerName>
   <score>
-    <int>300</int>
-    <int>200</int>
-    <int>10</int>
-    <int>925</int>
-    <int>915</int>
+    <int>500000</int>
+    <int>170</int>
+    <int>170</int>
+    <int>170</int>
+    <int>170</int>
+    <int>170</int>
+    <int>170</int>
+    <int>110</int>
+    <int>110</int>
+    <int>110</int>
+    <int>0</int>
   </score>
   <level>
+    <int>2</int>
+    <int>2</int>
     <int>1</int>
     <int>1</int>
+    <int>1</int>
+    <int>1</int>
+    <int>1</int>
+    <int>2</int>
     <int>1</int>
     <int>1</int>
     <int>1</int>
   </level>
-  <count>5</count>
+  <count>11</count>
 </HighScoreData>

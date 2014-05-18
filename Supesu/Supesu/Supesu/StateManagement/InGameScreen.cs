@@ -10,6 +10,7 @@ using System.Threading;
 using Supesu.SpriteManagement;
 using Supesu.StateManagement.Levels;
 using Supesu.SoundHandler;
+using Supesu.HighScore;
 
 namespace Supesu
 {
@@ -52,6 +53,7 @@ namespace Supesu
         Texture2D mPauseBackground;
         Texture2D scoreOverlay;
         Texture2D playerHealthBar;
+        Texture2D gameOver;
         Game1 _game;
         private bool isPaused = false;
         private bool pauseKeyDown = false;
@@ -66,6 +68,7 @@ namespace Supesu
         private bool difficultySet = false;
         private Color easyColor = Color.White, normalColor = Color.Red, hardColor = Color.Red;
         private int maxShipLife; // Used to display the life correctly
+        public static int maxBossLife;
         
         public InGameScreen(ContentManager content, EventHandler theScreenEvent, Game1 game)
             : base(theScreenEvent)
@@ -77,12 +80,8 @@ namespace Supesu
             scoreFont = content.Load<SpriteFont>(@"Fonts/SpriteFont1");
             scoreOverlay = content.Load<Texture2D>(@"Images/Score");
             playerHealthBar = content.Load<Texture2D>(@"Images/Healthbar");
+            gameOver = content.Load<Texture2D>(@"Images/GameOver");
             difficulty = Difficulty.easy;
-
-            //Sets the current level to 1 and initializes it.
-            currentLevel = new Level1(content, game);
-
-            maxShipLife = currentLevel.ship.Life;
         }
 
         public override void Update(GameTime gameTime)
@@ -121,7 +120,12 @@ namespace Supesu
                         if (CheckKeystroke(Keys.R))
                         {
                             Sounds.SoundBank.PlayCue("MenuHit");
-                            currentLevel = new Level1(content, _game);
+                            if (level == CurrentLevel.level1)
+                            {
+                                currentLevel = new Level1(content, _game);//TODO: Change this in order to make the Restart function work as intended.
+                            }
+                            else
+                                currentLevel = new Level2(content, _game);
                             playerScore = 0;
                         }
                         else if (CheckKeystroke(Keys.Escape))
@@ -136,20 +140,25 @@ namespace Supesu
                     else
                     {
                         //TODO: Make an external method that handles the levels. For now there's only one level, so we don't need to have this at all. Just the update.
-
-                        //switch (level)
-                        //{
-                        //    case CurrentLevel.level1:
-                        //        break;
-                        //    case CurrentLevel.level2:
-                        //        break;
-                        //    case CurrentLevel.level3:
-                        //        break;
-                        //    case CurrentLevel.bonusLevel:
-                        //        break;
-                        //    default:
-                        //        break;
-                        //}
+                        if (currentLevel.stage == CurrentLevelStage.playerWonStage)
+                        {
+                            if (CheckKeystroke(Keys.Enter))
+                            {
+                                switch (level)
+                                {
+                                    case CurrentLevel.level2:
+                                        currentLevel = new Level2(content, _game);
+                                        break;
+                                    case CurrentLevel.level3:
+                                        screenEvent.Invoke(this, new EventArgs());
+                                        break;
+                                    case CurrentLevel.bonusLevel:
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                        }
                         currentLevel.Update(gameTime);
                     }
                 }
@@ -177,59 +186,13 @@ namespace Supesu
                     if (currentLevel == null)
                     {
                         //Draws the death screen.
-                        spriteBatch.Draw(mPauseBackground, Vector2.Zero, Color.Red);
+                        spriteBatch.Draw(gameOver, Vector2.Zero, Color.Red);
                     }
                     else
                     {
                         currentLevel.Draw(spriteBatch);
-                    
-                        //Draw UI.
-                        //Life bar and life
-                        spriteBatch.Draw(playerHealthBar, new Rectangle(600, 690, playerHealthBar.Width, 30), new Rectangle(0, 30, playerHealthBar.Width, 30), Color.LightGray);
 
-                        spriteBatch.Draw(playerHealthBar, new Rectangle(600, 690, (int)(playerHealthBar.Width * ((double)currentLevel.ship.Life / maxShipLife)), 30), new Rectangle(0, 30, playerHealthBar.Width, 30), Color.Red);
-
-                        spriteBatch.Draw(playerHealthBar, new Rectangle(600, 690, playerHealthBar.Width, 30), new Rectangle(0, 0, playerHealthBar.Width, 30), Color.White);
-
-                        spriteBatch.DrawString(scoreFont, "" + currentLevel.ship.Life, new Vector2(689, 690), Color.Yellow);
-
-                        spriteBatch.DrawString(scoreFont, "Hitpoints", new Vector2(655, 664), Color.Yellow);
-                        //Draws boss life bar incase there is one
-                        if (currentLevel.boss != null)
-                        {
-                            spriteBatch.Draw(playerHealthBar, new Rectangle(600, 0, playerHealthBar.Width, 30), new Rectangle(0, 30, playerHealthBar.Width, 30), Color.LightGray);
-
-                            spriteBatch.Draw(playerHealthBar, new Rectangle(600, 0, (int)(playerHealthBar.Width * ((double)currentLevel.boss.Life / (150 * (int)difficulty))), 30), new Rectangle(0, 30, playerHealthBar.Width, 30), Color.Red);
-
-                            spriteBatch.Draw(playerHealthBar, new Rectangle(600, 0, playerHealthBar.Width, 30), new Rectangle(0, 0, playerHealthBar.Width, 30), Color.White);
-
-                            spriteBatch.DrawString(scoreFont, "" + currentLevel.boss.Life, new Vector2(689, 0), Color.Yellow);
-
-                            spriteBatch.DrawString(scoreFont, "Boss", new Vector2(685, 25), Color.Yellow);
-                        }
-                        //Score UI.
-                        spriteBatch.Draw(scoreOverlay, new Rectangle(0, 0, 200, 80), Color.White);
-
-                        //Player score.
-                        spriteBatch.DrawString(scoreFont, "Score: " + playerScore, new Vector2(2, 1), Color.Red);
-
-                        //Score multiplyer.
-                        spriteBatch.DrawString(scoreFont, string.Format("Multi: {0}x", scoreMultiplier), new Vector2(2, 35), Color.Red);
-
-                        //Esc for paus text
-                        spriteBatch.DrawString(playerLifeFont, "Esc for menu", new Vector2(2, 685), Color.Red);
-
-                        //Dificulty.
-                        if (difficulty == Difficulty.easy)
-	                    {
-                            spriteBatch.DrawString(scoreFont, "Difficulty: Easy", new Vector2(2, 665), Color.Red);
-	                    }
-                        else if (difficulty == Difficulty.normal)
-                        {
-                            spriteBatch.DrawString(scoreFont, "Difficulty: Normal", new Vector2(2, 665), Color.Red);
-                        }
-                        else
-                            spriteBatch.DrawString(scoreFont, "Difficulty: Hard", new Vector2(2, 665), Color.Red);
+                        DrawUI(spriteBatch);
                     }
                 }
                 else
@@ -297,7 +260,13 @@ namespace Supesu
                         difficulty = Difficulty.hard;
                         break;
                 }
+                InGameScreen.playerScore = 0; // Make sure the score is set to 0 when the player starts a new game.
                 difficultySet = true;
+
+                //Sets the current level to 1 and initializes it as the player has chosen a dificulty, we can create the level now.
+                currentLevel = new Level1(content, _game);
+
+                maxShipLife = currentLevel.ship.Life;
             }
 
             if (CheckKeystroke(Keys.Down) && (int)difficulty < 3)
@@ -334,6 +303,70 @@ namespace Supesu
             easyColor = Color.Red;
             normalColor = Color.Red;
             hardColor = Color.Red;
+        }
+
+        private void DrawUI(SpriteBatch spriteBatch)
+        {
+            //Draw UI.
+            //Life bar and life
+            spriteBatch.Draw(playerHealthBar, new Rectangle(600, 690, playerHealthBar.Width, 30), new Rectangle(0, 30, playerHealthBar.Width, 30), Color.LightGray);
+
+            spriteBatch.Draw(playerHealthBar, new Rectangle(600, 690, (int)(playerHealthBar.Width * ((double)currentLevel.ship.Life / maxShipLife)), 30), new Rectangle(0, 30, playerHealthBar.Width, 30), Color.Red);
+
+            spriteBatch.Draw(playerHealthBar, new Rectangle(600, 690, playerHealthBar.Width, 30), new Rectangle(0, 0, playerHealthBar.Width, 30), Color.White);
+
+            spriteBatch.DrawString(scoreFont, "" + currentLevel.ship.Life, new Vector2(689, 690), Color.Yellow);
+
+            spriteBatch.DrawString(scoreFont, "Hitpoints", new Vector2(655, 664), Color.Yellow);
+            //Draws boss life bar incase there is one
+            if (currentLevel.boss != null)
+            {
+                spriteBatch.Draw(playerHealthBar, new Rectangle(600, 0, playerHealthBar.Width, 30), new Rectangle(0, 30, playerHealthBar.Width, 30), Color.LightGray);
+
+                spriteBatch.Draw(playerHealthBar, new Rectangle(600, 0, (int)(playerHealthBar.Width * ((double)currentLevel.boss.Life / (maxBossLife * (int)difficulty))), 30), new Rectangle(0, 30, playerHealthBar.Width, 30), Color.Red);
+
+                spriteBatch.Draw(playerHealthBar, new Rectangle(600, 0, playerHealthBar.Width, 30), new Rectangle(0, 0, playerHealthBar.Width, 30), Color.White);
+
+                spriteBatch.DrawString(scoreFont, "" + currentLevel.boss.Life, new Vector2(689, 0), Color.Yellow);
+
+                spriteBatch.DrawString(scoreFont, "Boss", new Vector2(685, 25), Color.Yellow);
+            }
+
+            if (currentLevel.secondBoss != null)
+            {
+                spriteBatch.Draw(playerHealthBar, new Rectangle(600, 0, playerHealthBar.Width, 30), new Rectangle(0, 30, playerHealthBar.Width, 30), Color.LightGray);
+
+                spriteBatch.Draw(playerHealthBar, new Rectangle(600, 0, (int)(playerHealthBar.Width * ((double)currentLevel.secondBoss.Life / (maxBossLife * (int)difficulty))), 30), new Rectangle(0, 30, playerHealthBar.Width, 30), Color.Red);
+
+                spriteBatch.Draw(playerHealthBar, new Rectangle(600, 0, playerHealthBar.Width, 30), new Rectangle(0, 0, playerHealthBar.Width, 30), Color.White);
+
+                spriteBatch.DrawString(scoreFont, "" + currentLevel.secondBoss.Life, new Vector2(689, 0), Color.Yellow);
+
+                spriteBatch.DrawString(scoreFont, "Boss", new Vector2(685, 25), Color.Yellow);
+            }
+            //Score UI.
+            spriteBatch.Draw(scoreOverlay, new Rectangle(0, 0, 200, 80), Color.White);
+
+            //Player score.
+            spriteBatch.DrawString(scoreFont, "Score: " + playerScore, new Vector2(2, 1), Color.Red);
+
+            //Score multiplyer.
+            spriteBatch.DrawString(scoreFont, string.Format("Multi: {0}x", scoreMultiplier), new Vector2(2, 35), Color.Red);
+
+            //Esc for paus text
+            spriteBatch.DrawString(playerLifeFont, "Esc for menu", new Vector2(2, 685), Color.Red);
+
+            //Dificulty.
+            if (difficulty == Difficulty.easy)
+            {
+                spriteBatch.DrawString(scoreFont, "Difficulty: Easy", new Vector2(2, 665), Color.Red);
+            }
+            else if (difficulty == Difficulty.normal)
+            {
+                spriteBatch.DrawString(scoreFont, "Difficulty: Normal", new Vector2(2, 665), Color.Red);
+            }
+            else
+                spriteBatch.DrawString(scoreFont, "Difficulty: Hard", new Vector2(2, 665), Color.Red);
         }
     }
 }

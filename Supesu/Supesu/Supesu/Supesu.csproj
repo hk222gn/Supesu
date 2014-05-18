@@ -77,13 +77,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="SoundHandler\Sounds.cs" />
-    <Compile Include="SpriteManagement\FirstBossSprite.cs" />
-    <Compile Include="SpriteManagement\SecondaryEnemySprite.cs" />
-    <Compile Include="SpriteManagement\ShipSprite.cs" />
+    <Compile Include="SpriteManagement\Monsters\BonusMonster.cs" />
+    <Compile Include="SpriteManagement\Bosses\FirstBossSprite.cs" />
+    <Compile Include="SpriteManagement\Monsters\FourthEnemySprite.cs" />
+    <Compile Include="SpriteManagement\Monsters\SecondaryEnemySprite.cs" />
+    <Compile Include="SpriteManagement\Monsters\SecondBoss.cs" />
+    <Compile Include="SpriteManagement\Ships\ShipSprite.cs" />
     <Compile Include="SpriteManagement\Sprite.cs" />
     <Compile Include="SpriteManagement\SpriteManager.cs" />
-    <Compile Include="SpriteManagement\StandardEnemySprite.cs" />
-    <Compile Include="SpriteManagement\ThirdEnemySprite.cs" />
+    <Compile Include="SpriteManagement\Monsters\StandardEnemySprite.cs" />
+    <Compile Include="SpriteManagement\Monsters\ThirdEnemySprite.cs" />
     <Compile Include="StateManagement\ControlDetectorScreen.cs" />
     <Compile Include="HighScore\HighScoreData.cs" />
     <Compile Include="StateManagement\HighscoreScreen.cs" />
@@ -93,6 +96,7 @@
     <Compile Include="Game1.cs" />
     <Compile Include="StateManagement\Levels\Level.cs" />
     <Compile Include="StateManagement\Levels\Level1.cs" />
+    <Compile Include="StateManagement\Levels\Level2.cs" />
     <Compile Include="StateManagement\OptionsScreen.cs" />
     <Compile Include="StateManagement\PauseScreen.cs" />
     <Compile Include="StateManagement\Screen.cs" />
