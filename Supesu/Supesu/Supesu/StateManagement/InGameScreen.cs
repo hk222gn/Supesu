@@ -261,7 +261,7 @@ namespace Supesu
                 difficultySet = true;
 
                 //Sets the current level to 1 and initializes it as the player has chosen a dificulty, we can create the level now.
-                currentLevel = new Level2(content, _game);
+                currentLevel = new Level1(content, _game);
 
                 maxShipLife = currentLevel.ship.Life;
             }
