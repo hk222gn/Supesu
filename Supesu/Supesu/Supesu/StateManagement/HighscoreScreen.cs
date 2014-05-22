@@ -81,14 +81,13 @@ namespace Supesu.StateManagement
 
             spriteBatch.Draw(mHighscoreScreenBackground, Vector2.Zero, Color.White);
 
-            spriteBatch.DrawString(bigText, "Esc for title screen", new Vector2(1, -5), Color.Red);
+            spriteBatch.DrawString(bigText, "Esc for menu", new Vector2(1, 685), Color.Red);
 
             if (highScoreData.count >= 0)
             {
                 //TODO: Draw this with formulas instead.
                 //Draw highscores here
                 
-
                 //Draw rows.
                 //After Player name
                 spriteBatch.Draw(rowBars, new Rectangle(367, 100, 5, 500), Color.Red);

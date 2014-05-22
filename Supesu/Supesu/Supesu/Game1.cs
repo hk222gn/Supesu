@@ -33,6 +33,12 @@ namespace Supesu
         UnlockablesScreen mUnlockablesScreen;
         private MenuChoices menuChoice;
         private Sounds sounds;
+        SpriteFont smallText;
+        int totalFrames = 0;
+        float elapsedTime = 0.0f;
+        int fps = 0;
+        public static bool drawFps = false;
+        
 
         public Game1()
         {
@@ -52,6 +58,7 @@ namespace Supesu
         protected override void Initialize()
         {
             sounds = new Sounds();
+            smallText = Content.Load<SpriteFont>(@"Fonts/SpriteFont1");
 
             if (!File.Exists(HighScores.fileName))
             {
@@ -82,7 +89,7 @@ namespace Supesu
             mControlScreen = new ControlDetectorScreen(this.Content, new EventHandler(ControlDetectorScreenEvent), this);
             mTitleScreen = new TitleScreen(this.Content, new EventHandler(TitleScreenEvent), this);
             mInGameScreen = new InGameScreen(this.Content, new EventHandler(InGameEvent), this);
-            mOptionsScreen = new OptionsScreen(this.Content, new EventHandler(OptionsScreenEvent), this);
+            mOptionsScreen = new OptionsScreen(this.Content, new EventHandler(OptionsScreenEvent), this, graphics);
             mHighscoreScreen = new HighscoreScreen(this.Content, new EventHandler(HighscoreScreenEvent), this);
             mUnlockablesScreen = new UnlockablesScreen(this.Content, new EventHandler(UnlockablesScreenEvent), this);
 
@@ -109,11 +116,20 @@ namespace Supesu
             if (Keyboard.GetState().IsKeyDown(Keys.Delete) == true)
                 this.Exit();
 
+            //Handles FPS timer and sets the FPS to the total frames drawn each 1 second.
+            elapsedTime += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+            if (elapsedTime >= 1000.0f)
+            {
+                fps = totalFrames;
+                totalFrames = 0;
+                elapsedTime = 0;
+            }
+
             //Updates the current screen.
             mCurrentScreen.Update(gameTime);
 
             //Updates the global audio engine.
-            sounds.AudioEngine.Update();
+            Sounds.AudioEngine.Update();
 
             base.Update(gameTime);
         }
@@ -125,10 +141,18 @@ namespace Supesu
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
+            //Add a frame everytime it's drawn
+            totalFrames++;
 
             spriteBatch.Begin();
 
             mCurrentScreen.Draw(spriteBatch);
+
+            if (drawFps)
+            {
+                spriteBatch.DrawString(smallText, string.Format("FPS: {0}", fps),
+                    new Vector2(this.Window.ClientBounds.Width / 2 - 30, this.Window.ClientBounds.Height - 25), Color.Yellow);
+            }
 
             spriteBatch.End();
 

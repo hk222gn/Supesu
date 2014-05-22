@@ -8,11 +8,11 @@ namespace Supesu.SoundHandler
 {
     class Sounds
     {
-        AudioEngine audioEngine;
-        WaveBank waveBank;
-        private static SoundBank soundBank;
+        protected static AudioEngine audioEngine;
+        protected static WaveBank waveBank;
+        protected static SoundBank soundBank;
 
-        public AudioEngine AudioEngine
+        public static AudioEngine AudioEngine
         {
             get { return audioEngine; }
         }

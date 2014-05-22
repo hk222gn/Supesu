@@ -96,6 +96,32 @@ Global Settings
         }
     }
 
+    Category
+    {
+        Name = Effects;
+        Public = 1;
+        Background Music = 0;
+        Volume = 0;
+
+        Category Entry
+        {
+            Name = Global;
+        }
+
+        Instance Limit
+        {
+            Max Instances = 255;
+            Behavior = 0;
+
+            Crossfade
+            {
+                Fade In = 0;
+                Fade Out = 0;
+                Crossfade Type = 0;
+            }
+        }
+    }
+
     Variable
     {
         Name = OrientationAngle;
@@ -225,6 +251,12 @@ Wave Bank
     Windows Bank Path Edited = 0;
     Seek Tables = 1;
     Compression Preset Name = <none>;
+    Xbox Bank Last Modified Low = 0;
+    Xbox Bank Last Modified High = 0;
+    PC Bank Last Modified Low = 0;
+    PC Bank Last Modified High = 0;
+    Header Last Modified Low = 0;
+    Header Last Modified High = 0;
     Bank Last Revised Low = 19707181;
     Bank Last Revised High = 30371565;
 
@@ -512,6 +544,8 @@ Sound Bank
     Windows File = Win\SoundBank.xsb;
     Xbox Bank Path Edited = 0;
     Windows Bank Path Edited = 0;
+    Header Last Modified High = 0;
+    Header Last Modified Low = 0;
 
     Sound
     {
@@ -522,7 +556,7 @@ Sound Bank
 
         Category Entry
         {
-            Name = Default;
+            Name = Effects;
         }
 
         Track
@@ -569,7 +603,7 @@ Sound Bank
 
         Category Entry
         {
-            Name = Default;
+            Name = Effects;
         }
 
         Track
@@ -616,7 +650,7 @@ Sound Bank
 
         Category Entry
         {
-            Name = Default;
+            Name = Effects;
         }
 
         Track
@@ -663,7 +697,7 @@ Sound Bank
 
         Category Entry
         {
-            Name = Default;
+            Name = Effects;
         }
 
         Track
@@ -710,7 +744,7 @@ Sound Bank
 
         Category Entry
         {
-            Name = Default;
+            Name = Effects;
         }
 
         Track
@@ -757,7 +791,7 @@ Sound Bank
 
         Category Entry
         {
-            Name = Default;
+            Name = Effects;
         }
 
         Track
@@ -804,7 +838,7 @@ Sound Bank
 
         Category Entry
         {
-            Name = Default;
+            Name = Effects;
         }
 
         Track
@@ -851,7 +885,7 @@ Sound Bank
 
         Category Entry
         {
-            Name = Default;
+            Name = Effects;
         }
 
         Track
@@ -898,7 +932,7 @@ Sound Bank
 
         Category Entry
         {
-            Name = Default;
+            Name = Effects;
         }
 
         Track
@@ -945,7 +979,7 @@ Sound Bank
 
         Category Entry
         {
-            Name = Default;
+            Name = Effects;
         }
 
         Track
@@ -992,7 +1026,7 @@ Sound Bank
 
         Category Entry
         {
-            Name = Default;
+            Name = Music;
         }
 
         Track
@@ -1040,7 +1074,7 @@ Sound Bank
 
         Category Entry
         {
-            Name = Default;
+            Name = Effects;
         }
 
         Track

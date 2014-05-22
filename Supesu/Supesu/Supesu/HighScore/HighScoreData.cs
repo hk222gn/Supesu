@@ -10,8 +10,6 @@ namespace Supesu.HighScore
 {
     public class HighScores
     {
-        //TODO: Make highscores sort automatically on the highest score.
-
         public static readonly String fileName = "Highscores.lst";
 
         [Serializable]
@@ -76,16 +74,20 @@ namespace Supesu.HighScore
 
         public static void SaveHighscoreToFile()
         {
-            HighScores.HighScoreData oldData = HighScores.LoadHighScores(HighScores.fileName);
+            HighScores.HighScoreData data = HighScores.LoadHighScores(HighScores.fileName);
 
-            HighScores.HighScoreData data = new HighScores.HighScoreData(oldData.count + 1);
+            //HighScores.HighScoreData data = new HighScores.HighScoreData(oldData.count + 1);
 
-            for (int i = 0; i < oldData.count; i++)
-            {
-                data.playerName[i] = oldData.playerName[i];
-                data.score[i] = oldData.score[i];
-                data.level[i] = oldData.level[i];
-            }
+            //for (int i = 0; i < oldData.count; i++)
+            //{
+            //    data.playerName[i] = oldData.playerName[i];
+            //    data.score[i] = oldData.score[i];
+            //    data.level[i] = oldData.level[i];
+            //}
+
+            Array.Resize<String>(ref data.playerName, data.count + 1);
+            Array.Resize<int>(ref data.score, data.count + 1);
+            Array.Resize<int>(ref data.level, data.count + 1);
 
             int index = -1;
             for (int i = 0; i < data.count; i++)

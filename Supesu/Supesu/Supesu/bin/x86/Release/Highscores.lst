@@ -2,42 +2,15 @@
 <HighScoreData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <playerName>
     <string>Player1</string>
-    <string>Player1</string>
-    <string>Player1</string>
-    <string>Player1</string>
-    <string>Player1</string>
-    <string>Player1</string>
-    <string>Player1</string>
-    <string>Player1</string>
-    <string>Player1</string>
-    <string>Player1</string>
-    <string>Useless guy</string>
+    <string xsi:nil="true" />
   </playerName>
   <score>
-    <int>500000</int>
-    <int>170</int>
-    <int>170</int>
-    <int>170</int>
-    <int>170</int>
-    <int>170</int>
-    <int>170</int>
-    <int>110</int>
-    <int>110</int>
-    <int>110</int>
+    <int>110000</int>
     <int>0</int>
   </score>
   <level>
-    <int>2</int>
-    <int>2</int>
     <int>1</int>
-    <int>1</int>
-    <int>1</int>
-    <int>1</int>
-    <int>1</int>
-    <int>2</int>
-    <int>1</int>
-    <int>1</int>
-    <int>1</int>
+    <int>0</int>
   </level>
-  <count>11</count>
+  <count>1</count>
 </HighScoreData>

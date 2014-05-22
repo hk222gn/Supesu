@@ -27,7 +27,7 @@ namespace Supesu.StateManagement.Levels
         public ContentManager content;
         public Texture2D background;
         public Game1 game;
-        public bool startScoreMultiplierTimer = false, saved = false; //TODO: When the player gets to level 2, change this to false again.
+        public bool startScoreMultiplierTimer = false, saved = false;
         public float timeUntillScoreMultiplierChanceOver = 0f, scoreMultiplierTimer = 0f;
         public int killsInScoreMultiplierChance = 0;
         public CurrentLevelStage stage = CurrentLevelStage.enemyStage1;
@@ -268,6 +268,7 @@ namespace Supesu.StateManagement.Levels
                         stage = CurrentLevelStage.playerWonStage;
                         InGameScreen.playerScore += boss.scoreAmount * InGameScreen.scoreMultiplier * (int)InGameScreen.difficulty;
                         boss = null;
+                        bullets.Clear();
                         Thread.Sleep(1000);
                     }
                     else if (secondBoss != null && !secondBoss.alive)
@@ -277,6 +278,7 @@ namespace Supesu.StateManagement.Levels
                         stage = CurrentLevelStage.playerWonStage;
                         InGameScreen.playerScore += secondBoss.scoreAmount * InGameScreen.scoreMultiplier * (int)InGameScreen.difficulty;
                         secondBoss = null;
+                        bullets.Clear();
                         Thread.Sleep(1000);
                     }
                     break;
@@ -285,7 +287,13 @@ namespace Supesu.StateManagement.Levels
                     {
                         HighScores.SaveHighscoreToFile();
                         saved = true;
-                        WinScreen();
+                        if (InGameScreen.level == CurrentLevel.level1)
+                        {
+                            LevelWon();
+                        }
+                        else
+                            WinScreen();
+                        
                         InGameScreen.level += 1;
                     }
                     break;
@@ -325,7 +333,12 @@ namespace Supesu.StateManagement.Levels
             }
         }
 
-        public void WinScreen()
+        public void LevelWon()
+        {
+            background = content.Load<Texture2D>(@"Images/LevelComplete");
+        }
+
+        private void WinScreen()
         {
             background = content.Load<Texture2D>(@"Images/Win");
         }
@@ -470,7 +483,7 @@ namespace Supesu.StateManagement.Levels
                 bonusMonster.position.X -= 2;
             }
 
-            if (Sprite.move >= 0.3f)
+            if (Sprite.move >= 0.4f)
             {
                 for (int i = 0; i < enemyList.Count; i++)
                 {

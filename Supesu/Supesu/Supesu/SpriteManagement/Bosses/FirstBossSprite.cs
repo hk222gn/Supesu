@@ -82,17 +82,11 @@ namespace Supesu.SpriteManagement
 
         public override void FireProjectile()
         {
-            DefaultBullet bullet = new NormalEnemyBullet(new Vector2(0, -1), new Vector2((this.position.X + frameSize.X / 2) - 7, this.position.Y + 170), 0.65f, new Rectangle(0, 0, 12, 12), game.Content);
-            bullet.damageAmount = 6;
-            Level.AddBullet(bullet);
+            Level.AddBullet(new NormalEnemyBullet(new Vector2(0, -1), new Vector2((this.position.X + frameSize.X / 2) - 7, this.position.Y + 170), 0.65f, new Rectangle(0, 0, 12, 12), game.Content, 4));
 
-            bullet = new NormalEnemyBullet(new Vector2(0, -1), new Vector2((this.position.X + frameSize.X / 2) - 37, this.position.Y + 160), 0.65f, new Rectangle(0, 0, 12, 12), game.Content);
-            bullet.damageAmount = 6;
-            Level.AddBullet(bullet);
+            Level.AddBullet(new NormalEnemyBullet(new Vector2(0, -1), new Vector2((this.position.X + frameSize.X / 2) - 37, this.position.Y + 160), 0.65f, new Rectangle(0, 0, 12, 12), game.Content, 4));
 
-            bullet = new NormalEnemyBullet(new Vector2(0, -1), new Vector2((this.position.X + frameSize.X / 2) + 23, this.position.Y + 160), 0.65f, new Rectangle(0, 0, 12, 12), game.Content);
-            bullet.damageAmount = 6;
-            Level.AddBullet(bullet);
+            Level.AddBullet(new NormalEnemyBullet(new Vector2(0, -1), new Vector2((this.position.X + frameSize.X / 2) + 23, this.position.Y + 160), 0.65f, new Rectangle(0, 0, 12, 12), game.Content, 4));
         }
 
         public override void Update(GameTime gameTime, Rectangle clientBounds)
@@ -113,10 +107,8 @@ namespace Supesu.SpriteManagement
             }
             if (activateLaser >= 4)
             {
-                laserLeft = new FirstBossLaser(Vector2.Zero, new Vector2((this.position.X + frameSize.X / 2) - 70, this.position.Y + 190), 0f, new Rectangle((int)(this.position.X + frameSize.X / 2 - 70), (int)this.position.Y + 190, 40, 720), game.Content);
-                laserRight = new FirstBossLaser(Vector2.Zero, new Vector2((this.position.X + frameSize.X / 2) + 30, this.position.Y + 190), 0f, new Rectangle((int)(this.position.X + frameSize.X / 2 + 30), (int)this.position.Y + 190, 40, 720), game.Content);
-                laserLeft.damageAmount = 9;
-                laserRight.damageAmount = 9;
+                laserLeft = new FirstBossLaser(Vector2.Zero, new Vector2((this.position.X + frameSize.X / 2) - 70, this.position.Y + 190), 0f, new Rectangle((int)(this.position.X + frameSize.X / 2 - 70), (int)this.position.Y + 190, 40, 720), game.Content, 9);
+                laserRight = new FirstBossLaser(Vector2.Zero, new Vector2((this.position.X + frameSize.X / 2) + 30, this.position.Y + 190), 0f, new Rectangle((int)(this.position.X + frameSize.X / 2 + 30), (int)this.position.Y + 190, 40, 720), game.Content, 9);
 
                 laserActive = true;
                 

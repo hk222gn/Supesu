@@ -44,8 +44,7 @@ namespace Supesu.SpriteManagement.Monsters
 
         public override void FireProjectile()
         {
-
-            Level.AddBullet(new NormalEnemyBullet(new Vector2(0, -1), new Vector2((this.position.X + frameSize.X / 2) - 2, this.position.Y + 20), 0.50f, new Rectangle(0, 0, 12, 12), game.Content));
+            Level.AddBullet(new NormalEnemyBullet(new Vector2(0, -1), new Vector2((this.position.X + frameSize.X / 2) - 2, this.position.Y + 20), 0.50f, new Rectangle(0, 0, 12, 12), game.Content, 6));
         }
 
         public override void Update(GameTime gameTime, Rectangle clientBounds)

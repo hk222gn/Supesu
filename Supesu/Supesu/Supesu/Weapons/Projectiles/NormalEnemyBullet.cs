@@ -11,11 +11,10 @@ namespace Supesu.Weapons.Projectiles
 {
     class NormalEnemyBullet : DefaultBullet
     {
-        public NormalEnemyBullet(Vector2 direction, Vector2 position, float speed, Rectangle hitBox, ContentManager content)
-            : base(direction, position, speed, hitBox)
+        public NormalEnemyBullet(Vector2 direction, Vector2 position, float speed, Rectangle hitBox, ContentManager content, int damageAmount)
+            : base(direction, position, speed, hitBox, damageAmount)
         {
             LoadTexture(content);
-            damageAmount = 2 * (int)InGameScreen.difficulty;
             //Sets a hitbox for the bullet
             SetHitbox();
         }

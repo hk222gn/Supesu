@@ -45,9 +45,7 @@ namespace Supesu.SpriteManagement
 
         public override void FireProjectile()
         {
-            DefaultBullet bullet = new NormalEnemyBullet(new Vector2(0, -1), new Vector2((this.position.X + frameSize.X / 2) - 2, this.position.Y + 20), 0.55f, new Rectangle(0, 0, 12, 12), game.Content);
-            bullet.damageAmount = 5;
-            Level.AddBullet(bullet);
+            Level.AddBullet(new NormalEnemyBullet(new Vector2(0, -1), new Vector2((this.position.X + frameSize.X / 2) - 2, this.position.Y + 20), 0.55f, new Rectangle(0, 0, 12, 12), game.Content, 4));
         }
 
         public override void Update(GameTime gameTime, Rectangle clientBounds)

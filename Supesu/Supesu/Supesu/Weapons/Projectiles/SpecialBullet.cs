@@ -11,11 +11,10 @@ namespace Supesu.Weapons.Projectiles
 {
     class SpecialBullet : DefaultBullet
     {
-        public SpecialBullet(Vector2 direction, Vector2 position, float speed,Rectangle hitBox, ContentManager content)
-            : base(direction, position, speed,hitBox)
+        public SpecialBullet(Vector2 direction, Vector2 position, float speed, Rectangle hitBox, ContentManager content)
+            : base(direction, position, speed, hitBox)
         {
             LoadTexture(content);
-            damageAmount = 5;
             //Sets a hitbox for the bullet
             SetHitbox();
         }

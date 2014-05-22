@@ -41,6 +41,12 @@ Content\Images\Ship2.xnb
 Content\Images\GameOver.xnb
 Content\Images\FourthEnemySprite.xnb
 Content\Images\SecondBoss.xnb
+Content\Images\LevelComplete.xnb
+Content\Images\VolumeBar.xnb
+Content\Images\CheckBox.xnb
+Content\Images\BatSprite.xnb
+Content\Images\BatSprite2.xnb
+Content\Images\TentacleishMonsterSprite.xnb
 Content\GameSounds.xgs
 Content\WaveBank.xwb
 Content\SoundBank.xsb

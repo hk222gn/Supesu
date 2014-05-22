@@ -40,13 +40,11 @@ namespace Supesu
         hard = 3
     }
     //FIX IN ORDER
-    //TODO: The enemies move weird sometimes, it also seems that their hitboxes are not following the Y position, nor the X position. CONFIRMED
+    //TODO: Change the way additional bullet damage works with dificulties.
     //TODO: Change the enemy bullet velocity, or change the amount of bullets/speed that the shoot. It's a bit too hectic right now.
     //TODO: General, there's most likely a memory leak due to the way i handle sprite loading.
-    //TODO: Everything feels a bit clunky, think about that shit.
 
     //Make static variables in game class, load all the texture required in those variables, saves memory and loading time?
-    
     
     class InGameScreen : Screen
     {
@@ -122,7 +120,7 @@ namespace Supesu
                             Sounds.SoundBank.PlayCue("MenuHit");
                             if (level == CurrentLevel.level1)
                             {
-                                currentLevel = new Level1(content, _game);//TODO: Change this in order to make the Restart function work as intended.
+                                currentLevel = new Level1(content, _game);
                             }
                             else
                                 currentLevel = new Level2(content, _game);
@@ -139,7 +137,6 @@ namespace Supesu
                     }
                     else
                     {
-                        //TODO: Make an external method that handles the levels. For now there's only one level, so we don't need to have this at all. Just the update.
                         if (currentLevel.stage == CurrentLevelStage.playerWonStage)
                         {
                             if (CheckKeystroke(Keys.Enter))
@@ -177,7 +174,7 @@ namespace Supesu
                 spriteBatch.DrawString(playerLifeFont, "Normal", new Vector2(50, _game.Window.ClientBounds.Height / 2 - 50), normalColor);
                 spriteBatch.DrawString(playerLifeFont, "Hard", new Vector2(50, _game.Window.ClientBounds.Height / 2 + 50), hardColor);
 
-                spriteBatch.DrawString(scoreFont, "Esc for title screen.", new Vector2(1, 695), Color.Red);
+                spriteBatch.DrawString(scoreFont, "Esc for menu.", new Vector2(1, 695), Color.Red);
             }
             else
             {
@@ -264,7 +261,7 @@ namespace Supesu
                 difficultySet = true;
 
                 //Sets the current level to 1 and initializes it as the player has chosen a dificulty, we can create the level now.
-                currentLevel = new Level1(content, _game);
+                currentLevel = new Level2(content, _game);
 
                 maxShipLife = currentLevel.ship.Life;
             }
@@ -348,10 +345,13 @@ namespace Supesu
             spriteBatch.Draw(scoreOverlay, new Rectangle(0, 0, 200, 80), Color.White);
 
             //Player score.
-            spriteBatch.DrawString(scoreFont, "Score: " + playerScore, new Vector2(2, 1), Color.Red);
+            spriteBatch.DrawString(scoreFont, "Score: ", new Vector2(2, 2), Color.Red);
+            spriteBatch.DrawString(scoreFont, string.Format("{0}", playerScore), new Vector2(66, 2), Color.White);
 
             //Score multiplyer.
-            spriteBatch.DrawString(scoreFont, string.Format("Multi: {0}x", scoreMultiplier), new Vector2(2, 35), Color.Red);
+            spriteBatch.DrawString(scoreFont, "Multi: ", new Vector2(2, 35), Color.Red);
+            spriteBatch.DrawString(scoreFont, string.Format("{0}", scoreMultiplier), new Vector2(66, 35), Color.White);
+            spriteBatch.DrawString(scoreFont, "x", new Vector2(80, 35), Color.Red);
 
             //Esc for paus text
             spriteBatch.DrawString(playerLifeFont, "Esc for menu", new Vector2(2, 685), Color.Red);
@@ -359,14 +359,19 @@ namespace Supesu
             //Dificulty.
             if (difficulty == Difficulty.easy)
             {
-                spriteBatch.DrawString(scoreFont, "Difficulty: Easy", new Vector2(2, 665), Color.Red);
+                spriteBatch.DrawString(scoreFont, "Difficulty: ", new Vector2(2, 665), Color.Red);
+                spriteBatch.DrawString(scoreFont, "Easy", new Vector2(104, 665), Color.White);
             }
             else if (difficulty == Difficulty.normal)
             {
-                spriteBatch.DrawString(scoreFont, "Difficulty: Normal", new Vector2(2, 665), Color.Red);
+                spriteBatch.DrawString(scoreFont, "Difficulty: ", new Vector2(2, 665), Color.Red);
+                spriteBatch.DrawString(scoreFont, "Normal", new Vector2(104, 665), Color.White);
             }
             else
-                spriteBatch.DrawString(scoreFont, "Difficulty: Hard", new Vector2(2, 665), Color.Red);
+            {
+                spriteBatch.DrawString(scoreFont, "Difficulty: ", new Vector2(2, 665), Color.Red);
+                spriteBatch.DrawString(scoreFont, "Hard", new Vector2(104, 665), Color.White);
+            }
         }
     }
 }

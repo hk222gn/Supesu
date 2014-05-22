@@ -12,11 +12,10 @@ namespace Supesu.Weapons.Projectiles
     
     class FirstBossLaser : DefaultBullet
     {
-        public FirstBossLaser(Vector2 direction, Vector2 position, float speed, Rectangle hitBox, ContentManager content)
-            : base(direction, position, speed, hitBox)
+        public FirstBossLaser(Vector2 direction, Vector2 position, float speed, Rectangle hitBox, ContentManager content, int damageAmount)
+            : base(direction, position, speed, hitBox, damageAmount)
         {
             LoadTexture(content);
-            damageAmount = 6 * (int)InGameScreen.difficulty;
 
             base.hitBox = hitBox;
         }

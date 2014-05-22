@@ -43,12 +43,22 @@ namespace Supesu.SpriteManagement
                 Vector2 inputDirection = Vector2.Zero;
                 if (Keyboard.GetState().IsKeyDown(Keys.Left))
                 {
-                    inputDirection.X -= 0.6f;
+                    if (Keyboard.GetState().IsKeyDown(Keys.LeftShift))
+                    {
+                        inputDirection.X -= 0.3f;
+                    }
+                    else
+                        inputDirection.X -= 0.6f;
                 }
 
                 if (Keyboard.GetState().IsKeyDown(Keys.Right))
                 {
-                    inputDirection.X += 0.6f;
+                    if (Keyboard.GetState().IsKeyDown(Keys.LeftShift))
+                    {
+                        inputDirection.X += 0.3f;
+                    }
+                    else
+                        inputDirection.X += 0.6f;
                 }
                 return inputDirection * speed;
             }

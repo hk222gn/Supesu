@@ -15,7 +15,6 @@ namespace Supesu.Weapons.Projectiles
             : base(direction, position, speed, hitBox)
         {
             LoadTexture(content);
-            damageAmount = 3;
             //Sets a hitbox for the bullet
             SetHitbox();
         }

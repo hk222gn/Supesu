@@ -388,6 +388,60 @@
       <Output>C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Release\Content\Images\SecondBoss.xnb</Output>
       <Time>2014-05-18T16:32:42.7215973+02:00</Time>
     </Item>
+    <Item>
+      <Source>Images\LevelComplete.png</Source>
+      <Name>Images\LevelComplete</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Release\Content\Images\LevelComplete.xnb</Output>
+      <Time>2014-05-22T14:09:18.633015+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Images\VolumeBar.png</Source>
+      <Name>Images\VolumeBar</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Release\Content\Images\VolumeBar.xnb</Output>
+      <Time>2014-05-22T16:18:41.3470168+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Images\CheckBox.png</Source>
+      <Name>Images\CheckBox</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Release\Content\Images\CheckBox.xnb</Output>
+      <Time>2014-05-22T16:38:01.6523825+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Images\BatSprite.png</Source>
+      <Name>Images\BatSprite</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Release\Content\Images\BatSprite.xnb</Output>
+      <Time>2014-05-22T19:48:06.5157034+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Images\BatSprite2.png</Source>
+      <Name>Images\BatSprite2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Release\Content\Images\BatSprite2.xnb</Output>
+      <Time>2014-05-22T20:01:48.6057242+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Images\TentacleishMonsterSprite.png</Source>
+      <Name>Images\TentacleishMonsterSprite</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Release\Content\Images\TentacleishMonsterSprite.xnb</Output>
+      <Time>2014-05-22T23:04:45.0815428+02:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID>{037036CA-83FB-45DC-A0B9-8E2C6FCD8DFA}</ContentProjectGUID>
