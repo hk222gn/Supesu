@@ -13,7 +13,7 @@ namespace Supesu.StateManagement.Levels
     class Level1 : Level
     {
         //Used to make the sprites.
-        int amountOfEnemiesPerRow = 1;
+        int amountOfEnemiesPerRow = 10;
         int makeSpace = 60;
         int enemyStartPosition;
         int lastEnemyPosition;
