@@ -107,6 +107,8 @@
     <Compile Include="Weapons\Projectiles\DefaultBullet.cs" />
     <Compile Include="Weapons\Projectiles\FirstBossLaser.cs" />
     <Compile Include="Weapons\Projectiles\NormalEnemyBullet.cs" />
+    <Compile Include="Weapons\Projectiles\ShipPlasmaBullet.cs" />
+    <Compile Include="Weapons\Projectiles\ShipRadPlasmaBullet.cs" />
     <Compile Include="Weapons\Projectiles\SpecialBullet.cs" />
     <Compile Include="Weapons\Projectiles\SplitterBullet.cs" />
     <Compile Include="Weapons\Projectiles\StandardBullet.cs" />

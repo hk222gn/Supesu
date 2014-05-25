@@ -16,7 +16,7 @@ namespace Supesu.StateManagement.Levels
     class Level2 : Level
     {
         //Used to make the sprites.
-        int amountOfEnemiesPerRow = 10;
+        int amountOfEnemiesPerRow = 1;
         int makeSpace = 60;
         int enemyStartPosition;
         int lastEnemyPosition;
@@ -64,15 +64,15 @@ namespace Supesu.StateManagement.Levels
             for (int i = 0; i < amountOfEnemiesPerRow; i++)
             {
                 enemyList.Add(new FourthEnemySprite(game, game.Content.Load<Texture2D>(@"Images/FourthEnemySprite"),
-                new Vector2(lastEnemyPosition + makeSpace, 100 + makeSpace * 2),
-                new Point(50, 50),
-                5,
-                new Point(0, 0),
-                new Point(3, 1),
-                new Vector2(2, 2),
-                true,
-                16, //Enemy life.
-                150));
+                    new Vector2(lastEnemyPosition + makeSpace, 100 + makeSpace * 2),
+                    new Point(50, 50),
+                    5,
+                    new Point(0, 0),
+                    new Point(3, 1),
+                    new Vector2(2, 2),
+                    true,
+                    16, //Enemy life.
+                    150));
 
                 lastEnemyPosition += makeSpace;
             }
@@ -85,15 +85,15 @@ namespace Supesu.StateManagement.Levels
             for (int i = 0; i < amountOfEnemiesPerRow; i++)
             {
                 enemyList.Add(new FourthEnemySprite(game, game.Content.Load<Texture2D>(@"Images/FourthEnemySprite"),
-                new Vector2(lastEnemyPosition + makeSpace, 100 + makeSpace * 2),
-                new Point(50, 50),
-                5,
-                new Point(0, 0),
-                new Point(3, 1),
-                new Vector2(2, 2),
-                true,
-                16, //Enemy life.
-                150));
+                    new Vector2(lastEnemyPosition + makeSpace, 100 + makeSpace * 2),
+                    new Point(50, 50),
+                    5,
+                    new Point(0, 0),
+                    new Point(3, 1),
+                    new Vector2(2, 2),
+                    true,
+                    16, //Enemy life.
+                    150));
 
                 lastEnemyPosition += makeSpace;
             }
@@ -103,15 +103,15 @@ namespace Supesu.StateManagement.Levels
             for (int i = 0; i < amountOfEnemiesPerRow; i++)
             {
                 enemyList.Add(new BatMonsterSprite(game, game.Content.Load<Texture2D>(@"Images/BatSprite2"),
-                new Vector2(lastEnemyPosition + makeSpace, 100 + makeSpace),
-                new Point(50, 50),
-                5,
-                new Point(0, 0),
-                new Point(3, 1),
-                new Vector2(2, 2),
-                true,
-                20, //Enemy life.
-                150));
+                    new Vector2(lastEnemyPosition + makeSpace, 100 + makeSpace),
+                    new Point(50, 50),
+                    5,
+                    new Point(0, 0),
+                    new Point(3, 1),
+                    new Vector2(2, 2),
+                    true,
+                    20, //Enemy life.
+                    150));
 
                 lastEnemyPosition += makeSpace;
             }
@@ -124,15 +124,15 @@ namespace Supesu.StateManagement.Levels
             for (int i = 0; i < amountOfEnemiesPerRow; i++)
             {
                 enemyList.Add(new FourthEnemySprite(game, game.Content.Load<Texture2D>(@"Images/FourthEnemySprite"),
-                new Vector2(lastEnemyPosition + makeSpace, 100 + makeSpace * 2),
-                new Point(50, 50),
-                5,
-                new Point(0, 0),
-                new Point(3, 1),
-                new Vector2(2, 2),
-                true,
-                16, //Enemy life.
-                150));
+                    new Vector2(lastEnemyPosition + makeSpace, 100 + makeSpace * 2),
+                    new Point(50, 50),
+                    5,
+                    new Point(0, 0),
+                    new Point(3, 1),
+                    new Vector2(2, 2),
+                    true,
+                    16, //Enemy life.
+                    150));
 
                 lastEnemyPosition += makeSpace;
             }
@@ -142,15 +142,15 @@ namespace Supesu.StateManagement.Levels
             for (int i = 0; i < amountOfEnemiesPerRow; i++)
             {
                 enemyList.Add(new BatMonsterSprite(game, game.Content.Load<Texture2D>(@"Images/BatSprite2"),
-                new Vector2(lastEnemyPosition + makeSpace, 100 + makeSpace),
-                new Point(50, 50),
-                5,
-                new Point(0, 0),
-                new Point(3, 1),
-                new Vector2(2, 2),
-                true,
-                20, //Enemy life.
-                150));
+                    new Vector2(lastEnemyPosition + makeSpace, 100 + makeSpace),
+                    new Point(50, 50),
+                    5,
+                    new Point(0, 0),
+                    new Point(3, 1),
+                    new Vector2(2, 2),
+                    true,
+                    20, //Enemy life.
+                    150));
 
                 lastEnemyPosition += makeSpace;
             }
@@ -160,15 +160,15 @@ namespace Supesu.StateManagement.Levels
             for (int i = 0; i < amountOfEnemiesPerRow; i++)
             {
                 enemyList.Add(new TentacleMonsterSprite(game, game.Content.Load<Texture2D>(@"Images/TentacleishMonsterSprite"),
-                new Vector2(lastEnemyPosition + makeSpace, 100),
-                new Point(50, 50),
-                5,
-                new Point(0, 0),
-                new Point(3, 1),
-                new Vector2(2, 2),
-                true,
-                24, //Enemy life.
-                150));
+                    new Vector2(lastEnemyPosition + makeSpace, 100),
+                    new Point(50, 50),
+                    5,
+                    new Point(0, 0),
+                    new Point(3, 1),
+                    new Vector2(2, 2),
+                    true,
+                    24, //Enemy life.
+                    150));
 
                 lastEnemyPosition += makeSpace;
             }

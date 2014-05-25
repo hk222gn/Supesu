@@ -170,7 +170,9 @@ namespace Supesu
                 mCurrentScreen = mInGameScreen;
 
             else if (menuChoice == MenuChoices.Highscores)
-                mCurrentScreen = mHighscoreScreen;
+            {
+                mCurrentScreen = new HighscoreScreen(this.Content, new EventHandler(HighscoreScreenEvent), this); ;
+            }
 
             else if (menuChoice == MenuChoices.Unlockables)
                 mCurrentScreen = mUnlockablesScreen;
@@ -195,7 +197,7 @@ namespace Supesu
         private void HighscoreScreenEvent(object obj, EventArgs e)
         {
             mCurrentScreen = mTitleScreen;
-            mHighscoreScreen = new HighscoreScreen(this.Content, new EventHandler(HighscoreScreenEvent), this);
+
         }
 
         private void UnlockablesScreenEvent(object obj, EventArgs e)

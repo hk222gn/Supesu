@@ -21,8 +21,8 @@ namespace Supesu.SpriteManagement
         {
             alive = true;
             scoreAmount = 5;
-            hitBox.Width = 50;
-            hitBox.Height = 50;
+            hitBox.Width = 45;
+            hitBox.Height = 45;
         }
 
         public StandardEnemySprite(Game1 game, Texture2D textureImage, Vector2 position,
@@ -33,8 +33,8 @@ namespace Supesu.SpriteManagement
         {
             alive = true;
             scoreAmount = 5;
-            hitBox.Width = 50;
-            hitBox.Height = 50;
+            hitBox.Width = 45;
+            hitBox.Height = 45;
         }
 
         public override Vector2 direction

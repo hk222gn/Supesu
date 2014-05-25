@@ -39,7 +39,7 @@ namespace Supesu.StateManagement
         SpriteFont bigText, mediumText;
         private int totalScore = 0; // Used to see if the player can activate the unlockables.
         public static ShipType shipType = ShipType.standard;// Decides which ship will be used
-        public static BulletType bulletType = BulletType.standard;
+        public static BulletType bulletType = BulletType.standard;// Decides which bullet will be used
         private UnlockableRow unlockableRow = UnlockableRow.ship;
         private KeyboardState keyboard;
         private KeyboardState prevKeyboard;
@@ -159,7 +159,7 @@ namespace Supesu.StateManagement
 
             //Second ship type
             spriteBatch.Draw(unlockableFrame, new Rectangle(172, 150, 52, 52), Color.White);
-            if (totalScore < 5000)
+            if (totalScore < 2500)
             {
                 spriteBatch.Draw(notUnlocked, new Rectangle(173, 152, 50, 50), Color.White);
             }
@@ -176,13 +176,14 @@ namespace Supesu.StateManagement
 
             //Third ship type
             spriteBatch.Draw(unlockableFrame, new Rectangle(233, 150, 52, 52), Color.White);
-            if (totalScore < 15000)
+            if (totalScore < 7500)
             {
                 spriteBatch.Draw(notUnlocked, new Rectangle(234, 152, 50, 50), Color.White);
             }
             else
             {
-                //No ship created yet, placeholder
+                spriteBatch.Draw(thirdShip, new Vector2(234, 152), new Rectangle(50, 0, 50, 50),//Decides which part of the sprite to draw.
+                Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
             }
 
             if (shipType != ShipType.third)
@@ -192,13 +193,14 @@ namespace Supesu.StateManagement
 
             //Fourth ship type
             spriteBatch.Draw(unlockableFrame, new Rectangle(294, 150, 52, 52), Color.White);
-            if (totalScore < 25000)
+            if (totalScore < 15000)
             {
                 spriteBatch.Draw(notUnlocked, new Rectangle(295, 152, 50, 50), Color.White);
             }
             else
             {
-                //No ship created yet, placeholder
+                spriteBatch.Draw(fourthShip, new Vector2(295, 152), new Rectangle(50, 0, 50, 50),//Decides which part of the sprite to draw.
+                Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
             }
 
             if (shipType != ShipType.fourth)
@@ -221,7 +223,7 @@ namespace Supesu.StateManagement
 
             //Second weapon type
             spriteBatch.Draw(unlockableFrame, new Rectangle(172, 270, 52, 52), Color.White);
-            if (totalScore < 5000)
+            if (totalScore < 2500)
             {
                 spriteBatch.Draw(notUnlocked, new Rectangle(173, 272, 50, 50), Color.White);
             }
@@ -238,13 +240,14 @@ namespace Supesu.StateManagement
 
             //Third weapon type
             spriteBatch.Draw(unlockableFrame, new Rectangle(233, 270, 52, 52), Color.White);
-            if (totalScore < 15000)
+            if (totalScore < 7500)
             {
                 spriteBatch.Draw(notUnlocked, new Rectangle(234, 272, 50, 50), Color.White);
             }
             else
             {
-                //No weapon created yet, placeholder
+                spriteBatch.Draw(thirdBullet, new Vector2(251, 288), new Rectangle(2, 2, 16, 16),
+                Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
             }
 
             if (bulletType != BulletType.third)
@@ -254,13 +257,14 @@ namespace Supesu.StateManagement
 
             //Fourth weapon type
             spriteBatch.Draw(unlockableFrame, new Rectangle(294, 270, 52, 52), Color.White);
-            if (totalScore < 25000)
+            if (totalScore < 15000)
             {
                 spriteBatch.Draw(notUnlocked, new Rectangle(295, 272, 50, 50), Color.White);
             }
             else
             {
-                //No weapon created yet, placeholder
+                spriteBatch.Draw(fourthBullet, new Vector2(313, 282), new Rectangle(0, 0, 15, 27),
+                Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
             }
 
             if (bulletType != BulletType.fourth)
@@ -271,28 +275,28 @@ namespace Supesu.StateManagement
 
         private void CheckIfChosenUnlockableIsUnlocked()
         {
-            if (shipType == ShipType.second && totalScore < 5000)
+            if (shipType == ShipType.second && totalScore < 2500)
             {
                 shipType = ShipType.standard;
             }
-            else if (shipType == ShipType.third && totalScore < 15000)
+            else if (shipType == ShipType.third && totalScore < 7500)
             {
                 shipType = ShipType.standard;
             }
-            else if (shipType == ShipType.fourth && totalScore < 25000)
+            else if (shipType == ShipType.fourth && totalScore < 15000)
             {
                 shipType = ShipType.standard;
             }
 
-            if (bulletType == BulletType.second && totalScore < 5000)
+            if (bulletType == BulletType.second && totalScore < 2500)
             {
                 bulletType = BulletType.standard;
             }
-            else if (bulletType == BulletType.third && totalScore < 15000)
+            else if (bulletType == BulletType.third && totalScore < 7500)
             {
                 bulletType = BulletType.standard;
             }
-            else if (bulletType == BulletType.fourth && totalScore < 5000)
+            else if (bulletType == BulletType.fourth && totalScore < 15000)
             {
                 bulletType = BulletType.standard;
             }
@@ -300,13 +304,22 @@ namespace Supesu.StateManagement
 
         private void LoadAllTextures(ContentManager content)
         {
-            standardShip = content.Load<Texture2D>(@"Images/ShipTrans");
-            secondShip = content.Load<Texture2D>(@"Images/Ship2");
+            //Unlockable frames, etc
             unlockableFrame = content.Load<Texture2D>(@"Images/UnlockableFrame");
             notChosen = content.Load<Texture2D>(@"Images/NotChosen");
             notUnlocked = content.Load<Texture2D>(@"Images/NotUnlocked");
+
+            //Ship
+            standardShip = content.Load<Texture2D>(@"Images/ShipTrans");
+            secondShip = content.Load<Texture2D>(@"Images/Ship2");
+            thirdShip = content.Load<Texture2D>(@"Images/ThirdShip");
+            fourthShip = content.Load<Texture2D>(@"Images/FourthShip");
+            
+            //Bullets
             standardBullet = content.Load<Texture2D>(@"Images/StandardBullet");
             secondBullet = content.Load<Texture2D>(@"Images/SpecialBullet");
+            thirdBullet = content.Load<Texture2D>(@"Images/ThirdPlayerBullet");
+            fourthBullet = content.Load<Texture2D>(@"Images/FourthPlayerBullet");
         }
 
         private void GetTotalScore()

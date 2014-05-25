@@ -21,7 +21,7 @@ namespace Supesu.SpriteManagement.Monsters
         {
             alive = true;
             scoreAmount = 40;
-            hitBox.Width = 50;
+            hitBox.Width = 45;
             hitBox.Height = 50;
         }
 
@@ -33,7 +33,7 @@ namespace Supesu.SpriteManagement.Monsters
         {
             alive = true;
             scoreAmount = 40;
-            hitBox.Width = 50;
+            hitBox.Width = 45;
             hitBox.Height = 50;
         }
 

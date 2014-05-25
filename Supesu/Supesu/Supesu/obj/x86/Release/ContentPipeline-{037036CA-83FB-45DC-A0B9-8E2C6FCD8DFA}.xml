@@ -442,6 +442,42 @@
       <Output>C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Release\Content\Images\TentacleishMonsterSprite.xnb</Output>
       <Time>2014-05-22T23:04:45.0815428+02:00</Time>
     </Item>
+    <Item>
+      <Source>Images\ThirdPlayerBullet.png</Source>
+      <Name>Images\ThirdPlayerBullet</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Release\Content\Images\ThirdPlayerBullet.xnb</Output>
+      <Time>2014-05-23T22:18:09.9809944+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Images\FourthPlayerBullet.png</Source>
+      <Name>Images\FourthPlayerBullet</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Release\Content\Images\FourthPlayerBullet.xnb</Output>
+      <Time>2014-05-23T23:30:17.4305103+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Images\ThirdShip.png</Source>
+      <Name>Images\ThirdShip</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Release\Content\Images\ThirdShip.xnb</Output>
+      <Time>2014-05-24T01:03:36.8977815+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Images\FourthShip.png</Source>
+      <Name>Images\FourthShip</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Hakurei\Documents\GitHub\Supesu\Supesu\Supesu\Supesu\bin\x86\Release\Content\Images\FourthShip.xnb</Output>
+      <Time>2014-05-24T19:03:44.8453601+02:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID>{037036CA-83FB-45DC-A0B9-8E2C6FCD8DFA}</ContentProjectGUID>

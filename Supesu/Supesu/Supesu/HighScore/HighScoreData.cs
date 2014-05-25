@@ -84,10 +84,11 @@ namespace Supesu.HighScore
             //    data.score[i] = oldData.score[i];
             //    data.level[i] = oldData.level[i];
             //}
+            data.count += 1;
 
-            Array.Resize<String>(ref data.playerName, data.count + 1);
-            Array.Resize<int>(ref data.score, data.count + 1);
-            Array.Resize<int>(ref data.level, data.count + 1);
+            Array.Resize<String>(ref data.playerName, data.count);
+            Array.Resize<int>(ref data.score, data.count);
+            Array.Resize<int>(ref data.level, data.count);
 
             int index = -1;
             for (int i = 0; i < data.count; i++)

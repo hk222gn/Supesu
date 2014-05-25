@@ -18,6 +18,8 @@ namespace Supesu.SpriteManagement
     class ShipSprite : Sprite
     {
         KeyboardState keyboard, prevKeyboard;
+        public bool canShoot = true;
+
         public ShipSprite(Game1 game, Texture2D textureImage, Vector2 position,
             Point frameSize, int collisionOffset, Point currentFrame, Point sheetSize,
             Vector2 speed, bool animate, int life)
@@ -102,7 +104,7 @@ namespace Supesu.SpriteManagement
         public override void FireProjectile()
         {
             //Press X to shoot, then decides which bullet to fire and creates an instance of that bullet.
-            if (CheckKeystroke(Keys.X))
+            if (CheckKeystroke(Keys.X) && canShoot)
             {
                 Sounds.SoundBank.PlayCue("StandardShipBullet");
                 if (UnlockablesScreen.BulletType == BulletType.standard)
@@ -111,7 +113,15 @@ namespace Supesu.SpriteManagement
                 }
                 else if (UnlockablesScreen.BulletType == BulletType.second)
                 {
-                    Level.shipBullets.Add(new SpecialBullet(new Vector2(0, 1), new Vector2((this.position.X + frameSize.X / 2) - 2, this.position.Y + 20), 1.8f, new Rectangle(0, 0, 3, 5), game.Content));
+                    Level.shipBullets.Add(new SpecialBullet(new Vector2(0, 1), new Vector2((this.position.X + frameSize.X / 2) - 2, this.position.Y + 20), 1.8f, new Rectangle(0, 0, 5, 8), game.Content));
+                }
+                else if (UnlockablesScreen.BulletType == BulletType.third)
+                {
+                    Level.shipBullets.Add(new ShipPlasmaBullet(new Vector2(0, 1), new Vector2((this.position.X + frameSize.X / 2 -9) - 2, this.position.Y + 20), 1.1f, new Rectangle(2, 2, 16, 16), game.Content));
+                }
+                else if (UnlockablesScreen.BulletType == BulletType.fourth)
+                {
+                    Level.shipBullets.Add(new ShipRadPlasmaBullet(new Vector2(0, 1), new Vector2((this.position.X + frameSize.X / 2 - 6) - 2, this.position.Y + 25), 0.8f, new Rectangle(0, 0, 14, 26), game.Content));
                 }
             }
         }

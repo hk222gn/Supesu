@@ -263,7 +263,7 @@ namespace Supesu
                 //Sets the current level to 1 and initializes it as the player has chosen a dificulty, we can create the level now.
                 currentLevel = new Level1(content, _game);
 
-                maxShipLife = currentLevel.ship.Life;
+                maxShipLife = Level.ship.Life;
             }
 
             if (CheckKeystroke(Keys.Down) && (int)difficulty < 3)
@@ -308,11 +308,11 @@ namespace Supesu
             //Life bar and life
             spriteBatch.Draw(playerHealthBar, new Rectangle(600, 690, playerHealthBar.Width, 30), new Rectangle(0, 30, playerHealthBar.Width, 30), Color.LightGray);
 
-            spriteBatch.Draw(playerHealthBar, new Rectangle(600, 690, (int)(playerHealthBar.Width * ((double)currentLevel.ship.Life / maxShipLife)), 30), new Rectangle(0, 30, playerHealthBar.Width, 30), Color.Red);
+            spriteBatch.Draw(playerHealthBar, new Rectangle(600, 690, (int)(playerHealthBar.Width * ((double)Level.ship.Life / maxShipLife)), 30), new Rectangle(0, 30, playerHealthBar.Width, 30), Color.Red);
 
             spriteBatch.Draw(playerHealthBar, new Rectangle(600, 690, playerHealthBar.Width, 30), new Rectangle(0, 0, playerHealthBar.Width, 30), Color.White);
 
-            spriteBatch.DrawString(scoreFont, "" + currentLevel.ship.Life, new Vector2(689, 690), Color.Yellow);
+            spriteBatch.DrawString(scoreFont, "" + Level.ship.Life, new Vector2(689, 690), Color.Yellow);
 
             spriteBatch.DrawString(scoreFont, "Hitpoints", new Vector2(655, 664), Color.Yellow);
             //Draws boss life bar incase there is one

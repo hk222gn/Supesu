@@ -36,6 +36,7 @@ namespace Supesu.SpriteManagement
         public static float move = 0;
         public static bool moveDirection = true, goDown = false;
         public int scoreAmount;
+        public bool canTakeDamage = true;
         //protected List<DefaultBullet> bullet = new List<DefaultBullet>();
 
         public int Life

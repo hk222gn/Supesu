@@ -29,6 +29,8 @@ namespace Supesu.SpriteManagement.Monsters
         private readonly int amountOfBarrageBullets = 12;
         private bool changeBarrageStartPosition = false;
         private bool changeWaveStartPosition = false;
+        private float changeBossStage = 0f;
+        private bool pauseStage = false;
 
         public SecondBoss(Game1 game, Texture2D textureImage, Vector2 position,
             Point frameSize, int collisionOffset, Point currentFrame, Point sheetSize,
@@ -67,31 +69,51 @@ namespace Supesu.SpriteManagement.Monsters
         {
             shoot += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            switch (sbas)
+            if (!pauseStage)
             {
-                case SecondBossAttackStage.threeSplitterBullets:
-                    if (shoot >= 0.8)
-                    {
-                        FireProjectile();
-                        shoot = 0;
-                    }
-                    break;
-                case SecondBossAttackStage.barrage:
-                    if (shoot >= 0.4)
-                    {
-                        FireProjectile();
-                        shoot = 0; 
-                    }
-                    break;
-                case SecondBossAttackStage.wave:
-                    if (shoot >= 1)
-                    {
-                        FireProjectile();
-                        shoot = 0;
-                    }
-                    break;
-                default:
-                    break;
+                switch (sbas)
+                {
+                    case SecondBossAttackStage.threeSplitterBullets:
+                        if (shoot >= 0.8)
+                        {
+                            FireProjectile();
+                            shoot = 0;
+                        }
+                        break;
+                    case SecondBossAttackStage.barrage:
+                        if (shoot >= 0.4)
+                        {
+                            FireProjectile();
+                            shoot = 0;
+                        }
+                        break;
+                    case SecondBossAttackStage.wave:
+                        if (shoot >= 1)
+                        {
+                            FireProjectile();
+                            shoot = 0;
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                if (changeBossStage == 0f)
+                {
+                    Sounds.SoundBank.PlayCue("LaserWarning");
+                    canTakeDamage = false;
+                    Level.Ship.canShoot = false;
+                }
+                changeBossStage += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+                if (changeBossStage > 1000f)
+                {
+                    pauseStage = !pauseStage;
+                    changeBossStage = 0f;
+                    canTakeDamage = true;
+                    Level.Ship.canShoot = true;
+                }
             }
 
             if (Life >= 325)
@@ -100,11 +122,19 @@ namespace Supesu.SpriteManagement.Monsters
             }
             else if (Life >= 200)
             {
+                if (sbas != SecondBossAttackStage.barrage)
+                {
+                    pauseStage = !pauseStage;
+                }
                 currentFrame.X = 1;
                 sbas = SecondBossAttackStage.barrage;
             }
             else if (Life > 0)
             {
+                if (sbas != SecondBossAttackStage.wave)
+                {
+                    pauseStage = !pauseStage;
+                }
                 currentFrame.X = 2;
                 sbas = SecondBossAttackStage.wave;
             }
@@ -118,7 +148,7 @@ namespace Supesu.SpriteManagement.Monsters
         {
             base.Draw(spriteBatch);
         }
-
+      
         public override void FireProjectile()
         {
             Random random = new Random();
@@ -140,7 +170,7 @@ namespace Supesu.SpriteManagement.Monsters
                     {
                         for (int i = 0; i < amountOfBarrageBullets; i++)
                         {
-                            Level.AddBullet(new NormalEnemyBullet(new Vector2(0, -1), new Vector2(50 + 60 * i, (int)position.Y + 200), 0.5f, new Rectangle(0, 0, 12, 12), game.Content, 8));
+                            Level.AddBullet(new NormalEnemyBullet(new Vector2(0, -1), new Vector2(50 + 65 * i, (int)position.Y + 200), 0.5f, new Rectangle(0, 0, 12, 12), game.Content, 8));
                         }
                         changeBarrageStartPosition = true;
                     }
@@ -148,7 +178,7 @@ namespace Supesu.SpriteManagement.Monsters
                     {
                         for (int i = 0; i < amountOfBarrageBullets; i++)
                         {
-                            Level.AddBullet(new NormalEnemyBullet(new Vector2(0, -1), new Vector2(75 + 60 * (i + 1), (int)position.Y + 200), 0.5f, new Rectangle(0, 0, 12, 12), game.Content, 8));
+                            Level.AddBullet(new NormalEnemyBullet(new Vector2(0, -1), new Vector2(75 + 65 * (i + 1), (int)position.Y + 200), 0.5f, new Rectangle(0, 0, 12, 12), game.Content, 8));
                         }
                         changeBarrageStartPosition = false;
                     }

@@ -23,7 +23,7 @@ namespace Supesu.StateManagement.Levels
         public List<Sprite> enemyList = new List<Sprite>();
         public FirstBossSprite boss;
         public SecondBoss secondBoss;
-        public Sprite ship;
+        public static ShipSprite ship;
         public ContentManager content;
         public Texture2D background;
         public Game1 game;
@@ -38,17 +38,19 @@ namespace Supesu.StateManagement.Levels
 
         bool stage1Initialized = false, stage2Initialized = false, stage3Initialized = false, bossStageInitialized = false;
 
+        public static ShipSprite Ship
+        {
+            get { return ship; }
+        }
+
         public Level(ContentManager content, Game1 game)
         {
             this.content = content;
             this.game = game;
             bonusMonsterTexture = content.Load<Texture2D>(@"Images/BonusMonster");
 
-            //If there is no ship created, make one based on the selection in unlockables.
-            if (ship == null)
-            {
-                CreateShip();
-            }
+            //Allways make a new ship.
+            CreateShip();
 
             bullets.RemoveRange(0, bullets.Count);
             shipBullets.RemoveRange(0, shipBullets.Count);
@@ -63,7 +65,7 @@ namespace Supesu.StateManagement.Levels
             if (boss != null)
             {
                 boss.Draw(spriteBatch);
-            }
+            }   
             else if (secondBoss != null)
             {
                 secondBoss.Draw(spriteBatch);
@@ -167,38 +169,65 @@ namespace Supesu.StateManagement.Levels
             if (UnlockablesScreen.ShipType == ShipType.standard)
             {
                 ship = new ShipSprite(game, game.Content.Load<Texture2D>(@"Images/ShipTrans"),
-                new Vector2(game.Window.ClientBounds.Width / 2 - 25, 600),
-                new Point(50, 50),
-                5,
-                new Point(1, 0),
-                new Point(3, 1),
-                new Vector2(9, 9),
-                false
-                , 16);//Standard life, for now. Use an enum, set values, make 10 * dificulty, 4,2,1??
+                    new Vector2(game.Window.ClientBounds.Width / 2 - 25, 600),
+                    new Point(50, 50),
+                    5,
+                    new Point(1, 0),
+                    new Point(3, 1),
+                    new Vector2(9, 9),
+                    false
+                    , 16);
+
+                ship.hitBox.Width = 35;
+                ship.hitBox.Height = 40;
             }
             else if (UnlockablesScreen.ShipType == ShipType.second)
             {
                 ship = new ShipSprite(game, game.Content.Load<Texture2D>(@"Images/Ship2"),
-                new Vector2(game.Window.ClientBounds.Width / 2 - 25, 600),
-                new Point(50, 50),
-                5,
-                new Point(1, 0),
-                new Point(3, 1),
-                new Vector2(9, 9),
-                false
-                , 25);//Standard life, for now. Use an enum, set values, make 10 * dificulty, 4,2,1??
+                    new Vector2(game.Window.ClientBounds.Width / 2 - 25, 600),
+                    new Point(50, 50),
+                    5,
+                    new Point(1, 0),
+                    new Point(3, 1),
+                    new Vector2(9, 9),
+                    false
+                    , 25);
+
+                ship.hitBox.Width = 35;
+                ship.hitBox.Height = 40;
             }
             else if (UnlockablesScreen.ShipType == ShipType.third)
             {
-                
+                ship = new ShipSprite(game, game.Content.Load<Texture2D>(@"Images/ThirdShip"),
+                    new Vector2(game.Window.ClientBounds.Width / 2 - 25, 600),
+                    new Point(50, 50),
+                    5,
+                    new Point(1, 0),
+                    new Point(3, 1),
+                    new Vector2(9, 9),
+                    false
+                    , 40);
+
+                ship.hitBox.Width = 35;
+                ship.hitBox.Height = 40;
             }
             else if (UnlockablesScreen.ShipType == ShipType.fourth)
             {
-                
+                ship = new ShipSprite(game, game.Content.Load<Texture2D>(@"Images/FourthShip"),
+                    new Vector2(game.Window.ClientBounds.Width / 2 - 25, 600),
+                    new Point(50, 50),
+                    5,
+                    new Point(1, 0),
+                    new Point(3, 1),
+                    new Vector2(9, 9),
+                    false
+                    , 60);
+
+                ship.hitBox.Width = 42;
+                ship.hitBox.Height = 40;
             }
             
-            ship.hitBox.Width = 35;
-            ship.hitBox.Height = 40;
+            
         }
 
         public virtual void GameStageHandler()
@@ -348,7 +377,7 @@ namespace Supesu.StateManagement.Levels
             for (int i = 0; i < Level.shipBullets.Count; i++)
             {
                 //Checks if the target hit is a boss or a normal enemy.
-                if (boss != null)
+                if (boss != null && boss.canTakeDamage)
                 {
                    //Checks if the boss is hit by a ship bullet and sets him to dead incase he was killed by the shot.
                     if (Level.shipBullets[i].hitBox.Intersects(boss.hitBox) || Level.shipBullets[i].hitBox.Intersects(boss.nonMoveableBossHitbox))
@@ -366,7 +395,7 @@ namespace Supesu.StateManagement.Levels
                             Sounds.SoundBank.PlayCue("EnemyStruck");
                     }
                 }
-                else if (secondBoss != null)
+                else if (secondBoss != null && secondBoss.canTakeDamage)
                 {
                     for (int q = 0; q < secondBoss.hitBoxList.Count; q++)
                     {

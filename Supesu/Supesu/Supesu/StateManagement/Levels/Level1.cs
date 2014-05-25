@@ -13,7 +13,7 @@ namespace Supesu.StateManagement.Levels
     class Level1 : Level
     {
         //Used to make the sprites.
-        int amountOfEnemiesPerRow = 10;
+        int amountOfEnemiesPerRow = 1;
         int makeSpace = 60;
         int enemyStartPosition;
         int lastEnemyPosition;
@@ -76,15 +76,15 @@ namespace Supesu.StateManagement.Levels
             for (int i = 0; i < amountOfEnemiesPerRow; i++)
             {
                 enemyList.Add(new StandardEnemySprite(game, game.Content.Load<Texture2D>(@"Images/StandardEnemySprite"),
-                new Vector2(lastEnemyPosition + makeSpace, 100 + makeSpace * 2),
-                new Point(50, 50),
-                5,
-                new Point(0, 0),
-                new Point(3, 1),
-                new Vector2(2, 2),
-                true,
-                6, //Enemy life.
-                100));
+                    new Vector2(lastEnemyPosition + makeSpace, 100 + makeSpace * 2),
+                    new Point(50, 50),
+                    0,
+                    new Point(0, 0),
+                    new Point(3, 1),
+                    new Vector2(2, 2),
+                    true,
+                    6, //Enemy life.
+                    100));
 
                 lastEnemyPosition += makeSpace;
             }
@@ -97,15 +97,15 @@ namespace Supesu.StateManagement.Levels
             for (int i = 0; i < amountOfEnemiesPerRow; i++)
             {
                 enemyList.Add(new StandardEnemySprite(game, game.Content.Load<Texture2D>(@"Images/StandardEnemySprite"),
-                new Vector2(lastEnemyPosition + makeSpace, 100 + makeSpace * 2),
-                new Point(50, 50),
-                5,
-                new Point(0, 0),
-                new Point(3, 1),
-                new Vector2(2, 2),
-                true,
-                6, //Enemy life.
-                100));
+                    new Vector2(lastEnemyPosition + makeSpace, 100 + makeSpace * 2),
+                    new Point(50, 50),
+                    0,
+                    new Point(0, 0),
+                    new Point(3, 1),
+                    new Vector2(2, 2),
+                    true,
+                    6, //Enemy life.
+                    100));
 
                 lastEnemyPosition += makeSpace;
             }
@@ -117,7 +117,7 @@ namespace Supesu.StateManagement.Levels
                 enemyList.Add(new SecondaryEnemySprite(game, game.Content.Load<Texture2D>(@"Images/SecondaryEnemyTransparent"),
                     new Vector2(lastEnemyPosition + makeSpace, 100 + makeSpace),
                     new Point(50, 50),
-                    5,
+                    0,
                     new Point(0, 0),
                     new Point(3, 1),
                     new Vector2(2, 2),
@@ -136,15 +136,15 @@ namespace Supesu.StateManagement.Levels
             for (int i = 0; i < amountOfEnemiesPerRow; i++)
             {
                 enemyList.Add(new StandardEnemySprite(game, game.Content.Load<Texture2D>(@"Images/StandardEnemySprite"),
-                new Vector2(lastEnemyPosition + makeSpace, 100 + makeSpace * 2),
-                new Point(50, 50),
-                5,
-                new Point(0, 0),
-                new Point(3, 1),
-                new Vector2(2, 2),
-                true,
-                6, //Enemy life.
-                100));
+                    new Vector2(lastEnemyPosition + makeSpace, 100 + makeSpace * 2),
+                    new Point(50, 50),
+                    0,
+                    new Point(0, 0),
+                    new Point(3, 1),
+                    new Vector2(2, 2),
+                    true,
+                    6, //Enemy life.
+                    100));
 
                 lastEnemyPosition += makeSpace;
             }
@@ -156,7 +156,7 @@ namespace Supesu.StateManagement.Levels
                 enemyList.Add(new SecondaryEnemySprite(game, game.Content.Load<Texture2D>(@"Images/SecondaryEnemyTransparent"),
                     new Vector2(lastEnemyPosition + makeSpace, 100 + makeSpace),
                     new Point(50, 50),
-                    5,
+                    0,
                     new Point(0, 0),
                     new Point(3, 1),
                     new Vector2(2, 2),
@@ -174,7 +174,7 @@ namespace Supesu.StateManagement.Levels
                 enemyList.Add(new ThirdEnemySprite(game, game.Content.Load<Texture2D>(@"Images/ThirdEnemy"),
                     new Vector2(lastEnemyPosition + makeSpace, 100),
                     new Point(50, 50),
-                    5,
+                    0,
                     new Point(0, 0),
                     new Point(3, 1),
                     new Vector2(2, 2),
