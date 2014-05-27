@@ -121,7 +121,7 @@ namespace Supesu.SpriteManagement
                 }
                 else if (UnlockablesScreen.BulletType == BulletType.fourth)
                 {
-                    Level.shipBullets.Add(new ShipRadPlasmaBullet(new Vector2(0, 1), new Vector2((this.position.X + frameSize.X / 2 - 6) - 2, this.position.Y + 25), 0.8f, new Rectangle(0, 0, 14, 26), game.Content));
+                    Level.shipBullets.Add(new ShipRadPlasmaBullet(new Vector2(0, 1), new Vector2((this.position.X + frameSize.X / 2 - 6) - 2, this.position.Y + 15), 0.8f, new Rectangle(0, 0, 14, 26), game.Content));
                 }
             }
         }
