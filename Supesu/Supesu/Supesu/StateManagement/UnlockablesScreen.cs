@@ -49,6 +49,8 @@ namespace Supesu.StateManagement
         private Texture2D notChosen;
         private Texture2D notUnlocked;
 
+        private Color shipChoiceColor = Color.White, bulletChoiceColor = Color.Red;
+
         public static ShipType ShipType
         {
             get { return shipType; }
@@ -74,7 +76,7 @@ namespace Supesu.StateManagement
         {
             keyboard = Keyboard.GetState();
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape) == true)
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape) || Keyboard.GetState().IsKeyDown(Keys.Enter))
             {
                 Sounds.SoundBank.PlayCue("MenuBack");
 
@@ -85,28 +87,31 @@ namespace Supesu.StateManagement
 
             if (CheckKeystroke(Keys.Left))
             {
-                Sounds.SoundBank.PlayCue("MenuChoiceChange");
+
                 if (unlockableRow == UnlockableRow.ship && shipType > 0)
                 {
                     shipType -= 1;
+                    Sounds.SoundBank.PlayCue("MenuChoiceChange");
                 }
                 else if (unlockableRow == UnlockableRow.bullet && bulletType > 0)
                 {
                     bulletType -= 1;
+                    Sounds.SoundBank.PlayCue("MenuChoiceChange");
                 }
             }
 
             if (CheckKeystroke(Keys.Right))
             {
-                Sounds.SoundBank.PlayCue("MenuChoiceChange");
                 if (unlockableRow == UnlockableRow.ship && (int)shipType < 3)
                 {
                     shipType += 1;
+                    Sounds.SoundBank.PlayCue("MenuChoiceChange");
                 }
 
                 else if (unlockableRow == UnlockableRow.bullet && (int)bulletType < 3)
                 {
                     bulletType += 1;
+                    Sounds.SoundBank.PlayCue("MenuChoiceChange");
                 }
                 
             }
@@ -115,12 +120,14 @@ namespace Supesu.StateManagement
             {
                 Sounds.SoundBank.PlayCue("MenuChoiceChange");
                 unlockableRow -= 1;
+                SetCorrectColor();
             }
 
             if (CheckKeystroke(Keys.Down) && (int)unlockableRow < 1)
             {
                 Sounds.SoundBank.PlayCue("MenuChoiceChange");
                 unlockableRow += 1;
+                SetCorrectColor();
             }
 
             prevKeyboard = keyboard;
@@ -136,10 +143,10 @@ namespace Supesu.StateManagement
             spriteBatch.DrawString(bigText, "Esc for menu", new Vector2(1, 685), Color.Red);
 
             // First unlockable header.
-            spriteBatch.DrawString(bigText, "Ships", new Vector2(100, 100), Color.Red);
+            spriteBatch.DrawString(bigText, "Ships", new Vector2(100, 100), shipChoiceColor);
             DrawShipUnlockables(spriteBatch);
             // Second unlockable header.
-            spriteBatch.DrawString(bigText, "Weapons", new Vector2(100, 220), Color.Red);
+            spriteBatch.DrawString(bigText, "Weapons", new Vector2(100, 220), bulletChoiceColor);
             DrawBulletUnlockables(spriteBatch);
 
             base.Draw(spriteBatch);
@@ -299,6 +306,24 @@ namespace Supesu.StateManagement
             else if (bulletType == BulletType.fourth && totalScore < 15000)
             {
                 bulletType = BulletType.standard;
+            }
+        }
+
+        private void SetCorrectColor()
+        {
+            shipChoiceColor = Color.Red;
+            bulletChoiceColor = Color.Red;
+
+            switch (unlockableRow)
+            {
+                case UnlockableRow.ship:
+                    shipChoiceColor = Color.White;
+                    break;
+                case UnlockableRow.bullet:
+                    bulletChoiceColor = Color.White;
+                    break;
+                default:
+                    break;
             }
         }
 

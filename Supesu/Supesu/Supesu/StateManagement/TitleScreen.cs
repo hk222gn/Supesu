@@ -28,11 +28,11 @@ namespace Supesu
         KeyboardState prevKeyboard;
         KeyboardState keyboard;
         private MenuChoices menuChoices = MenuChoices.StartGame;
-        private static Color startGameChoice = Color.White;
-        private static Color highscoreChoice = Color.Red;
-        private static Color unlockablesChoice = Color.Red;
-        private static Color optionsChoice = Color.Red;
-        private static Color exitChoice = Color.Red;
+        private Color startGameChoice = Color.White;
+        private Color highscoreChoice = Color.Red;
+        private Color unlockablesChoice = Color.Red;
+        private Color optionsChoice = Color.Red;
+        private Color exitChoice = Color.Red;
 
         public TitleScreen(ContentManager content, EventHandler theScreenEvent, Game1 game1)
             : base(theScreenEvent)

@@ -66,7 +66,7 @@ namespace Supesu
         private bool difficultySet = false;
         private Color easyColor = Color.White, normalColor = Color.Red, hardColor = Color.Red;
         private int maxShipLife; // Used to display the life correctly
-        public static int maxBossLife;
+        public static int maxBossLife; // This is set in Level.cs where the boss is spawned.
         
         public InGameScreen(ContentManager content, EventHandler theScreenEvent, Game1 game)
             : base(theScreenEvent)
@@ -320,7 +320,7 @@ namespace Supesu
             {
                 spriteBatch.Draw(playerHealthBar, new Rectangle(600, 0, playerHealthBar.Width, 30), new Rectangle(0, 30, playerHealthBar.Width, 30), Color.LightGray);
 
-                spriteBatch.Draw(playerHealthBar, new Rectangle(600, 0, (int)(playerHealthBar.Width * ((double)currentLevel.boss.Life / (maxBossLife * (int)difficulty))), 30), new Rectangle(0, 30, playerHealthBar.Width, 30), Color.Red);
+                spriteBatch.Draw(playerHealthBar, new Rectangle(600, 0, (int)(playerHealthBar.Width * ((double)currentLevel.boss.Life / maxBossLife)), 30), new Rectangle(0, 30, playerHealthBar.Width, 30), Color.Red);
 
                 spriteBatch.Draw(playerHealthBar, new Rectangle(600, 0, playerHealthBar.Width, 30), new Rectangle(0, 0, playerHealthBar.Width, 30), Color.White);
 
@@ -333,7 +333,7 @@ namespace Supesu
             {
                 spriteBatch.Draw(playerHealthBar, new Rectangle(600, 0, playerHealthBar.Width, 30), new Rectangle(0, 30, playerHealthBar.Width, 30), Color.LightGray);
 
-                spriteBatch.Draw(playerHealthBar, new Rectangle(600, 0, (int)(playerHealthBar.Width * ((double)currentLevel.secondBoss.Life / (maxBossLife * (int)difficulty))), 30), new Rectangle(0, 30, playerHealthBar.Width, 30), Color.Red);
+                spriteBatch.Draw(playerHealthBar, new Rectangle(600, 0, (int)(playerHealthBar.Width * ((double)currentLevel.secondBoss.Life / maxBossLife)), 30), new Rectangle(0, 30, playerHealthBar.Width, 30), Color.Red);
 
                 spriteBatch.Draw(playerHealthBar, new Rectangle(600, 0, playerHealthBar.Width, 30), new Rectangle(0, 0, playerHealthBar.Width, 30), Color.White);
 
