@@ -14,6 +14,7 @@ using Supesu.Weapons.Projectiles;
 using Supesu.SoundHandler;
 using Supesu.HighScore;
 using System.IO;
+using Supesu.StateManagement.Levels;
 
 namespace Supesu
 {
@@ -22,6 +23,7 @@ namespace Supesu
     /// </summary>
     public class Game1 : Microsoft.Xna.Framework.Game
     {
+
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         TitleScreen mTitleScreen;
@@ -31,6 +33,7 @@ namespace Supesu
         OptionsScreen mOptionsScreen;
         HighscoreScreen mHighscoreScreen;
         UnlockablesScreen mUnlockablesScreen;
+        KeyboardState keyboard, prevKeyboard;
         private MenuChoices menuChoice;
         private Sounds sounds;
         SpriteFont smallText;
@@ -38,6 +41,7 @@ namespace Supesu
         float elapsedTime = 0.0f;
         int fps = 0;
         public static bool drawFps = false;
+        private bool debugActivated = false;
         
 
         public Game1()
@@ -57,6 +61,9 @@ namespace Supesu
         /// </summary>
         protected override void Initialize()
         {
+            spriteBatch = new SpriteBatch(GraphicsDevice);
+            Services.AddService(typeof(SpriteBatch), spriteBatch);
+
             sounds = new Sounds();
             smallText = Content.Load<SpriteFont>(@"Fonts/SpriteFont1");
 
@@ -84,7 +91,6 @@ namespace Supesu
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
 
             mControlScreen = new ControlDetectorScreen(this.Content, new EventHandler(ControlDetectorScreenEvent), this);
             mTitleScreen = new TitleScreen(this.Content, new EventHandler(TitleScreenEvent), this);
@@ -112,6 +118,8 @@ namespace Supesu
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            keyboard = Keyboard.GetState();
+
             // Shut the game down instantly
             if (Keyboard.GetState().IsKeyDown(Keys.Delete) == true)
                 this.Exit();
@@ -128,8 +136,19 @@ namespace Supesu
             //Updates the current screen.
             mCurrentScreen.Update(gameTime);
 
+            //Debug command handler
+            if (Keyboard.GetState().IsKeyDown(Keys.F12) && !debugActivated)
+            {
+                RunDebugCommands();
+                debugActivated = !debugActivated;
+            }
+            else if (debugActivated)
+                RunDebugCommands();            
+
             //Updates the global audio engine.
             Sounds.AudioEngine.Update();
+
+            prevKeyboard = keyboard;
 
             base.Update(gameTime);
         }
@@ -153,6 +172,7 @@ namespace Supesu
                 spriteBatch.DrawString(smallText, string.Format("FPS: {0}", fps),
                     new Vector2(this.Window.ClientBounds.Width / 2 - 30, this.Window.ClientBounds.Height - 25), Color.Yellow);
             }
+
 
             spriteBatch.End();
 
@@ -208,6 +228,43 @@ namespace Supesu
         public void SetTitleChoice(MenuChoices choice)
         {
             menuChoice = choice;
+        }
+
+        private bool CheckKeystroke(Keys key)
+        {
+            return (keyboard.IsKeyDown(key) && prevKeyboard.IsKeyUp(key));
+        }
+
+        private void RunDebugCommands()
+        {
+            if (Keyboard.GetState().IsKeyDown(Keys.LeftShift) && CheckKeystroke(Keys.D1))
+            {
+                if (Level.Ship != null)
+                {
+                    Level.Ship.Life = 9999;
+                }
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.LeftShift) && CheckKeystroke(Keys.D2))
+            {
+                mInGameScreen.ClearEnemyList();
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.LeftShift) && CheckKeystroke(Keys.D3))
+            {
+                InGameScreen.level += 1;
+                if (InGameScreen.level == CurrentLevel.level2)
+                {
+                    mInGameScreen.ChangeLevel();
+                }
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.LeftShift) && CheckKeystroke(Keys.D4))
+            {
+                InGameScreen.playerScore = 99999;
+                HighScore.HighScores.SaveHighscoreToFile();
+                InGameScreen.playerScore = 0;
+            }
         }
     }
 }

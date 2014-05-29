@@ -80,6 +80,7 @@ namespace Supesu
             playerHealthBar = content.Load<Texture2D>(@"Images/Healthbar");
             gameOver = content.Load<Texture2D>(@"Images/GameOver");
             difficulty = Difficulty.easy;
+            level = CurrentLevel.level1;
         }
 
         public override void Update(GameTime gameTime)
@@ -372,6 +373,40 @@ namespace Supesu
                 spriteBatch.DrawString(scoreFont, "Difficulty: ", new Vector2(2, 665), Color.Red);
                 spriteBatch.DrawString(scoreFont, "Hard", new Vector2(104, 665), Color.White);
             }
+        }
+
+        public int ClearEnemyList()
+        {
+            if (currentLevel == null || currentLevel.enemyList.Count == 0)
+            {
+                return 0;
+            }
+            var killed = currentLevel.enemyList.Count;
+            currentLevel.enemyList.Clear();
+            return killed;
+        }
+
+        public string ChangeLevel()
+        {
+            if (currentLevel != null)
+            {
+                switch (level)
+                {
+                    case CurrentLevel.level2:
+                        currentLevel = new Level2(content, _game);
+                        return "The level was changed to level 2";
+                    case CurrentLevel.level3:
+                        break;
+                    case CurrentLevel.bonusLevel:
+                        break;
+                    default:
+                        break;
+                }
+            }
+            var wrongLevel = (int)level;
+            level -= 1;
+            return string.Format("There is no level initiated or level {0} does not exist.", wrongLevel);
+            
         }
     }
 }

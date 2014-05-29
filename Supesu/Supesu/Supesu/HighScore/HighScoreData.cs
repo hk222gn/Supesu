@@ -11,6 +11,7 @@ namespace Supesu.HighScore
     public class HighScores
     {
         public static readonly String fileName = "Highscores.lst";
+        public static string playerName = "Player1";
 
         [Serializable]
         public struct HighScoreData
@@ -109,13 +110,13 @@ namespace Supesu.HighScore
                     data.score[i] = data.score[i - 1];
                     data.level[i] = data.level[i - 1];
                 }
-                data.playerName[index] = "Player1"; //TODO: Let the player set his own name.
+                data.playerName[index] = playerName; //TODO: Let the player set his own name.
                 data.score[index] = InGameScreen.playerScore;
                 data.level[index] = (int)InGameScreen.level;
             }
             else
             {
-                data.playerName[data.count - 1] = "Player1"; //TODO: Let the player set his own name.
+                data.playerName[data.count - 1] = playerName; //TODO: Let the player set his own name.
                 data.score[data.count - 1] = InGameScreen.playerScore;
                 data.level[data.count - 1] = (int)InGameScreen.level;
             }
