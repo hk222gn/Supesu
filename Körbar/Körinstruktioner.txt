@@ -1,7 +1,7 @@
-1. Se till att DirectX är installerat, installera annars den nyaste versionen. http://support.microsoft.com/kb/179113/sv
+1. Se till att DirectX ï¿½r installerat, installera annars den nyaste versionen. http://support.microsoft.com/kb/179113/sv
 
 2. Installera Microsoft .NET framework 4.0. http://www.microsoft.com/en-us/download/details.aspx?id=17851
 
-3. Installera Microsoft XNA 4.0 Redistributable, finns här. http://www.microsoft.com/en-us/download/details.aspx?id=20914
+3. Installera Microsoft XNA 4.0 Redistributable, finns hï¿½r. http://www.microsoft.com/en-us/download/details.aspx?id=20914
 
-4. Kör spelet!
+4. Kï¿½r spelet genom att fÃ¶rst packa upp realease.rar och sen kÃ¶r Supesu.exe.
