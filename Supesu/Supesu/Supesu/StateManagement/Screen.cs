@@ -9,7 +9,6 @@ namespace Supesu
 {
     class Screen
     {
-        protected static PlayerIndex playerOne;
         protected EventHandler screenEvent;
 
         public Screen(EventHandler theScreenEvent)

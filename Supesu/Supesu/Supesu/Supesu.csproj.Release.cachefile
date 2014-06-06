@@ -5,7 +5,6 @@ Content\Images\Control.xnb
 Content\Images\Highscore.xnb
 Content\Images\Ingame.xnb
 Content\Images\Options.xnb
-Content\Images\Title.xnb
 Content\Images\Unlockables.xnb
 Content\Images\Ship.xnb
 Content\Images\ShipTrans.xnb
@@ -51,6 +50,8 @@ Content\Sounds\ShipStruck.xnb
 Content\Sounds\StandardShipBullet.xnb
 Content\Sounds\MainMusic.xnb
 Content\Sounds\LaserWarning.xnb
+Content\Images\Title.xnb
+Content\Images\SupesuTitle.xnb
 Content\GameSounds.xgs
 Content\WaveBank.xwb
 Content\SoundBank.xsb

@@ -86,10 +86,8 @@
     <Compile Include="SpriteManagement\Monsters\TentacleMonsterSprite.cs" />
     <Compile Include="SpriteManagement\Ships\ShipSprite.cs" />
     <Compile Include="SpriteManagement\Sprite.cs" />
-    <Compile Include="SpriteManagement\SpriteManager.cs" />
     <Compile Include="SpriteManagement\Monsters\StandardEnemySprite.cs" />
     <Compile Include="SpriteManagement\Monsters\ThirdEnemySprite.cs" />
-    <Compile Include="StateManagement\ControlDetectorScreen.cs" />
     <Compile Include="HighScore\HighScoreData.cs" />
     <Compile Include="StateManagement\HighscoreScreen.cs" />
     <Compile Include="StateManagement\InGameScreen.cs" />
@@ -103,16 +101,14 @@
     <Compile Include="StateManagement\Screen.cs" />
     <Compile Include="StateManagement\TitleScreen.cs" />
     <Compile Include="StateManagement\UnlockablesScreen.cs" />
-    <Compile Include="Weapons\DefaultWeapon.cs" />
-    <Compile Include="Weapons\Projectiles\DefaultBullet.cs" />
-    <Compile Include="Weapons\Projectiles\FirstBossLaser.cs" />
-    <Compile Include="Weapons\Projectiles\NormalEnemyBullet.cs" />
-    <Compile Include="Weapons\Projectiles\ShipPlasmaBullet.cs" />
-    <Compile Include="Weapons\Projectiles\ShipRadPlasmaBullet.cs" />
-    <Compile Include="Weapons\Projectiles\SpecialBullet.cs" />
-    <Compile Include="Weapons\Projectiles\SplitterBullet.cs" />
-    <Compile Include="Weapons\Projectiles\StandardBullet.cs" />
-    <Compile Include="Weapons\StandardWeapon.cs" />
+    <Compile Include="Projectiles\DefaultBullet.cs" />
+    <Compile Include="Projectiles\FirstBossLaser.cs" />
+    <Compile Include="Projectiles\NormalEnemyBullet.cs" />
+    <Compile Include="Projectiles\ShipPlasmaBullet.cs" />
+    <Compile Include="Projectiles\ShipRadPlasmaBullet.cs" />
+    <Compile Include="Projectiles\SpecialBullet.cs" />
+    <Compile Include="Projectiles\SplitterBullet.cs" />
+    <Compile Include="Projectiles\StandardBullet.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

@@ -40,6 +40,7 @@ namespace Supesu.SpriteManagement
 
         public override Vector2 direction
         {
+            //Moves the ship
             get 
             {
                 Vector2 inputDirection = Vector2.Zero;
@@ -81,6 +82,7 @@ namespace Supesu.SpriteManagement
             if (position.Y > clientBounds.Height - frameSize.Y)
                 position.Y = clientBounds.Height - frameSize.Y;
 
+            //Changes the image shown on the screen.
             if (Keyboard.GetState().IsKeyDown(Keys.Left))
             {
                 currentFrame.X = 2;

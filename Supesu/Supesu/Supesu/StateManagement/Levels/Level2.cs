@@ -12,7 +12,6 @@ using Supesu.SpriteManagement.Monsters;
 namespace Supesu.StateManagement.Levels
 {
 
-    //Ha random projektiler som kommer flygandes från toppen av skärmen ner till botten i olika mönster, högre dif = fler projektiler
     class Level2 : Level
     {
         //Used to make the sprites.
@@ -186,7 +185,7 @@ namespace Supesu.StateManagement.Levels
                 new Point(4, 1),
                 new Vector2(2, 2),
                 false,
-                500//If this is changed, change the value in InGameScreen => Draw boss life.
+                500
                 );
         }
     }

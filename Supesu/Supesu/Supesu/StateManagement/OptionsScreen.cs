@@ -67,6 +67,7 @@ namespace Supesu.StateManagement
                 screenEvent.Invoke(this, new EventArgs());
             }
 
+            //Depending on active option, allows the player to change that specific option
             if (optionsChoice == OptionsChoice.music)
             {
                 if (CheckKeystroke(Keys.Left))
@@ -121,6 +122,7 @@ namespace Supesu.StateManagement
             //    }
             //}
 
+            //Change selected option
             if (CheckKeystroke(Keys.Up) && optionsChoice > 0)
             {
                 optionsChoice -= 1;

@@ -21,8 +21,9 @@ namespace Supesu.SpriteManagement.Monsters
         {
             alive = true;
             scoreAmount = 50;
-            hitBox.Width = 50;
+            hitBox.Width = 51;
             hitBox.Height = 50;
+            spriteOffSet = 3;
         }
 
         public TentacleMonsterSprite(Game1 game, Texture2D textureImage, Vector2 position,
@@ -33,8 +34,9 @@ namespace Supesu.SpriteManagement.Monsters
         {
             alive = true;
             scoreAmount = 50;
-            hitBox.Width = 50;
+            hitBox.Width = 51;
             hitBox.Height = 50;
+            spriteOffSet = 3;
         }
 
         public override Vector2 direction

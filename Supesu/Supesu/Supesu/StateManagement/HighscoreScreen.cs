@@ -85,7 +85,6 @@ namespace Supesu.StateManagement
 
             if (highScoreData.count >= 0)
             {
-                //TODO: Draw this with formulas instead.
                 //Draw highscores here
                 
                 //Draw rows.

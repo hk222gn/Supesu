@@ -17,8 +17,6 @@ namespace Supesu.StateManagement.Levels
 {
     abstract class Level
     {
-        //Make abstract method here for stage management. IE, a class where the current stage of the level is decided. 
-        //You override it in the level1+ classes and decide there what is going to happen in each stage.
 
         public List<Sprite> enemyList = new List<Sprite>();
         public FirstBossSprite boss;
@@ -54,6 +52,9 @@ namespace Supesu.StateManagement.Levels
 
             bullets.RemoveRange(0, bullets.Count);
             shipBullets.RemoveRange(0, shipBullets.Count);
+
+            //Sets the score to 0 whenever a new level is started.
+            InGameScreen.playerScore = 0;
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)
@@ -126,14 +127,21 @@ namespace Supesu.StateManagement.Levels
                 bonusMonster.Update(gameTime, game.Window.ClientBounds);
             }
             
-
-            //TODO: If the player dies, kill the ship.
             if (!ship.alive)
             {
                 stage = CurrentLevelStage.none;
                 return;
             }
 
+            //Checks if the enemies went too far down.
+            for (int i = 0; i < enemyList.Count; i++)
+            {
+                if (enemyList[i].position.Y > 580)
+                {
+                    ship.alive = false;
+                }
+            }
+             
             //Updates the ships position, and which frame to draw.
             ship.Update(gameTime, game.Window.ClientBounds);
 
@@ -164,6 +172,7 @@ namespace Supesu.StateManagement.Levels
             }
         }
 
+        //Creates a ship depending on the chosen ShipType.
         private void CreateShip()
         {
             if (UnlockablesScreen.ShipType == ShipType.standard)
@@ -176,7 +185,7 @@ namespace Supesu.StateManagement.Levels
                     new Point(3, 1),
                     new Vector2(9, 9),
                     false
-                    , 16);
+                    , 20);
 
                 ship.hitBox.Width = 35;
                 ship.hitBox.Height = 40;
@@ -191,7 +200,7 @@ namespace Supesu.StateManagement.Levels
                     new Point(3, 1),
                     new Vector2(9, 9),
                     false
-                    , 25);
+                    , 35);
 
                 ship.hitBox.Width = 35;
                 ship.hitBox.Height = 40;
@@ -206,9 +215,10 @@ namespace Supesu.StateManagement.Levels
                     new Point(3, 1),
                     new Vector2(9, 9),
                     false
-                    , 40);
+                    , 45);
 
-                ship.hitBox.Width = 35;
+                ship.spriteOffSet = 4;
+                ship.hitBox.Width = 42;
                 ship.hitBox.Height = 40;
             }
             else if (UnlockablesScreen.ShipType == ShipType.fourth)
@@ -221,17 +231,16 @@ namespace Supesu.StateManagement.Levels
                     new Point(3, 1),
                     new Vector2(9, 9),
                     false
-                    , 60);
+                    , 70);
 
                 ship.hitBox.Width = 42;
                 ship.hitBox.Height = 40;
             }
-            
-            
         }
 
         public virtual void GameStageHandler()
         {
+            //Handles the different stages in a level.
             switch (stage)
             {
                 case CurrentLevelStage.enemyStage1:
@@ -516,6 +525,7 @@ namespace Supesu.StateManagement.Levels
             {
                 for (int i = 0; i < enemyList.Count; i++)
                 {
+                    //If they reached the edge, move them down
                     if (Sprite.goDown)
                     {
                         for (int q = 0; q < enemyList.Count; q++)
@@ -525,6 +535,7 @@ namespace Supesu.StateManagement.Levels
                         Sprite.goDown = false;
                         break;
                     }
+                    //Move sprites to the right
                     else if (Sprite.moveDirection)
                     {
                         enemyList[i].position.X += 12;
@@ -537,6 +548,7 @@ namespace Supesu.StateManagement.Levels
                 Sprite.move = 0;
             }
 
+            //After moving them, check if any of them has struck the edges of the screen.
             for (int i = 0; i < enemyList.Count; i++)
             {
                 if (enemyList[i].position.X <= 0)
@@ -544,6 +556,7 @@ namespace Supesu.StateManagement.Levels
                     if (!Sprite.moveDirection)
                     {
                         Sprite.moveDirection = true;
+                        break;
                     }
                 }
                 else if (enemyList[i].position.X >= 750)
@@ -552,6 +565,7 @@ namespace Supesu.StateManagement.Levels
                     {
                         Sprite.moveDirection = false;
                         Sprite.goDown = true;
+                        break;
                     }
                 }
             }
@@ -560,7 +574,9 @@ namespace Supesu.StateManagement.Levels
         public void EnemyShoot()
         {
             Random rand = new Random();
-            int i = rand.Next(0, enemyList.Count);
+            int i = rand.Next(0, enemyList.Count);// Decides which enemy that will shoot
+
+            // Fire delay, depending on how many enemies there are, we want to get some consistency.
             int shootWhen = rand.Next(2300, 2600);
             int shootWhen2 = rand.Next(1600, 1800);
             int shootWhen3 = rand.Next(900, 1100);
@@ -620,14 +636,13 @@ namespace Supesu.StateManagement.Levels
                 }
             }
 
-            //Checks if the bonus monster exists and if his flag is set to dead, if he is, reward the player and remove him.
+            //Checks if the bonus monster exists and if his flag is set to dead, if this is ture, reward the player and remove him.
             if (bonusMonster != null && !bonusMonster.alive)
             {
                 InGameScreen.playerScore += (bonusMonster.scoreAmount * InGameScreen.scoreMultiplier) * (int)InGameScreen.difficulty;
                 Sounds.SoundBank.PlayCue("EnemyDeath");
 
                 bonusMonster = null;
-                //TODO: Does this guy count to the score multiplier start counter?
             }
         }
 

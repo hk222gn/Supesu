@@ -15,7 +15,7 @@ namespace Supesu.SpriteManagement
 {
     class FirstBossSprite : Sprite
     {
-        float activateLaser = 0;
+        float activateLaser = 0; // Timer for the laser
         bool laserActive = false, warningActivated = false;
         public bool laserStruckTarget;
         public DefaultBullet laserLeft, laserRight;
@@ -38,11 +38,13 @@ namespace Supesu.SpriteManagement
 
             laserStruckTarget = false;
 
+            //Creates the left hitbox.
             hitBox.X = 37 + (int)position.X;
             hitBox.Y = 156 + (int)position.Y;
             hitBox.Width = 30;
             hitBox.Height = 47;
 
+            //Creates the right hitbox.
             nonMoveableBossHitbox.X = 121 + (int)position.X;
             nonMoveableBossHitbox.Y = 147 + (int)position.Y;
             nonMoveableBossHitbox.Width = 30;
@@ -64,11 +66,13 @@ namespace Supesu.SpriteManagement
 
             laserStruckTarget = false;
 
+            //Creates the left hitbox.
             hitBox.X = 37 + (int)position.X;
             hitBox.Y = 156 + (int)position.Y;
             hitBox.Width = 30;
             hitBox.Height = 47;
 
+            //Creates the right hitbox.
             nonMoveableBossHitbox.X = 121 + (int)position.X;
             nonMoveableBossHitbox.Y = 147 + (int)position.Y;
             nonMoveableBossHitbox.Width = 30;
@@ -99,6 +103,7 @@ namespace Supesu.SpriteManagement
             }
 
             activateLaser += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            //Handles the boss laser stages.
             if (activateLaser >= 2 && !warningActivated && !laserActive)
             {
                 //Warn the user about incoming laser
@@ -131,6 +136,7 @@ namespace Supesu.SpriteManagement
 
         public override void Draw(SpriteBatch spriteBatch)
         {
+            
             if (laserLeft != null && laserRight != null)
             {
                 laserLeft.Draw(spriteBatch);

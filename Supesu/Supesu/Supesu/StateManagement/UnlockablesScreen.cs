@@ -76,6 +76,7 @@ namespace Supesu.StateManagement
         {
             keyboard = Keyboard.GetState();
 
+            //Exit to the title screen.
             if (Keyboard.GetState().IsKeyDown(Keys.Escape) || Keyboard.GetState().IsKeyDown(Keys.Enter))
             {
                 Sounds.SoundBank.PlayCue("MenuBack");
@@ -85,6 +86,32 @@ namespace Supesu.StateManagement
                 screenEvent.Invoke(this, new EventArgs());
             }
 
+            HandleUserInput();
+
+            prevKeyboard = keyboard;
+            base.Update(gameTime);
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(mUnlockablesScreenBackground, Vector2.Zero, Color.White);
+
+            spriteBatch.DrawString(bigText, "Your total score: " + totalScore, new Vector2(2, -1), Color.Red);
+
+            spriteBatch.DrawString(bigText, "Esc for menu", new Vector2(1, 685), Color.Red);
+
+            // First unlockable header.
+            spriteBatch.DrawString(bigText, "Ships", new Vector2(100, 100), shipChoiceColor);
+            DrawShipUnlockables(spriteBatch);
+            // Second unlockable header.
+            spriteBatch.DrawString(bigText, "Weapons", new Vector2(100, 220), bulletChoiceColor);
+            DrawBulletUnlockables(spriteBatch);
+
+            base.Draw(spriteBatch);
+        }
+
+        private void HandleUserInput()
+        {
             if (CheckKeystroke(Keys.Left))
             {
 
@@ -113,7 +140,7 @@ namespace Supesu.StateManagement
                     bulletType += 1;
                     Sounds.SoundBank.PlayCue("MenuChoiceChange");
                 }
-                
+
             }
 
             if (CheckKeystroke(Keys.Up) && unlockableRow > 0)
@@ -129,27 +156,6 @@ namespace Supesu.StateManagement
                 unlockableRow += 1;
                 SetCorrectColor();
             }
-
-            prevKeyboard = keyboard;
-            base.Update(gameTime);
-        }
-
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            spriteBatch.Draw(mUnlockablesScreenBackground, Vector2.Zero, Color.White);
-
-            spriteBatch.DrawString(bigText, "Your total score: " + totalScore, new Vector2(2, -1), Color.Red);
-
-            spriteBatch.DrawString(bigText, "Esc for menu", new Vector2(1, 685), Color.Red);
-
-            // First unlockable header.
-            spriteBatch.DrawString(bigText, "Ships", new Vector2(100, 100), shipChoiceColor);
-            DrawShipUnlockables(spriteBatch);
-            // Second unlockable header.
-            spriteBatch.DrawString(bigText, "Weapons", new Vector2(100, 220), bulletChoiceColor);
-            DrawBulletUnlockables(spriteBatch);
-
-            base.Draw(spriteBatch);
         }
 
         private void DrawShipUnlockables(SpriteBatch spriteBatch)
@@ -165,17 +171,21 @@ namespace Supesu.StateManagement
             }
 
             //Second ship type
+            //The frame around the ship
             spriteBatch.Draw(unlockableFrame, new Rectangle(172, 150, 52, 52), Color.White);
             if (totalScore < 2500)
             {
+                //Draw the not unlocked questionmark.
                 spriteBatch.Draw(notUnlocked, new Rectangle(173, 152, 50, 50), Color.White);
             }
             else
             {
+                //Draw the unlocked ship instead of the questionmark.
                 spriteBatch.Draw(secondShip, new Vector2(173, 152), new Rectangle(50, 0, 50, 50),//Decides which part of the sprite to draw.
                 Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
             }
 
+            //If it is chosen, don't draw the gray overlay, else draw it.
             if (shipType != ShipType.second)
             {
                 spriteBatch.Draw(notChosen, new Rectangle(172, 150, 52, 52), Color.White);
@@ -229,17 +239,21 @@ namespace Supesu.StateManagement
             }
 
             //Second weapon type
+            //The frame around the bullet.
             spriteBatch.Draw(unlockableFrame, new Rectangle(172, 270, 52, 52), Color.White);
             if (totalScore < 2500)
             {
+                //Draw the not unlocked questionmark.
                 spriteBatch.Draw(notUnlocked, new Rectangle(173, 272, 50, 50), Color.White);
             }
+            //Draw the unlocked bullet instead of the questionmark.
             else
             {
                 spriteBatch.Draw(secondBullet, new Vector2(196, 292), new Rectangle(0, 0, 5, 8),
                 Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
             }
 
+            //If it is chosen, don't draw the gray overlay, else draw it.
             if (bulletType != BulletType.second)
             {
                 spriteBatch.Draw(notChosen, new Rectangle(172, 270, 52, 52), Color.White);
@@ -282,6 +296,7 @@ namespace Supesu.StateManagement
 
         private void CheckIfChosenUnlockableIsUnlocked()
         {
+            //Checks if the player has unlocked the chosen unlockables, else reverts to the standard ship and bullet.
             if (shipType == ShipType.second && totalScore < 2500)
             {
                 shipType = ShipType.standard;
@@ -309,6 +324,7 @@ namespace Supesu.StateManagement
             }
         }
 
+        //Handles the selection colors on the Ship and Bullet labels. White selected, red not selected.
         private void SetCorrectColor()
         {
             shipChoiceColor = Color.Red;

@@ -15,6 +15,7 @@ using Supesu.SoundHandler;
 using Supesu.HighScore;
 using System.IO;
 using Supesu.StateManagement.Levels;
+using System.Threading;
 
 namespace Supesu
 {
@@ -28,7 +29,6 @@ namespace Supesu
         SpriteBatch spriteBatch;
         TitleScreen mTitleScreen;
         Screen mCurrentScreen;
-        ControlDetectorScreen mControlScreen;
         InGameScreen mInGameScreen;
         OptionsScreen mOptionsScreen;
         HighscoreScreen mHighscoreScreen;
@@ -72,11 +72,11 @@ namespace Supesu
                 //Make a new one with a few dummy scores in.
                 HighScores.HighScoreData data = new HighScores.HighScoreData(1);
 
-                data.playerName[0] = "Useless guy";
+                data.playerName[0] = "aaa";
                 data.level[0] = 1;
                 data.score[0] = 0;
 
-                HighScores.SaveHighScores(data, HighScores.fileName);
+                HighScores.WriteHighscoresToFile(data, HighScores.fileName);
             }
 
             Sounds.SoundBank.PlayCue("MainMusic");
@@ -92,7 +92,6 @@ namespace Supesu
         {
             // Create a new SpriteBatch, which can be used to draw textures.
 
-            mControlScreen = new ControlDetectorScreen(this.Content, new EventHandler(ControlDetectorScreenEvent), this);
             mTitleScreen = new TitleScreen(this.Content, new EventHandler(TitleScreenEvent), this);
             mInGameScreen = new InGameScreen(this.Content, new EventHandler(InGameEvent), this);
             mOptionsScreen = new OptionsScreen(this.Content, new EventHandler(OptionsScreenEvent), this, graphics);
@@ -118,39 +117,42 @@ namespace Supesu
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            keyboard = Keyboard.GetState();
-
-            // Shut the game down instantly
-            if (Keyboard.GetState().IsKeyDown(Keys.Delete) == true)
-                this.Exit();
-
-            //Handles FPS timer and sets the FPS to the total frames drawn each 1 second.
-            elapsedTime += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
-            if (elapsedTime >= 1000.0f)
+            if (IsActive)
             {
-                fps = totalFrames;
-                totalFrames = 0;
-                elapsedTime = 0;
+                keyboard = Keyboard.GetState();
+
+                // Shut the game down instantly
+                if (Keyboard.GetState().IsKeyDown(Keys.Delete) == true)
+                    this.Exit();
+
+                //Handles FPS timer and sets the FPS to the total frames drawn each 1 second.
+                elapsedTime += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+                if (elapsedTime >= 1000.0f)
+                {
+                    fps = totalFrames;
+                    totalFrames = 0;
+                    elapsedTime = 0;
+                }
+
+                //Updates the current screen.
+                mCurrentScreen.Update(gameTime);
+
+                //Debug command handler
+                if (Keyboard.GetState().IsKeyDown(Keys.F12) && !debugActivated)
+                {
+                    RunDebugCommands();
+                    debugActivated = !debugActivated;
+                }
+                else if (debugActivated)
+                    RunDebugCommands();
+
+                //Updates the global audio engine.
+                Sounds.AudioEngine.Update();
+
+                prevKeyboard = keyboard;
+
+                base.Update(gameTime);
             }
-
-            //Updates the current screen.
-            mCurrentScreen.Update(gameTime);
-
-            //Debug command handler
-            if (Keyboard.GetState().IsKeyDown(Keys.F12) && !debugActivated)
-            {
-                RunDebugCommands();
-                debugActivated = !debugActivated;
-            }
-            else if (debugActivated)
-                RunDebugCommands();            
-
-            //Updates the global audio engine.
-            Sounds.AudioEngine.Update();
-
-            prevKeyboard = keyboard;
-
-            base.Update(gameTime);
         }
 
         /// <summary>
@@ -186,16 +188,15 @@ namespace Supesu
 
         private void TitleScreenEvent(object obj, EventArgs e)
         {
+            // Depending on the choice in TitleScreen, change screen.
             if (menuChoice == MenuChoices.StartGame)
                 mCurrentScreen = mInGameScreen;
 
             else if (menuChoice == MenuChoices.Highscores)
-            {
-                mCurrentScreen = new HighscoreScreen(this.Content, new EventHandler(HighscoreScreenEvent), this); ;
-            }
+                mCurrentScreen = new HighscoreScreen(this.Content, new EventHandler(HighscoreScreenEvent), this);
 
             else if (menuChoice == MenuChoices.Unlockables)
-                mCurrentScreen = mUnlockablesScreen;
+                mCurrentScreen = new UnlockablesScreen(this.Content, new EventHandler(UnlockablesScreenEvent), this);
 
             else if (menuChoice == MenuChoices.Options)
                 mCurrentScreen = mOptionsScreen;
@@ -237,6 +238,7 @@ namespace Supesu
 
         private void RunDebugCommands()
         {
+            // "God" mode, kind of
             if (Keyboard.GetState().IsKeyDown(Keys.LeftShift) && CheckKeystroke(Keys.D1))
             {
                 if (Level.Ship != null)
@@ -245,13 +247,19 @@ namespace Supesu
                 }
             }
 
+            // Remove all enemies. Does not give score.
             if (Keyboard.GetState().IsKeyDown(Keys.LeftShift) && CheckKeystroke(Keys.D2))
             {
                 mInGameScreen.ClearEnemyList();
             }
 
+            // Change level.
             if (Keyboard.GetState().IsKeyDown(Keys.LeftShift) && CheckKeystroke(Keys.D3))
             {
+                if (InGameScreen.level == CurrentLevel.level2)
+                {
+                    return;
+                }
                 InGameScreen.level += 1;
                 if (InGameScreen.level == CurrentLevel.level2)
                 {
@@ -259,9 +267,10 @@ namespace Supesu
                 }
             }
 
+            // Unlock everything.
             if (Keyboard.GetState().IsKeyDown(Keys.LeftShift) && CheckKeystroke(Keys.D4))
             {
-                InGameScreen.playerScore = 99999;
+                InGameScreen.playerScore = 999999;
                 HighScore.HighScores.SaveHighscoreToFile();
                 InGameScreen.playerScore = 0;
             }

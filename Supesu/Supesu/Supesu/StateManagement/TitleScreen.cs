@@ -23,6 +23,8 @@ namespace Supesu
     class TitleScreen : Screen
     {
         Texture2D mTitleScreenBackground;
+        Texture2D supesuTitle;
+        Vector2 titlePosition = new Vector2(300, -50);
         Game1 game;
         SpriteFont spFont;
         KeyboardState prevKeyboard;
@@ -38,6 +40,7 @@ namespace Supesu
             : base(theScreenEvent)
         {
             mTitleScreenBackground = content.Load<Texture2D>("Images/Title");
+            supesuTitle = content.Load<Texture2D>(@"Images/SupesuTitle");
             game = game1;
             spFont = content.Load<SpriteFont>("Fonts/General");
         }
@@ -116,6 +119,9 @@ namespace Supesu
         {
             spriteBatch.Draw(mTitleScreenBackground, Vector2.Zero, Color.White);
 
+            //Draw title.
+            DrawTitle(spriteBatch);
+
             //This is drawing the menu text. We will handle the menu with the keyboard so no hitboxes are needed.
             spriteBatch.DrawString(spFont, "Start Game", new Vector2(50, 220), startGameChoice);
             spriteBatch.DrawString(spFont, "Highscores", new Vector2(50, 320), highscoreChoice);
@@ -125,6 +131,17 @@ namespace Supesu
 
             base.Draw(spriteBatch);
         }
+
+        private void DrawTitle(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(supesuTitle, titlePosition, Color.White);
+
+            if (titlePosition.Y < 100)
+            {
+                titlePosition.Y += 2;
+            }
+        }
+
         public void SetAllRed()
         {
             startGameChoice = Color.Red;

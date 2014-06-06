@@ -20,16 +20,15 @@ namespace Supesu.SpriteManagement.Monsters
         wave //Shoots bullets in a wave formation from one side to the other, stopping just before it's impossible to dodge.
     }
 
-    //TODO: Check hitboxes.
     class SecondBoss : Sprite
     {
         public List<Rectangle> hitBoxList = new List<Rectangle>();
         private SecondBossAttackStage sbas = SecondBossAttackStage.threeSplitterBullets;
 
-        private readonly int amountOfBarrageBullets = 12;
+        private readonly int amountOfBarrageBullets = 11;
         private bool changeBarrageStartPosition = false;
         private bool changeWaveStartPosition = false;
-        private float changeBossStage = 0f;
+        private float changeBossStage = 0f;// Used as a timer between the different stages.
         private bool pauseStage = false;
 
         public SecondBoss(Game1 game, Texture2D textureImage, Vector2 position,
@@ -41,7 +40,9 @@ namespace Supesu.SpriteManagement.Monsters
             alive = true;
 
             scoreAmount = 120;
-            hitBoxList.Add(new Rectangle(20 +(int)position.X, 31 + (int)position.Y, 50, 50));
+
+            //Adds hitboxes for the eyes. Order is: 1st left eye, 2nd middle eye, third right eye.
+            hitBoxList.Add(new Rectangle(20 +(int)position.X, 32 + (int)position.Y, 50, 50));
             hitBoxList.Add(new Rectangle(72 + (int)position.X, 52 + (int)position.Y, 50, 50));
             hitBoxList.Add(new Rectangle(121 + (int)position.X, 27 + (int)position.Y, 50, 50));
         }
@@ -55,7 +56,9 @@ namespace Supesu.SpriteManagement.Monsters
             alive = true;
 
             scoreAmount = 120;
-            hitBoxList.Add(new Rectangle(20 + (int)position.X, 31 + (int)position.Y, 50, 50));
+
+            //Adds hitboxes for the eyes. Order is: 1st left eye, 2nd middle eye, third right eye.
+            hitBoxList.Add(new Rectangle(20 + (int)position.X, 32 + (int)position.Y, 50, 50));
             hitBoxList.Add(new Rectangle(72 + (int)position.X, 52 + (int)position.Y, 50, 50));
             hitBoxList.Add(new Rectangle(126 + (int)position.X, 17 + (int)position.Y, 50, 50));
         }
@@ -71,6 +74,7 @@ namespace Supesu.SpriteManagement.Monsters
 
             if (!pauseStage)
             {
+                //Depending on the current stage, fires projectiles with different timings.
                 switch (sbas)
                 {
                     case SecondBossAttackStage.threeSplitterBullets:
@@ -100,6 +104,7 @@ namespace Supesu.SpriteManagement.Monsters
             }
             else
             {
+                //Renders the boss invulnerable and disables shooting for the player
                 if (changeBossStage == 0f)
                 {
                     Sounds.SoundBank.PlayCue("LaserWarning");
@@ -107,6 +112,7 @@ namespace Supesu.SpriteManagement.Monsters
                     Level.Ship.canShoot = false;
                 }
                 changeBossStage += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+                //Allows the boss to take damage again and the player to shoot. The boss stage has changed.
                 if (changeBossStage > 1000f)
                 {
                     pauseStage = !pauseStage;
@@ -120,26 +126,38 @@ namespace Supesu.SpriteManagement.Monsters
             {
                 currentFrame.X = 0;
             }
+            //Boss life is under 325, change stage.
             else if (Life >= 200)
             {
                 if (sbas != SecondBossAttackStage.barrage)
                 {
                     pauseStage = !pauseStage;
+                    //Removes the hitbox as the eye closes
+                    hitBoxList.RemoveAt(hitBoxList.Count - 1);
                 }
+                //This closes the eye
                 currentFrame.X = 1;
+                //Changes the stage
                 sbas = SecondBossAttackStage.barrage;
+                
             }
+            //Boss life is under 200, changer stage.
             else if (Life > 0)
             {
                 if (sbas != SecondBossAttackStage.wave)
                 {
                     pauseStage = !pauseStage;
+                    //Removes the hitbox as the second eye closes
+                    hitBoxList.RemoveAt(hitBoxList.Count - 1);
                 }
+                //This closes the second eye
                 currentFrame.X = 2;
+                //Changes the stage
                 sbas = SecondBossAttackStage.wave;
             }
             else
             {
+                //All eyes closed, boss is dead.
                 currentFrame.X = 3;
             }
         }
@@ -151,14 +169,19 @@ namespace Supesu.SpriteManagement.Monsters
       
         public override void FireProjectile()
         {
-            Random random = new Random();
-            double mantissa = (random.NextDouble() * 1) - 0.5;
-            double exponent = Math.Pow(2.0, random.Next(-2, 2));
-            float speed = (float)(mantissa * exponent);
+            
 
+            //Fires different patterns of bullets depending on the current stage.
             switch (sbas)
             {
                 case SecondBossAttackStage.threeSplitterBullets:
+
+                    //Used to give some of the projectiles random X speed.
+                    Random random = new Random();
+                    double mantissa = (random.NextDouble() * 1) - 0.5;
+                    double exponent = Math.Pow(2.0, random.Next(-2, 2));
+                    float speed = (float)(mantissa * exponent);
+
                     Level.AddBullet(new SplitterBullet(new Vector2(speed, -1), new Vector2(45 + (int)position.X, 56 + (int)position.Y), 0.5f, new Rectangle(0, 0, 12, 12), game.Content, 6));
 
                     Level.AddBullet(new SplitterBullet(new Vector2(0, -1), new Vector2(97 + (int)position.X, 77 + (int)position.Y), 0.5f, new Rectangle(0, 0, 12, 12), game.Content, 6));
@@ -203,7 +226,6 @@ namespace Supesu.SpriteManagement.Monsters
                             changeWaveStartPosition = false;
                         }
                     }
-                    
                     break;
                 default:
                     break;

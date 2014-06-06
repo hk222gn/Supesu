@@ -20,7 +20,7 @@ namespace Supesu.SpriteManagement
         {
             alive = true;
             Random rand = new Random();
-            scoreAmount = rand.Next(0, 300) - 150;
+            scoreAmount = (rand.Next(0, 300)) - 150;
             hitBox.Width = 50;
             hitBox.Height = 50;
         }
@@ -33,7 +33,7 @@ namespace Supesu.SpriteManagement
         {
             alive = true;
             Random rand = new Random();
-            scoreAmount = rand.Next(0, 300) - 150;
+            scoreAmount = (rand.Next(0, 300)) - 150;
             hitBox.Width = 50;
             hitBox.Height = 50;
         }

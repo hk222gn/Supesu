@@ -21,8 +21,9 @@ namespace Supesu.SpriteManagement.Monsters
         {
             alive = true;
             scoreAmount = 40;
-            hitBox.Width = 45;
+            hitBox.Width = 50;
             hitBox.Height = 50;
+            spriteOffSet = 6;
         }
 
         public BatMonsterSprite(Game1 game, Texture2D textureImage, Vector2 position,
@@ -33,8 +34,9 @@ namespace Supesu.SpriteManagement.Monsters
         {
             alive = true;
             scoreAmount = 40;
-            hitBox.Width = 45;
+            hitBox.Width = 50;
             hitBox.Height = 50;
+            spriteOffSet = 6;
         }
 
         public override Vector2 direction

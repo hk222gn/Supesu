@@ -37,6 +37,7 @@ namespace Supesu.SpriteManagement
         public static bool moveDirection = true, goDown = false;
         public int scoreAmount;
         public bool canTakeDamage = true;
+        public int spriteOffSet = 0;
         //protected List<DefaultBullet> bullet = new List<DefaultBullet>();
 
         public int Life
@@ -108,10 +109,10 @@ namespace Supesu.SpriteManagement
             }
         }
 
-        //moves the hitbox with the sprite, also sets the hitbox range if there is none set.
+        //moves the hitbox as the sprite moves, also sets the hitbox range if there is none set.
         public void SetHitbox()
         {
-            hitBox.X = (int)position.X;
+            hitBox.X = (int)position.X - spriteOffSet;
             hitBox.Y = (int)position.Y;
         }
     }

@@ -76,7 +76,7 @@ namespace Supesu.StateManagement.Levels
             for (int i = 0; i < amountOfEnemiesPerRow; i++)
             {
                 enemyList.Add(new StandardEnemySprite(game, game.Content.Load<Texture2D>(@"Images/StandardEnemySprite"),
-                    new Vector2(lastEnemyPosition + makeSpace, 100 + makeSpace * 2),
+                    new Vector2(lastEnemyPosition + makeSpace, 400 + makeSpace * 2),
                     new Point(50, 50),
                     0,
                     new Point(0, 0),

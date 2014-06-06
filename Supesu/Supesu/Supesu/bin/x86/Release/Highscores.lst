@@ -1,103 +1,22 @@
 <?xml version="1.0"?>
 <HighScoreData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <playerName>
-    <string>Useless guy</string>
-    <string>Player1</string>
-    <string>Player1</string>
-    <string>Player1</string>
-    <string>Player1</string>
-    <string>Player1</string>
-    <string>Player1</string>
-    <string>Player1</string>
-    <string>Player1</string>
-    <string>Player1</string>
-    <string>Player1</string>
-    <string>Player1</string>
-    <string>Player1</string>
-    <string>Player1</string>
-    <string>Player1</string>
-    <string>Player1</string>
-    <string>Player1</string>
-    <string>Player1</string>
-    <string>Player1</string>
-    <string>Player1</string>
-    <string>Player1</string>
-    <string>Player1</string>
-    <string>Player1</string>
-    <string>Player1</string>
-    <string>Player1</string>
-    <string>Player1</string>
-    <string>Player1</string>
-    <string>olof</string>
-    <string>olof</string>
-    <string>Player1</string>
-    <string>olof</string>
+    <string>abc</string>
+    <string>aaa</string>
+    <string>aaa</string>
+    <string>aaa</string>
   </playerName>
   <score>
-    <int>900000</int>
-    <int>99999</int>
-    <int>99999</int>
-    <int>99999</int>
-    <int>99999</int>
-    <int>99999</int>
-    <int>99999</int>
-    <int>99999</int>
-    <int>99999</int>
-    <int>99999</int>
-    <int>99999</int>
-    <int>99999</int>
-    <int>99999</int>
-    <int>99999</int>
-    <int>99999</int>
-    <int>1551</int>
-    <int>1541</int>
-    <int>1427</int>
-    <int>1217</int>
-    <int>990</int>
-    <int>985</int>
-    <int>975</int>
-    <int>950</int>
-    <int>787</int>
-    <int>638</int>
-    <int>170</int>
-    <int>170</int>
-    <int>75</int>
-    <int>65</int>
-    <int>60</int>
-    <int>60</int>
+    <int>10000</int>
+    <int>999</int>
+    <int>716</int>
+    <int>0</int>
   </score>
   <level>
     <int>1</int>
     <int>1</int>
-    <int>1</int>
-    <int>1</int>
-    <int>1</int>
-    <int>1</int>
-    <int>1</int>
-    <int>1</int>
-    <int>1</int>
-    <int>1</int>
-    <int>1</int>
-    <int>1</int>
-    <int>1</int>
-    <int>1</int>
-    <int>1</int>
-    <int>1</int>
-    <int>1</int>
-    <int>1</int>
-    <int>1</int>
-    <int>1</int>
-    <int>1</int>
-    <int>1</int>
-    <int>1</int>
-    <int>1</int>
     <int>2</int>
     <int>1</int>
-    <int>1</int>
-    <int>1</int>
-    <int>1</int>
-    <int>1</int>
-    <int>1</int>
   </level>
-  <count>31</count>
+  <count>4</count>
 </HighScoreData>

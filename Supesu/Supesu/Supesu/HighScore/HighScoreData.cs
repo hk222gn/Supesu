@@ -11,14 +11,15 @@ namespace Supesu.HighScore
     public class HighScores
     {
         public static readonly String fileName = "Highscores.lst";
-        public static string playerName = "Player1";
+        public static string playerName = "abc";
 
+        //The scructure that's used to save data.
         [Serializable]
         public struct HighScoreData
         {
             public String[] playerName; // A name the user gets to set himself after a game has been finished.
             public int[] score;
-            public int[] level; // How far the user made it?
+            public int[] level;
 
             public int count;
 
@@ -32,7 +33,7 @@ namespace Supesu.HighScore
             }
         }
 
-        public static void SaveHighScores(HighScoreData data, String fileName)
+        public static void WriteHighscoresToFile(HighScoreData data, String fileName)
         {
             // Open the file, creating it if necessary
             FileStream stream = File.Open(fileName, FileMode.OpenOrCreate);
@@ -110,18 +111,20 @@ namespace Supesu.HighScore
                     data.score[i] = data.score[i - 1];
                     data.level[i] = data.level[i - 1];
                 }
-                data.playerName[index] = playerName; //TODO: Let the player set his own name.
+                data.playerName[index] = playerName;
                 data.score[index] = InGameScreen.playerScore;
                 data.level[index] = (int)InGameScreen.level;
             }
+            //No sorting needed, add the score last.
             else
             {
-                data.playerName[data.count - 1] = playerName; //TODO: Let the player set his own name.
+                data.playerName[data.count - 1] = playerName;
                 data.score[data.count - 1] = InGameScreen.playerScore;
                 data.level[data.count - 1] = (int)InGameScreen.level;
             }
 
-            HighScores.SaveHighScores(data, HighScores.fileName);
+            //Save the scores
+            HighScores.WriteHighscoresToFile(data, HighScores.fileName);
         }
     }
 }

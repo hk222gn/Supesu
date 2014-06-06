@@ -39,13 +39,7 @@ namespace Supesu
         normal = 2,
         hard = 3
     }
-    //FIX IN ORDER
-    //TODO: Change the way additional bullet damage works with dificulties.
-    //TODO: Change the enemy bullet velocity, or change the amount of bullets/speed that the shoot. It's a bit too hectic right now.
-    //TODO: General, there's most likely a memory leak due to the way i handle sprite loading.
 
-    //Make static variables in game class, load all the texture required in those variables, saves memory and loading time?
-    
     class InGameScreen : Screen
     {
         Texture2D mPauseBackground;
@@ -63,10 +57,19 @@ namespace Supesu
         ContentManager content;
         public static int playerScore = 0, scoreMultiplier = 1;
         public static Difficulty difficulty;
-        private bool difficultySet = false;
+        private bool difficultySet = false, nameSet = false;
         private Color easyColor = Color.White, normalColor = Color.Red, hardColor = Color.Red;
         private int maxShipLife; // Used to display the life correctly
         public static int maxBossLife; // This is set in Level.cs where the boss is spawned.
+
+        string[] alphabet = new string[] { "a", "b", "c", "d", "e", "f", "g", "h",
+           "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", 
+           "x", "y", "z" };
+
+        string[] playerName = new string[] { "a", "a", "a" };
+
+        int letterPosition = 0, letterCounter = 0;
+        int[] letterCounterMemory = new int[] { 0, 0, 0 };
         
         public InGameScreen(ContentManager content, EventHandler theScreenEvent, Game1 game)
             : base(theScreenEvent)
@@ -101,19 +104,30 @@ namespace Supesu
                     screenEvent.Invoke(this, new EventArgs());
                 }
             }
+            else if (difficultySet && !nameSet)
+            {
+                ChooseName();
+
+                if (CheckKeystroke(Keys.Escape))
+                {
+                    Sounds.SoundBank.PlayCue("MenuBack");
+                    screenEvent.Invoke(this, new EventArgs());
+                }
+            }
             else
             {
                 if (!isPaused)
                 {
+                    //Checks if the stage is none = player has died.
                     if (currentLevel != null && currentLevel.stage == CurrentLevelStage.none)
                     {
-                        //TODO: Make a death screen appear or something.
                         if (currentLevel != null)
                         {
                             currentLevel = null;
                             Thread.Sleep(1500);
                         }
                     }
+                    //If the level is null, this means that the player has died. Present a death screen with retry and exit options.
                     else if (currentLevel == null)
                     {
                         if (CheckKeystroke(Keys.R))
@@ -138,6 +152,7 @@ namespace Supesu
                     }
                     else
                     {
+                        // The player won the level or game, wait for the enter key then continue on.
                         if (currentLevel.stage == CurrentLevelStage.playerWonStage)
                         {
                             if (CheckKeystroke(Keys.Enter))
@@ -177,13 +192,31 @@ namespace Supesu
 
                 spriteBatch.DrawString(scoreFont, "Esc for menu.", new Vector2(1, 695), Color.Red);
             }
+            //Draw the player name change
+            else if (difficultySet && !nameSet)
+            {
+                spriteBatch.DrawString(playerLifeFont, "Choose a name", new Vector2(275, 200), Color.Red);
+                spriteBatch.DrawString(playerLifeFont, "Press enter when ready", new Vector2(225, 400), Color.Red); 
+
+                //Draw the 3 letters.
+                for (int i = 0; i < playerName.Length; i++)
+			    {
+                    var space = 32;
+
+                    //Mark the one that's active with white
+                    if (i == letterPosition)
+                        spriteBatch.DrawString(playerLifeFont, playerName[i], new Vector2(360 + space * i, 250), Color.White);
+                    else
+                        spriteBatch.DrawString(playerLifeFont, playerName[i], new Vector2(360 + space * i, 250), Color.Red);
+			    }  
+            }
             else
             {
                 if (!isPaused)
                 {
+                    //The player died, draw the death screen.
                     if (currentLevel == null)
                     {
-                        //Draws the death screen.
                         spriteBatch.Draw(gameOver, Vector2.Zero, Color.Red);
                     }
                     else
@@ -195,12 +228,81 @@ namespace Supesu
                 }
                 else
                 {
+                    //The game is paused, draw pause stuff here.
                     spriteBatch.Draw(mPauseBackground, Vector2.Zero, Color.White);
-                    //DRAW PAUSE STUFF HERE OK
                 }
             }
 
             base.Draw(spriteBatch);
+        }
+
+        private void ChooseName()
+        {
+            //Change letter
+            if (CheckKeystroke(Keys.Down))
+            {
+                if (letterCounter > 0)
+                {
+                    letterCounter--;
+                }
+
+                playerName[letterPosition] = alphabet[letterCounter];
+            }
+            else if (CheckKeystroke(Keys.Up))
+            {
+                if (letterCounter < alphabet.Length - 1)
+                {
+                    letterCounter++;
+                }
+
+                playerName[letterPosition] = alphabet[letterCounter];
+            }
+
+            //Change letter position and remember which number the last letter had.
+            if (CheckKeystroke(Keys.Right) && letterPosition < playerName.Length - 1)
+            {
+                if (letterPosition == 0)
+                {
+                    letterCounterMemory[letterPosition] = letterCounter;
+                    letterCounter = letterCounterMemory[letterPosition + 1];
+                }
+                else if (letterPosition == 1)
+                {
+                    letterCounterMemory[letterPosition] = letterCounter;
+                    letterCounter = letterCounterMemory[letterPosition + 1];
+                }
+                else
+                {
+                    letterCounterMemory[letterPosition] = letterCounter;
+                }
+                letterPosition += 1;
+            }
+            else if (CheckKeystroke(Keys.Left) && letterPosition > 0)
+            {
+                if (letterPosition == 0)
+                {
+                    letterCounterMemory[letterPosition] = letterCounter;
+                }
+                else if (letterPosition == 1)
+                {
+                    letterCounterMemory[letterPosition] = letterCounter;
+                    letterCounter = letterCounterMemory[letterPosition - 1];
+                }
+                else
+                {
+                    letterCounterMemory[letterPosition] = letterCounter;
+                    letterCounter = letterCounterMemory[letterPosition - 1];
+                }
+                letterPosition -= 1;
+            }
+
+            //Save the name.
+            if (CheckKeystroke(Keys.Enter))
+            {
+                HighScores.playerName = String.Join(String.Empty, playerName);
+                nameSet = true;
+                Thread.Sleep(50);
+            }
         }
 
         private bool CheckKeystroke(Keys key)
@@ -224,6 +326,7 @@ namespace Supesu
         {
             bool pauseKeyDownThisFrame = (ks.IsKeyDown(Keys.Escape));
 
+            //The player pressed the enter key while in the pause screen, exit the game state.
             if (CheckKeystroke(Keys.Enter) && isPaused)
             {
                 isPaused = false;
@@ -231,6 +334,7 @@ namespace Supesu
                 return;
             }
 
+            //Pause key was pressed.
             if (!pauseKeyDown && pauseKeyDownThisFrame)
             {
                 if (!isPaused)
@@ -258,15 +362,17 @@ namespace Supesu
                         difficulty = Difficulty.hard;
                         break;
                 }
-                InGameScreen.playerScore = 0; // Make sure the score is set to 0 when the player starts a new game.
+                //InGameScreen.playerScore = 0; // Make sure the score is set to 0 when the player starts a new game.
                 difficultySet = true;
 
                 //Sets the current level to 1 and initializes it as the player has chosen a dificulty, we can create the level now.
                 currentLevel = new Level1(content, _game);
 
+                //Sets the max ship life in order to draw life correctly for all ships.
                 maxShipLife = Level.ship.Life;
             }
 
+            //Change difficulty
             if (CheckKeystroke(Keys.Down) && (int)difficulty < 3)
             {
                 Sounds.SoundBank.PlayCue("MenuChoiceChange");
@@ -280,6 +386,7 @@ namespace Supesu
                 difficulty -= 1;
             }
 
+            //Changes the color of the difficulty currently marked.
             switch (difficulty)
             {
                 case Difficulty.easy:
@@ -316,7 +423,7 @@ namespace Supesu
             spriteBatch.DrawString(scoreFont, "" + Level.ship.Life, new Vector2(689, 690), Color.Yellow);
 
             spriteBatch.DrawString(scoreFont, "Hitpoints", new Vector2(655, 664), Color.Yellow);
-            //Draws boss life bar incase there is one
+            //Draws boss life bar and life.
             if (currentLevel.boss != null)
             {
                 spriteBatch.Draw(playerHealthBar, new Rectangle(600, 0, playerHealthBar.Width, 30), new Rectangle(0, 30, playerHealthBar.Width, 30), Color.LightGray);
@@ -329,7 +436,8 @@ namespace Supesu
 
                 spriteBatch.DrawString(scoreFont, "Boss", new Vector2(685, 25), Color.Yellow);
             }
-
+            
+            //Draw second boss life bar and life.
             if (currentLevel.secondBoss != null)
             {
                 spriteBatch.Draw(playerHealthBar, new Rectangle(600, 0, playerHealthBar.Width, 30), new Rectangle(0, 30, playerHealthBar.Width, 30), Color.LightGray);
@@ -357,7 +465,7 @@ namespace Supesu
             //Esc for paus text
             spriteBatch.DrawString(playerLifeFont, "Esc for menu", new Vector2(2, 685), Color.Red);
 
-            //Dificulty.
+            //Draws the difficulty ingame.
             if (difficulty == Difficulty.easy)
             {
                 spriteBatch.DrawString(scoreFont, "Difficulty: ", new Vector2(2, 665), Color.Red);
@@ -375,6 +483,7 @@ namespace Supesu
             }
         }
 
+        //Clears the enemy list. Used in cheats.
         public int ClearEnemyList()
         {
             if (currentLevel == null || currentLevel.enemyList.Count == 0)
@@ -386,6 +495,7 @@ namespace Supesu
             return killed;
         }
 
+        //Changes the level. Used in cheats.
         public string ChangeLevel()
         {
             if (currentLevel != null)
@@ -405,8 +515,7 @@ namespace Supesu
             }
             var wrongLevel = (int)level;
             level -= 1;
-            return string.Format("There is no level initiated or level {0} does not exist.", wrongLevel);
-            
+            return string.Format("There is no level initiated or level {0} does not exist.", wrongLevel); // Currently not used as i have no way to display messages.
         }
     }
 }
