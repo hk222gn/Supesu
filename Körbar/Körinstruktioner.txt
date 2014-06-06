@@ -4,4 +4,16 @@
 
 3. Installera Microsoft XNA 4.0 Redistributable, finns h�r. http://www.microsoft.com/en-us/download/details.aspx?id=20914
 
-4. K�r spelet genom att först packa upp realease.rar och sen kör Supesu.exe.
+4. Instruktioner för hur man styr farkosten finns i options menyn.
+
+5. K�r spelet genom att först packa upp realease.rar och sen kör Supesu.exe.
+
+
+Det finns även några "fusk" i spelet som man kan använda sig av.
+
+Dessa aktiveras med F12, sedan trycker man olika kombinationer på tangentbordet:
+
+SHIFT + 1 = 9999hp
+SHIFT + 2 = Clear all enemies
+SHIFT + 3 = Jump to next level
+SHIFT + 4 = Unlock all weapons and ships.
